@@ -1,8 +1,8 @@
-import { PageShell } from '@/components/layout/page-shell'
+import { CheckoutView } from '@/components/commerce/checkout-view'
 import { pageMetadata } from '@/lib/metadata'
 
 export const generateMetadata = () => pageMetadata('checkout')
 
 export default function CheckoutPage() {
-  return <PageShell id="checkout" />
+  return <CheckoutView />
 }

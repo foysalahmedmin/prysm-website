@@ -2,6 +2,8 @@
 
 import { useEffect, useSyncExternalStore } from 'react'
 import { useCartStore } from './cart-store'
+import { useOrdersStore } from './orders-store'
+import { useSessionStore } from './session-store'
 import { useUiStore } from './ui-store'
 import { useWishlistStore } from './wishlist-store'
 
@@ -22,6 +24,8 @@ export function StoreHydrator() {
     void useCartStore.persist.rehydrate()
     void useWishlistStore.persist.rehydrate()
     void useUiStore.persist.rehydrate()
+    void useOrdersStore.persist.rehydrate()
+    void useSessionStore.persist.rehydrate()
   }, [])
   return null
 }

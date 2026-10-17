@@ -50,3 +50,62 @@ export const CartTotalsSchema = z.object({
   total: z.number().int().nonnegative(),
 })
 export type CartTotals = z.infer<typeof CartTotalsSchema>
+
+export const AddressSchema = z.object({
+  id: z.string().optional(),
+  name: z.string().min(1),
+  line1: z.string().min(1),
+  line2: z.string().optional(),
+  city: z.string().min(1),
+  region: z.string().min(1),
+  postcode: z.string().min(1),
+  country: z.string().min(1),
+  phone: z.string().optional(),
+  isDefault: z.boolean().optional(),
+})
+export type Address = z.infer<typeof AddressSchema>
+
+export const CustomerSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  email: z.string().email(),
+  phone: z.string().optional(),
+})
+export type Customer = z.infer<typeof CustomerSchema>
+
+export const OrderPaymentSchema = z.object({
+  brand: z.string().min(1),
+  last4: z.string().min(4).max(4),
+  expMonth: z.number().int().min(1).max(12),
+  expYear: z.number().int().min(2024),
+})
+export type OrderPayment = z.infer<typeof OrderPaymentSchema>
+
+export const OrderLineSchema = z.object({
+  productId: z.string().min(1),
+  variantId: z.string().min(1),
+  title: z.string().min(1),
+  options: z.record(z.string(), z.string()).default({}),
+  unitPrice: z.number().int().nonnegative(),
+  quantity: z.number().int().min(1),
+  image: z.string().optional(),
+})
+export type OrderLine = z.infer<typeof OrderLineSchema>
+
+export const OrderStatusSchema = z.enum(['confirmed', 'processing', 'shipped', 'delivered'])
+export type OrderStatus = z.infer<typeof OrderStatusSchema>
+
+export const OrderSchema = z.object({
+  id: z.string().min(1),
+  number: z.string().min(1),
+  createdAt: z.string().min(1),
+  customerEmail: z.string().email(),
+  lines: z.array(OrderLineSchema),
+  address: AddressSchema,
+  shippingMethod: ShippingMethodSchema,
+  payment: OrderPaymentSchema,
+  totals: CartTotalsSchema,
+  status: OrderStatusSchema,
+})
+export type Order = z.infer<typeof OrderSchema>
+

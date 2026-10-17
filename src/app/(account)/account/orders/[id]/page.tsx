@@ -1,16 +1,18 @@
 import { Suspense } from 'react'
-import { PageShell } from '@/components/layout/page-shell'
+import { AccountOrderDetailView } from '@/components/commerce/account-views'
 
-// Orders live in the browser until a backend exists, so this route cannot be prerendered per id.
-// Reading `params` at request time must happen inside <Suspense> when Cache Components is on.
-async function OrderDetail({ params }: Pick<PageProps<'/account/orders/[id]'>, 'params'>) {
-  const { id } = await params
-  return <PageShell id="order" description={`Order ${id}`} />
+interface PageProps {
+  params: Promise<{ id: string }>
 }
 
-export default function OrderDetailPage(props: PageProps<'/account/orders/[id]'>) {
+async function OrderDetail({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  return <AccountOrderDetailView id={id} />
+}
+
+export default function OrderDetailPage(props: PageProps) {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<div className="glass mx-auto max-w-md rounded-3xl p-8 text-center">Loading Order...</div>}>
       <OrderDetail params={props.params} />
     </Suspense>
   )

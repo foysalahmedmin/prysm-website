@@ -1,8 +1,8 @@
-import { PageShell } from '@/components/layout/page-shell'
+import { AccountProfileView } from '@/components/commerce/account-views'
 import { pageMetadata } from '@/lib/metadata'
 
 export const generateMetadata = () => pageMetadata('profile')
 
-export default function ProfilePage() {
-  return <PageShell id="profile" />
+export default function AccountProfilePage() {
+  return <AccountProfileView />
 }

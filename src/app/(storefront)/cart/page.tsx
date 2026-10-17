@@ -1,8 +1,8 @@
-import { PageShell } from '@/components/layout/page-shell'
+import { CartView } from '@/components/commerce/cart-view'
 import { pageMetadata } from '@/lib/metadata'
 
 export const generateMetadata = () => pageMetadata('cart')
 
 export default function CartPage() {
-  return <PageShell id="cart" />
+  return <CartView />
 }
