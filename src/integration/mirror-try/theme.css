@@ -1,0 +1,32 @@
+/* PRYSM Mirror Try theme: The Lens (Phase 2 trigger styles) */
+[data-mt-part='trigger'] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: rgb(255 255 255 / var(--alpha-glass-strong, 0.72));
+  backdrop-filter: blur(var(--blur-glass, 26px)) saturate(170%);
+  -webkit-backdrop-filter: blur(var(--blur-glass, 26px)) saturate(170%);
+  border: 1px solid rgb(255 255 255 / 0.72);
+  color: var(--color-ink);
+  font-family: var(--font-text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px -2px rgb(40 52 110 / 0.15);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+}
+
+[data-mt-part='trigger']:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px #fff,
+    0 6px 16px -2px rgb(40 52 110 / 0.25);
+}
+
+[data-mt-part='trigger']:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
