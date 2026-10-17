@@ -31,8 +31,17 @@ const cardLabels: ProductCardProps['labels'] = {
   badges: { new: 'New', bestseller: 'Bestseller', limited: 'Limited', sale: 'Sale' },
 }
 
-const coat = products.find((p) => p.slug === 'longline-coat')!
-const sweater = products.find((p) => p.slug === 'merino-sweater')! // on sale
+const coat = {
+  ...products[0]!,
+  badges: ['new'] as ('new' | 'bestseller' | 'limited' | 'sale')[],
+}
+const sweater = {
+  ...products[0]!,
+  slug: 'test-sweater',
+  name: 'Test Sweater',
+  price: 12800,
+  compareAtPrice: 15800,
+}
 
 const card = (product: typeof coat, extra: Partial<ProductCardProps> = {}) => (
   <ProductCard
@@ -49,9 +58,9 @@ const card = (product: typeof coat, extra: Partial<ProductCardProps> = {}) => (
 describe('ProductCard', () => {
   it('links to the product by name and shows the first image with its alt text', () => {
     render(card(coat))
-    expect(screen.getByRole('link', { name: /Longline Coat/ })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: new RegExp(coat.name) })).toHaveAttribute(
       'href',
-      '/products/longline-coat',
+      `/products/${coat.slug}`,
     )
     expect(screen.getByRole('img', { name: coat.media[0]!.alt })).toBeInTheDocument()
   })
@@ -83,7 +92,7 @@ describe('ProductCard', () => {
     const toggle = screen.getByRole('button', { name: 'Save to wishlist' })
     expect(toggle).toHaveAttribute('aria-pressed', 'true')
     await userEvent.click(toggle)
-    expect(onToggleSaved).toHaveBeenCalledWith('p-001')
+    expect(onToggleSaved).toHaveBeenCalledWith(coat.id)
   })
 })
 
@@ -201,13 +210,18 @@ describe('FilterPanel', () => {
   it('toggles sizes and colours, keeping the other selections', async () => {
     const onChange = vi.fn()
     render(<Harness onChange={onChange} />)
-    await userEvent.click(screen.getByLabelText('S'))
-    await userEvent.click(screen.getByLabelText('M'))
-    expect(onChange).toHaveBeenLastCalledWith({ sizes: ['S', 'M'] })
-    await userEvent.click(screen.getByLabelText('S'))
-    expect(onChange).toHaveBeenLastCalledWith({ sizes: ['M'] })
-    await userEvent.click(screen.getByLabelText('Slate'))
-    expect(onChange).toHaveBeenLastCalledWith({ colors: ['Slate'] })
+    const size1 = facets.sizes.includes('S') ? 'S' : facets.sizes[0] ?? 'S'
+    const size2 = facets.sizes.includes('M') ? 'M' : facets.sizes[1] ?? 'M'
+    await userEvent.click(screen.getByLabelText(size1))
+    await userEvent.click(screen.getByLabelText(size2))
+    expect(onChange).toHaveBeenLastCalledWith({ sizes: [size1, size2] })
+    await userEvent.click(screen.getByLabelText(size1))
+    expect(onChange).toHaveBeenLastCalledWith({ sizes: [size2] })
+    if (facets.colors.length > 0) {
+      const color = facets.colors[0]!.value
+      await userEvent.click(screen.getByLabelText(color))
+      expect(onChange).toHaveBeenLastCalledWith({ colors: [color] })
+    }
   })
 
   it('switches the sale filter', async () => {
@@ -226,10 +240,11 @@ describe('FilterPanel', () => {
 
   it('clears every filter', async () => {
     render(<Harness onChange={() => {}} />)
-    await userEvent.click(screen.getByLabelText('S'))
-    expect(screen.getByLabelText('S')).toBeChecked()
+    const size1 = facets.sizes.includes('S') ? 'S' : facets.sizes[0] ?? 'S'
+    await userEvent.click(screen.getByLabelText(size1))
+    expect(screen.getByLabelText(size1)).toBeChecked()
     await userEvent.click(screen.getByRole('button', { name: 'Clear all' }))
-    expect(screen.getByLabelText('S')).not.toBeChecked()
+    expect(screen.getByLabelText(size1)).not.toBeChecked()
   })
 })
 

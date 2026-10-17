@@ -1,11 +1,55 @@
 import { describe, expect, it } from 'vitest'
-import { products } from '@/data/products'
+import type { Product } from '@/domain'
 import { promos } from '@/data/promos'
 import { shippingMethods } from '@/data/shipping'
 import { priceCart, promoDiscount, shippingCost } from './pricing'
 
-const coat = products.find((p) => p.slug === 'longline-coat')! // $420
-const scarf = products.find((p) => p.slug === 'silk-scarf')! // $95
+const coat: Product = {
+  id: 'p-001',
+  slug: 'wool-coat',
+  name: 'Wool Coat',
+  summary: 'Tailored wool coat',
+  description: 'Tailored wool coat',
+  details: ['Tailored fit'],
+  category: 'clothing',
+  subcategory: 'outerwear',
+  price: 42000,
+  featured: true,
+  media: [{ src: '/coat.jpg', alt: 'Wool Coat', width: 800, height: 1000 }],
+  optionGroups: [],
+  variants: [{ id: 'p-001-v1', sku: 'p-001-sku-1', price: 42000, stock: 5, options: {} }],
+  materials: '100% Wool',
+  care: ['Dry clean'],
+  tags: ['coat'],
+  collectionSlugs: [],
+  badges: [],
+  rating: { average: 4.8, count: 10 },
+  createdAt: '2026-02-01T00:00:00Z',
+}
+
+const scarf: Product = {
+  id: 'p-002',
+  slug: 'silk-scarf',
+  name: 'Silk Scarf',
+  summary: 'Pure silk foulard',
+  description: 'Pure silk foulard',
+  details: ['Hand rolled edges'],
+  category: 'accessories',
+  subcategory: 'scarves',
+  price: 9500,
+  featured: false,
+  media: [{ src: '/scarf.jpg', alt: 'Silk Scarf', width: 800, height: 1000 }],
+  optionGroups: [],
+  variants: [{ id: 'p-002-v1', sku: 'p-002-sku-1', price: 9500, stock: 8, options: {} }],
+  materials: '100% Silk',
+  care: ['Dry clean'],
+  tags: ['scarf'],
+  collectionSlugs: [],
+  badges: [],
+  rating: { average: 4.9, count: 8 },
+  createdAt: '2026-01-15T00:00:00Z',
+}
+
 const promo = (code: string) => promos.find((p) => p.code === code)!
 const standard = shippingMethods.find((m) => m.id === 'standard')! // $8, free over $150
 const express = shippingMethods.find((m) => m.id === 'express')! // $18

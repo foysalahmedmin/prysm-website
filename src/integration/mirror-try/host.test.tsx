@@ -6,7 +6,8 @@ import { useMirrorTry } from './index'
 import { MirrorTryHost } from './host'
 import { toMirrorTryProduct } from './to-plugin-product'
 
-const coat = toMirrorTryProduct(products.find((p) => p.slug === 'longline-coat')!)
+const sample = toMirrorTryProduct(products[0]!)
+const variantId = sample.variants[0]!.id
 
 function Driver() {
   const { open, addToCart } = useMirrorTry()
@@ -14,8 +15,8 @@ function Driver() {
     <button
       type="button"
       onClick={async () => {
-        await open({ productId: coat.id, variantId: 'p-001-v2', source: 'pdp' }, coat)
-        addToCart('p-001-v2')
+        await open({ productId: sample.id, variantId, source: 'pdp' }, sample)
+        addToCart(variantId)
       }}
     >
       drive
@@ -35,6 +36,6 @@ describe('MirrorTryHost', () => {
 
     await expect
       .poll(() => useCartStore.getState().lines)
-      .toEqual([{ productId: 'p-001', variantId: 'p-001-v2', quantity: 1 }])
+      .toEqual([{ productId: sample.id, variantId, quantity: 1 }])
   })
 })
