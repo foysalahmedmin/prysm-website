@@ -1,8 +1,14 @@
-import { PageShell } from '@/components/layout/page-shell'
+import { LookbookView } from '@/components/editorial/lookbook-view'
 import { pageMetadata } from '@/lib/metadata'
+import { services } from '@/services'
 
 export const generateMetadata = () => pageMetadata('lookbook')
 
-export default function LookbookPage() {
-  return <PageShell id="lookbook" />
+export default async function LookbookPage() {
+  const [lookbook, catalogResult] = await Promise.all([
+    services.content.getLookbook(),
+    services.catalog.listProducts(),
+  ])
+
+  return <LookbookView lookbook={lookbook} products={catalogResult.page.items} />
 }

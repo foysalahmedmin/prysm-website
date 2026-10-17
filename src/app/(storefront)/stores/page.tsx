@@ -1,8 +1,10 @@
-import { PageShell } from '@/components/layout/page-shell'
+import { StoresView } from '@/components/editorial/stores-view'
 import { pageMetadata } from '@/lib/metadata'
+import { services } from '@/services'
 
 export const generateMetadata = () => pageMetadata('stores')
 
-export default function StoresPage() {
-  return <PageShell id="stores" />
+export default async function StoresPage() {
+  const stores = await services.content.listStores()
+  return <StoresView stores={stores} />
 }

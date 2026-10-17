@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { PageShell } from '@/components/layout/page-shell'
+import { JournalPostView } from '@/components/editorial/journal-post-view'
 import { services } from '@/services'
 
 export async function generateStaticParams() {
@@ -15,7 +15,14 @@ export async function generateMetadata({ params }: PageProps<'/journal/[slug]'>)
 
 export default async function JournalPostPage({ params }: PageProps<'/journal/[slug]'>) {
   const { slug } = await params
-  const post = await services.content.getJournalPost(slug)
+  const [post, allPosts] = await Promise.all([
+    services.content.getJournalPost(slug),
+    services.content.listJournal(),
+  ])
+
   if (!post) notFound()
-  return <PageShell id="journal-post" title={post.title} description={post.excerpt} />
+
+  const related = allPosts.filter((p) => p.slug !== slug).slice(0, 2)
+
+  return <JournalPostView post={post} relatedPosts={related} />
 }

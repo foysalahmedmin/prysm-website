@@ -1,8 +1,10 @@
-import { PageShell } from '@/components/layout/page-shell'
+import { FaqView } from '@/components/editorial/faq-view'
 import { pageMetadata } from '@/lib/metadata'
+import { services } from '@/services'
 
 export const generateMetadata = () => pageMetadata('faq')
 
-export default function FaqPage() {
-  return <PageShell id="faq" />
+export default async function FaqPage() {
+  const items = await services.content.listFaq()
+  return <FaqView items={items} />
 }

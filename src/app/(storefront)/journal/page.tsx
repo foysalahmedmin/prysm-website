@@ -1,8 +1,10 @@
-import { PageShell } from '@/components/layout/page-shell'
+import { JournalView } from '@/components/editorial/journal-view'
 import { pageMetadata } from '@/lib/metadata'
+import { services } from '@/services'
 
 export const generateMetadata = () => pageMetadata('journal')
 
-export default function JournalPage() {
-  return <PageShell id="journal" />
+export default async function JournalPage() {
+  const posts = await services.content.listJournal()
+  return <JournalView posts={posts} />
 }
