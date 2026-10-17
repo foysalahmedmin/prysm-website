@@ -19,8 +19,12 @@
     "verify:full": "pnpm verify && pnpm e2e"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "motion": "^14.3.0",
     "next": "16.4.2",
+    "radix-ui": "^1.8.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "tailwind-merge": "^3.7.0",
