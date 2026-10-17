@@ -12,7 +12,11 @@ async function OrderDetail({ params }: { params: Promise<{ id: string }> }) {
 
 export default function OrderDetailPage(props: PageProps) {
   return (
-    <Suspense fallback={<div className="glass mx-auto max-w-md rounded-3xl p-8 text-center">Loading Order...</div>}>
+    <Suspense
+      fallback={
+        <div className="glass mx-auto max-w-md rounded-3xl p-8 text-center">Loading Order...</div>
+      }
+    >
       <OrderDetail params={props.params} />
     </Suspense>
   )

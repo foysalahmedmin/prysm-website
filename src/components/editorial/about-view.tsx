@@ -28,17 +28,20 @@ const TIMELINE = [
   {
     year: '2021',
     title: 'The Optics Atelier',
-    description: 'Founded in New York as an experimental studio investigating light-responsive suiting.',
+    description:
+      'Founded in New York as an experimental studio investigating light-responsive suiting.',
   },
   {
     year: '2023',
     title: 'Prismatic Silk Patent',
-    description: 'Developed our proprietary low-micron silica infusion process in collaboration with heritage Como weavers.',
+    description:
+      'Developed our proprietary low-micron silica infusion process in collaboration with heritage Como weavers.',
   },
   {
     year: '2025',
     title: 'Flagship & Fitting Chamber',
-    description: 'Opened Broome Street flagship featuring physical and virtual try-on fitting chambers.',
+    description:
+      'Opened Broome Street flagship featuring physical and virtual try-on fitting chambers.',
   },
   {
     year: '2026',
@@ -51,17 +54,20 @@ export function AboutView() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
       {/* Hero Section */}
-      <div className="relative mb-16 overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 via-white/70 to-indigo-50/50 p-8 shadow-glass-strong backdrop-blur-xl md:p-14">
+      <div className="shadow-glass-strong relative mb-16 overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 via-white/70 to-indigo-50/50 p-8 backdrop-blur-xl md:p-14">
         <div className="max-w-2xl">
-          <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-brand">
+          <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-brand uppercase">
             <Sparkle size={12} />
             Our Atelier & Manifesto
           </span>
-          <h1 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-ink">
+          <h1 className="font-display text-3xl font-bold tracking-tight text-ink md:text-5xl">
             Tailoring Cut to Catch the Light.
           </h1>
-          <p className="mt-4 font-text text-base md:text-lg leading-relaxed text-ink-soft">
-            {brand.name} was established on a single principle: luxury tailoring should interact dynamically with its environment. By marrying traditional bespoke tailoring with optical physics, we craft garments that transform under sunlight, flash photography, and evening gallery illuminations.
+          <p className="mt-4 font-text text-base leading-relaxed text-ink-soft md:text-lg">
+            {brand.name} was established on a single principle: luxury tailoring should interact
+            dynamically with its environment. By marrying traditional bespoke tailoring with optical
+            physics, we craft garments that transform under sunlight, flash photography, and evening
+            gallery illuminations.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Button asChild size="lg">
@@ -80,10 +86,10 @@ export function AboutView() {
       {/* Pillars Grid */}
       <section className="mb-16">
         <div className="mb-8 text-center">
-          <h2 className="font-display text-2xl md:text-3xl font-bold text-ink">
+          <h2 className="font-display text-2xl font-bold text-ink md:text-3xl">
             Foundations of Optical Design
           </h2>
-          <p className="mt-2 font-text text-sm md:text-base text-ink-soft">
+          <p className="mt-2 font-text text-sm text-ink-soft md:text-base">
             Where precision chemistry meets master cutting.
           </p>
         </div>
@@ -92,7 +98,7 @@ export function AboutView() {
           {PILLARS.map((pillar) => (
             <div
               key={pillar.title}
-              className="rounded-2xl border border-white/70 bg-white/60 p-6 shadow-glass backdrop-blur-md transition hover:-translate-y-1 hover:shadow-glass-strong"
+              className="shadow-glass hover:shadow-glass-strong rounded-2xl border border-white/70 bg-white/60 p-6 backdrop-blur-md transition hover:-translate-y-1"
             >
               <h3 className="font-display text-lg font-bold text-ink">{pillar.title}</h3>
               <p className="mt-3 font-text text-sm leading-relaxed text-ink-soft">
@@ -104,16 +110,19 @@ export function AboutView() {
       </section>
 
       {/* Atelier Timeline */}
-      <section className="mb-16 rounded-3xl border border-white/80 bg-white/70 p-8 shadow-glass backdrop-blur-xl md:p-12">
-        <h2 className="font-display text-2xl font-bold text-ink mb-8 text-center">
+      <section className="shadow-glass mb-16 rounded-3xl border border-white/80 bg-white/70 p-8 backdrop-blur-xl md:p-12">
+        <h2 className="mb-8 text-center font-display text-2xl font-bold text-ink">
           Atelier Chronicle
         </h2>
         <div className="grid gap-8 md:grid-cols-4">
           {TIMELINE.map((step) => (
-            <div key={step.year} className="relative border-l-2 border-brand/30 pl-4 md:border-l-0 md:border-t-2 md:pt-4">
+            <div
+              key={step.year}
+              className="relative border-l-2 border-brand/30 pl-4 md:border-t-2 md:border-l-0 md:pt-4"
+            >
               <span className="font-mono text-xs font-bold text-brand uppercase">{step.year}</span>
               <h4 className="mt-1 font-display text-base font-bold text-ink">{step.title}</h4>
-              <p className="mt-2 font-text text-xs text-ink-soft leading-relaxed">
+              <p className="mt-2 font-text text-xs leading-relaxed text-ink-soft">
                 {step.description}
               </p>
             </div>
@@ -124,14 +133,17 @@ export function AboutView() {
       {/* Sustainability & Ethics */}
       <section className="rounded-3xl border border-white/70 bg-gradient-to-r from-slate-900 to-indigo-950 p-8 text-white shadow-xl md:p-12">
         <div className="max-w-3xl">
-          <span className="font-mono text-xs font-semibold uppercase tracking-wider text-indigo-300">
+          <span className="font-mono text-xs font-semibold tracking-wider text-indigo-300 uppercase">
             Conscious Creation
           </span>
-          <h2 className="mt-2 font-display text-2xl md:text-3xl font-bold">
+          <h2 className="mt-2 font-display text-2xl font-bold md:text-3xl">
             Zero-Waste Cutting & Ethical Sourcing
           </h2>
-          <p className="mt-4 font-text text-sm md:text-base text-slate-300 leading-relaxed">
-            Every pattern piece is digitally mapped using nesting algorithms to achieve 96.8% cloth yield, virtually eliminating scrap offcuts. All wools are certified non-mulesed Tasmanian merino, and our silk mills recycle 99% of wastewater in closed-loop thermal recovery systems.
+          <p className="mt-4 font-text text-sm leading-relaxed text-slate-300 md:text-base">
+            Every pattern piece is digitally mapped using nesting algorithms to achieve 96.8% cloth
+            yield, virtually eliminating scrap offcuts. All wools are certified non-mulesed
+            Tasmanian merino, and our silk mills recycle 99% of wastewater in closed-loop thermal
+            recovery systems.
           </p>
           <div className="mt-6 flex gap-4">
             <Link

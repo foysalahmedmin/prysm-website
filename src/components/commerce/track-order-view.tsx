@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Check, MagnifyingGlass } from '@/components/icons'
@@ -74,7 +75,9 @@ export function TrackOrderView() {
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Title */}
       <div className="text-center">
-        <span className="font-mono text-xs uppercase tracking-widest text-ink-faint">PRYSM COURIER RADAR</span>
+        <span className="font-mono text-xs tracking-widest text-ink-faint uppercase">
+          PRYSM COURIER RADAR
+        </span>
         <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
           Track Your Acquisition
         </h1>
@@ -88,7 +91,10 @@ export function TrackOrderView() {
         <form onSubmit={handleSearch} className="space-y-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="orderNum" className="mb-1 block font-mono text-xs uppercase tracking-wider text-ink-soft">
+              <label
+                htmlFor="orderNum"
+                className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
+              >
                 Order Number *
               </label>
               <input
@@ -103,7 +109,10 @@ export function TrackOrderView() {
             </div>
 
             <div>
-              <label htmlFor="orderEmail" className="mb-1 block font-mono text-xs uppercase tracking-wider text-ink-soft">
+              <label
+                htmlFor="orderEmail"
+                className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
+              >
                 Billing Email Address
               </label>
               <input
@@ -128,7 +137,9 @@ export function TrackOrderView() {
         {/* Quick select if recent orders exist */}
         {hydrated && orders.length > 0 ? (
           <div className="mt-6 border-t border-white/40 pt-4">
-            <span className="font-mono text-xs uppercase text-ink-faint">Or choose a recent acquisition:</span>
+            <span className="font-mono text-xs text-ink-faint uppercase">
+              Or choose a recent acquisition:
+            </span>
             <div className="mt-2 flex flex-wrap gap-2">
               {orders.slice(0, 3).map((o) => (
                 <button
@@ -150,20 +161,25 @@ export function TrackOrderView() {
         <div className="glass glass-strong mx-auto mt-10 max-w-3xl rounded-3xl border border-white/80 p-8 shadow-2xl sm:p-10">
           <div className="flex flex-col justify-between gap-4 border-b border-white/40 pb-6 sm:flex-row sm:items-center">
             <div>
-              <span className="font-mono text-xs uppercase text-ink-faint">Tracking Dispatch</span>
-              <p className="font-mono text-2xl font-bold tracking-wider text-ink">{searchedOrder.number}</p>
+              <span className="font-mono text-xs text-ink-faint uppercase">Tracking Dispatch</span>
+              <p className="font-mono text-2xl font-bold tracking-wider text-ink">
+                {searchedOrder.number}
+              </p>
             </div>
             <div className="sm:text-right">
-              <span className="font-mono text-xs uppercase text-ink-faint">Estimated Delivery</span>
+              <span className="font-mono text-xs text-ink-faint uppercase">Estimated Delivery</span>
               <p className="font-mono text-sm font-semibold text-ink">
-                {searchedOrder.shippingMethod.etaDays.min}–{searchedOrder.shippingMethod.etaDays.max} Business Days
+                {searchedOrder.shippingMethod.etaDays.min}–
+                {searchedOrder.shippingMethod.etaDays.max} Business Days
               </p>
             </div>
           </div>
 
           {/* Stepper */}
           <div className="mt-8">
-            <h2 className="font-mono text-xs uppercase tracking-wider text-ink-soft">Courier Velocity</h2>
+            <h2 className="font-mono text-xs tracking-wider text-ink-soft uppercase">
+              Courier Velocity
+            </h2>
             <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-4">
               {STEPS.map((step, idx) => {
                 const activeIdx = currentStepIdx(searchedOrder.status)
@@ -171,7 +187,10 @@ export function TrackOrderView() {
                 const isCurrent = idx === activeIdx
 
                 return (
-                  <div key={step.id} className="relative flex flex-col items-start sm:items-center sm:text-center">
+                  <div
+                    key={step.id}
+                    className="relative flex flex-col items-start sm:items-center sm:text-center"
+                  >
                     <div
                       className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all ${
                         isPassed
@@ -179,9 +198,15 @@ export function TrackOrderView() {
                           : 'border-white/60 bg-white/40 text-ink-faint'
                       }`}
                     >
-                      {isPassed ? <Check size={18} /> : <span className="font-mono text-xs">{idx + 1}</span>}
+                      {isPassed ? (
+                        <Check size={18} />
+                      ) : (
+                        <span className="font-mono text-xs">{idx + 1}</span>
+                      )}
                     </div>
-                    <p className={`mt-3 font-display text-sm font-bold ${isCurrent ? 'text-ink' : 'text-ink-soft'}`}>
+                    <p
+                      className={`mt-3 font-display text-sm font-bold ${isCurrent ? 'text-ink' : 'text-ink-soft'}`}
+                    >
                       {step.label}
                     </p>
                     <p className="mt-1 font-mono text-[11px] text-ink-faint">{step.desc}</p>
@@ -193,14 +218,22 @@ export function TrackOrderView() {
 
           {/* Package details */}
           <div className="mt-10 border-t border-white/40 pt-6">
-            <h3 className="font-mono text-xs uppercase tracking-wider text-ink-soft">Package Contents</h3>
+            <h3 className="font-mono text-xs tracking-wider text-ink-soft uppercase">
+              Package Contents
+            </h3>
             <ul className="mt-4 divide-y divide-white/40">
               {searchedOrder.lines.map((l) => (
                 <li key={l.variantId} className="flex items-center justify-between py-3">
                   <div className="flex items-center gap-3">
                     {l.image ? (
-                      <div className="h-12 w-10 shrink-0 overflow-hidden rounded-lg bg-surface">
-                        <img src={l.image} alt={l.title} className="h-full w-full object-cover" />
+                      <div className="relative h-12 w-10 shrink-0 overflow-hidden rounded-lg bg-surface">
+                        <Image
+                          src={l.image}
+                          alt={l.title}
+                          fill
+                          sizes="64px"
+                          className="h-full w-full object-cover"
+                        />
                       </div>
                     ) : null}
                     <div>
@@ -220,8 +253,8 @@ export function TrackOrderView() {
         <div className="glass mx-auto mt-8 max-w-xl rounded-3xl p-8 text-center">
           <p className="font-display text-lg font-bold text-ink">Dispatch Not Located</p>
           <p className="mt-2 text-sm text-ink-soft">
-            No matching order was found for <strong>{orderNumberInput}</strong>. Please check your order confirmation
-            email or view all orders in your Account.
+            No matching order was found for <strong>{orderNumberInput}</strong>. Please check your
+            order confirmation email or view all orders in your Account.
           </p>
           <div className="mt-4">
             <Button asChild variant="secondary" size="sm">

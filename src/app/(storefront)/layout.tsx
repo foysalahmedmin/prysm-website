@@ -12,7 +12,7 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
   const lineCount = useCartStore((s) => s.lines.reduce((sum, l) => sum + l.quantity, 0))
 
   return (
-    <div className="flex min-h-screen flex-col bg-canvas text-ink relative">
+    <div className="relative flex min-h-screen flex-col bg-canvas text-ink">
       <LightField />
       <AnnouncementBar />
       <GlassNav cartCount={lineCount} />

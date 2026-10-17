@@ -110,14 +110,16 @@ export const HomeContentSchema = z.object({
     subtitle: z.string().min(1),
     productSlugs: z.array(z.string().min(1)).min(1),
   }),
-  categories: z.array(
-    z.object({
-      slug: z.string().min(1),
-      title: z.string().min(1),
-      subtitle: z.string().min(1),
-      media: MediaSchema,
-    }),
-  ).min(1),
+  categories: z
+    .array(
+      z.object({
+        slug: z.string().min(1),
+        title: z.string().min(1),
+        subtitle: z.string().min(1),
+        media: MediaSchema,
+      }),
+    )
+    .min(1),
   editorial: z.object({
     title: z.string().min(1),
     body: z.string().min(1),
@@ -133,13 +135,15 @@ export const HomeContentSchema = z.object({
   mirrorTryExplainer: z.object({
     title: z.string().min(1),
     subtitle: z.string().min(1),
-    steps: z.array(
-      z.object({
-        step: z.number().int().positive(),
-        title: z.string().min(1),
-        description: z.string().min(1),
-      }),
-    ).min(1),
+    steps: z
+      .array(
+        z.object({
+          step: z.number().int().positive(),
+          title: z.string().min(1),
+          description: z.string().min(1),
+        }),
+      )
+      .min(1),
     cta: z.object({
       label: z.string().min(1),
     }),
@@ -161,40 +165,45 @@ export const LookbookContentSchema = z.object({
   season: z.string().min(1),
   title: z.string().min(1),
   description: z.string().min(1),
-  looks: z.array(
-    z.object({
-      id: z.string().min(1),
-      title: z.string().min(1),
-      description: z.string().min(1),
-      media: MediaSchema,
-      productSlugs: z.array(z.string().min(1)).min(1),
-    }),
-  ).min(1),
+  looks: z
+    .array(
+      z.object({
+        id: z.string().min(1),
+        title: z.string().min(1),
+        description: z.string().min(1),
+        media: MediaSchema,
+        productSlugs: z.array(z.string().min(1)).min(1),
+      }),
+    )
+    .min(1),
 })
 export type LookbookContent = z.infer<typeof LookbookContentSchema>
 
 export const PolicyContentSchema = z.object({
   title: z.string().min(1),
   lastUpdated: z.string().min(1),
-  sections: z.array(
-    z.object({
-      heading: z.string().min(1),
-      body: z.array(z.string().min(1)).min(1),
-    }),
-  ).min(1),
+  sections: z
+    .array(
+      z.object({
+        heading: z.string().min(1),
+        body: z.array(z.string().min(1)).min(1),
+      }),
+    )
+    .min(1),
 })
 export type PolicyContent = z.infer<typeof PolicyContentSchema>
 
 export const SizeGuideContentSchema = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
-  tables: z.array(
-    z.object({
-      title: z.string().min(1),
-      columns: z.array(z.string().min(1)).min(1),
-      rows: z.array(z.array(z.string().min(1)).min(1)).min(1),
-    }),
-  ).min(1),
+  tables: z
+    .array(
+      z.object({
+        title: z.string().min(1),
+        columns: z.array(z.string().min(1)).min(1),
+        rows: z.array(z.array(z.string().min(1)).min(1)).min(1),
+      }),
+    )
+    .min(1),
 })
 export type SizeGuideContent = z.infer<typeof SizeGuideContentSchema>
-

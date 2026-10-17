@@ -36,15 +36,18 @@ export function NewsletterSection({
     <section
       aria-labelledby="newsletter-heading"
       className={cn(
-        'glass glass-strong edge relative overflow-hidden rounded-[32px] p-8 md:p-14 text-center',
+        'glass glass-strong edge relative overflow-hidden rounded-[32px] p-8 text-center md:p-14',
         className,
       )}
     >
       <div className="relative z-10 mx-auto max-w-2xl space-y-4">
-        <h2 id="newsletter-heading" className="font-display text-2xl md:text-3xl font-bold tracking-tight text-ink">
+        <h2
+          id="newsletter-heading"
+          className="font-display text-2xl font-bold tracking-tight text-ink md:text-3xl"
+        >
           {title}
         </h2>
-        <p className="font-text text-sm md:text-base text-ink-soft">{description}</p>
+        <p className="font-text text-sm text-ink-soft md:text-base">{description}</p>
 
         {status === 'success' ? (
           <div className="glass inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-ink shadow-sm">
@@ -52,7 +55,10 @@ export function NewsletterSection({
             <span>Thank you for subscribing. You will receive dispatches shortly.</span>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="mx-auto mt-6 flex max-w-md flex-col sm:flex-row gap-2.5">
+          <form
+            onSubmit={handleSubmit}
+            className="mx-auto mt-6 flex max-w-md flex-col gap-2.5 sm:flex-row"
+          >
             <input
               type="email"
               value={email}
@@ -79,7 +85,7 @@ export function NewsletterSection({
       {/* Ambient spectral glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-64 w-96 rounded-full bg-gradient-to-r from-brand/20 via-focus/20 to-brand/10 blur-3xl opacity-50"
+        className="pointer-events-none absolute -top-24 left-1/2 h-64 w-96 -translate-x-1/2 rounded-full bg-gradient-to-r from-brand/20 via-focus/20 to-brand/10 opacity-50 blur-3xl"
       />
     </section>
   )

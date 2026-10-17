@@ -116,17 +116,17 @@ export function ProductListView({
   const totalPages = Math.ceil(total / query.pageSize)
 
   return (
-    <div className="space-y-8 pb-16">
+    <div className="page-container space-y-8 pb-16">
       {/* Header */}
       <div className="space-y-2 border-b border-white/20 pb-6">
-        <h1 className="font-display text-3xl md:text-5xl font-extrabold tracking-tight text-ink">
+        <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
           {title}
         </h1>
         {description ? (
-          <p className="max-w-2xl font-text text-sm md:text-base text-ink-soft">{description}</p>
+          <p className="max-w-2xl font-text text-sm text-ink-soft md:text-base">{description}</p>
         ) : null}
         <div className="flex items-center justify-between pt-2">
-          <span className="font-mono text-xs font-semibold text-ink-soft uppercase tracking-wider">
+          <span className="font-mono text-xs font-semibold tracking-wider text-ink-soft uppercase">
             {total} {total === 1 ? 'Piece' : 'Pieces'}
           </span>
           {/* Sort Selector */}
@@ -138,7 +138,7 @@ export function ProductListView({
               id="sort-select"
               value={query.sort}
               onChange={(e) => navigateWith({ sort: e.target.value as SortKey })}
-              className="glass glass-strong h-9 rounded-full px-4 font-mono text-xs font-semibold text-ink focus-visible:outline-2 focus-visible:outline-focus cursor-pointer"
+              className="glass glass-strong h-9 cursor-pointer rounded-full px-4 font-mono text-xs font-semibold text-ink focus-visible:outline-2 focus-visible:outline-focus"
             >
               {SORT_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value} className="bg-canvas text-ink">
@@ -161,9 +161,9 @@ export function ProductListView({
       ) : null}
 
       {/* Main Grid & Filters Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-4">
         {/* Desktop Filters Sidebar */}
-        <aside className="hidden lg:block lg:col-span-1 sticky top-24">
+        <aside className="sticky top-24 hidden lg:col-span-1 lg:block">
           <FilterPanel
             facets={facets}
             query={query}
@@ -175,25 +175,34 @@ export function ProductListView({
         </aside>
 
         {/* Product Grid Area */}
-        <div className={cn('lg:col-span-3 space-y-8 transition-opacity duration-200', isPending && 'opacity-60')}>
+        <div
+          className={cn(
+            'space-y-8 transition-opacity duration-200 lg:col-span-3',
+            isPending && 'opacity-60',
+          )}
+        >
           {products.length === 0 ? (
-            <div className="glass edge rounded-[32px] p-12 text-center space-y-4">
-              <h2 className="font-display text-xl font-bold text-ink">No pieces match your selection</h2>
-              <p className="font-text text-sm text-ink-soft max-w-md mx-auto">
-                Try widening your price range, clearing specific size or color filters, or browsing our full collection.
+            <div className="glass edge space-y-4 rounded-[32px] p-12 text-center">
+              <h2 className="font-display text-xl font-bold text-ink">
+                No pieces match your selection
+              </h2>
+              <p className="mx-auto max-w-md font-text text-sm text-ink-soft">
+                Try widening your price range, clearing specific size or color filters, or browsing
+                our full collection.
               </p>
-              <Button variant="secondary" size="md" onClick={handleClearAll} className="rounded-full px-6">
+              <Button
+                variant="secondary"
+                size="md"
+                onClick={handleClearAll}
+                className="rounded-full px-6"
+              >
                 Clear all filters
               </Button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
               {products.map((product, idx) => (
-                <ConnectedProductCard
-                  key={product.id}
-                  product={product}
-                  priority={idx < 4}
-                />
+                <ConnectedProductCard key={product.id} product={product} priority={idx < 4} />
               ))}
             </div>
           )}

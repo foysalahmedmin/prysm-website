@@ -45,9 +45,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       '@type': 'Offer',
       priceCurrency: 'USD',
       price: (product.price / 100).toFixed(2),
-      availability: inStock
-        ? 'https://schema.org/InStock'
-        : 'https://schema.org/OutOfStock',
+      availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
     },
     ...(product.rating.count > 0
       ? {
@@ -103,4 +101,3 @@ export default async function ProductPage({ params }: ProductPageProps) {
     </>
   )
 }
-

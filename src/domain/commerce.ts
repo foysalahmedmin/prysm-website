@@ -108,4 +108,3 @@ export const OrderSchema = z.object({
   status: OrderStatusSchema,
 })
 export type Order = z.infer<typeof OrderSchema>
-

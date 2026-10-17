@@ -29,7 +29,7 @@ export function FilterPanel({
       className={cn('glass glass-strong space-y-6 rounded-[24px] p-6', className)}
     >
       <div className="flex items-center justify-between border-b border-white/40 pb-2">
-        <h3 className="font-display text-lg font-bold text-ink">{labels.title}</h3>
+        <h2 className="font-display text-lg font-bold text-ink">{labels.title}</h2>
         <button
           type="button"
           onClick={onClear}

@@ -17,17 +17,17 @@ export default async function CollectionsPage() {
   )
 
   return (
-    <div className="space-y-10 pb-16">
+    <div className="page-container space-y-10 pb-16">
       <div className="space-y-2 border-b border-white/20 pb-6">
-        <h1 className="font-display text-3xl md:text-5xl font-extrabold tracking-tight text-ink">
+        <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
           Collections
         </h1>
-        <p className="max-w-2xl font-text text-sm md:text-base text-ink-soft">
+        <p className="max-w-2xl font-text text-sm text-ink-soft md:text-base">
           Curated thematic capsules exploring refraction, liquid silk drape, and spectral lightwear.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {collectionsWithCovers.map((coll) => (
           <Link
             key={coll.slug}
@@ -57,17 +57,17 @@ export default async function CollectionsPage() {
               </div>
             </div>
 
-            <div className="mt-4 flex flex-1 flex-col justify-between px-1.5 pb-1 space-y-3">
+            <div className="mt-4 flex flex-1 flex-col justify-between space-y-3 px-1.5 pb-1">
               <div>
-                <h2 className="font-display text-xl font-bold tracking-tight text-ink group-hover:text-brand transition">
+                <h2 className="font-display text-xl font-bold tracking-tight text-ink transition group-hover:text-brand">
                   {coll.name}
                 </h2>
-                <p className="mt-1 line-clamp-2 font-text text-xs md:text-sm text-ink-soft">
+                <p className="mt-1 line-clamp-2 font-text text-xs text-ink-soft md:text-sm">
                   {coll.description}
                 </p>
               </div>
 
-              <div className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-brand">
+              <div className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold tracking-wider text-brand uppercase">
                 <span>Explore Capsule</span>
                 <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
               </div>

@@ -1,9 +1,9 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { ArrowRight, Check, Plus, ShoppingBag, Sparkle, Trash, User } from '@/components/icons'
+import { Plus, ShoppingBag, Trash, User } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { brand } from '@/config/brand'
 import { routes } from '@/config/routes'
@@ -23,7 +23,10 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
     return (
       <div className="glass mx-auto max-w-md rounded-3xl p-10 text-center">
         <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-ink border-t-transparent" />
-        <p className="mt-4 font-mono text-xs uppercase tracking-widest text-ink-soft">Loading Account...</p>
+        <h1 className="sr-only">Account</h1>
+        <p className="mt-4 font-mono text-xs tracking-widest text-ink-soft uppercase">
+          Loading Account...
+        </p>
       </div>
     )
   }
@@ -34,7 +37,7 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-ink/10 text-ink">
           <User size={28} />
         </div>
-        <h2 className="font-display text-2xl font-bold text-ink">Sign In Required</h2>
+        <h1 className="font-display text-2xl font-bold text-ink">Sign In Required</h1>
         <p className="mt-2 font-text text-sm text-ink-soft">
           Please sign in or use demo access to view your private archive dashboard.
         </p>
@@ -72,7 +75,9 @@ export function AccountDashboardView() {
         {/* Welcome Header */}
         <div className="glass glass-strong flex flex-col justify-between gap-4 rounded-3xl border border-white/80 p-8 shadow-xl sm:flex-row sm:items-center">
           <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-ink-faint">PRYSM CLIENT ARCHIVE</span>
+            <span className="font-mono text-xs tracking-widest text-ink-faint uppercase">
+              PRYSM CLIENT ARCHIVE
+            </span>
             <h1 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
               Welcome, {customer?.name ?? 'Collector'}
             </h1>
@@ -88,19 +93,19 @@ export function AccountDashboardView() {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
           <div className="glass rounded-2xl border border-white/80 p-6 shadow-md">
-            <span className="font-mono text-xs uppercase text-ink-faint">Total Acquisitions</span>
+            <span className="font-mono text-xs text-ink-faint uppercase">Total Acquisitions</span>
             <p className="mt-2 font-display text-3xl font-bold text-ink">{orders.length}</p>
             <p className="mt-1 font-text text-xs text-ink-soft">Lifetime verified orders</p>
           </div>
 
           <div className="glass rounded-2xl border border-white/80 p-6 shadow-md">
-            <span className="font-mono text-xs uppercase text-ink-faint">Client Standing</span>
+            <span className="font-mono text-xs text-ink-faint uppercase">Client Standing</span>
             <p className="mt-2 font-display text-3xl font-bold text-ink">Photonic Tier</p>
             <p className="mt-1 font-text text-xs text-ink-soft">Complimentary worldwide transit</p>
           </div>
 
           <div className="glass rounded-2xl border border-white/80 p-6 shadow-md">
-            <span className="font-mono text-xs uppercase text-ink-faint">Saved Addresses</span>
+            <span className="font-mono text-xs text-ink-faint uppercase">Saved Addresses</span>
             <p className="mt-2 font-display text-3xl font-bold text-ink">{addresses.length}</p>
             <p className="mt-1 font-text text-xs text-ink-soft">Active delivery destinations</p>
           </div>
@@ -112,7 +117,10 @@ export function AccountDashboardView() {
           <div className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-xl">
             <div className="flex items-center justify-between border-b border-white/40 pb-4">
               <h2 className="font-display text-lg font-bold text-ink">Recent Acquisition</h2>
-              <Link href={routes.orders} className="font-mono text-xs uppercase text-ink hover:underline">
+              <Link
+                href={routes.orders}
+                className="font-mono text-xs text-ink uppercase hover:underline"
+              >
                 View All &rarr;
               </Link>
             </div>
@@ -120,13 +128,16 @@ export function AccountDashboardView() {
             {latestOrder ? (
               <div className="mt-4 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-base font-bold text-ink">{latestOrder.number}</span>
-                  <span className="rounded-full bg-ink px-3 py-1 font-mono text-[11px] font-semibold uppercase text-canvas">
+                  <span className="font-mono text-base font-bold text-ink">
+                    {latestOrder.number}
+                  </span>
+                  <span className="rounded-full bg-ink px-3 py-1 font-mono text-[11px] font-semibold text-canvas uppercase">
                     {latestOrder.status}
                   </span>
                 </div>
                 <p className="font-mono text-xs text-ink-faint">
-                  Placed on {new Date(latestOrder.createdAt).toLocaleDateString()} • {latestOrder.lines.length} items
+                  Placed on {new Date(latestOrder.createdAt).toLocaleDateString()} •{' '}
+                  {latestOrder.lines.length} items
                 </p>
                 <p className="font-mono text-sm font-semibold text-ink">
                   Total: {formatMoney(latestOrder.totals.total, MONEY)}
@@ -140,7 +151,9 @@ export function AccountDashboardView() {
             ) : (
               <div className="py-8 text-center">
                 <ShoppingBag size={32} className="mx-auto text-ink-faint" />
-                <p className="mt-2 font-text text-sm text-ink-soft">No acquisitions recorded yet.</p>
+                <p className="mt-2 font-text text-sm text-ink-soft">
+                  No acquisitions recorded yet.
+                </p>
                 <div className="mt-4">
                   <Button asChild size="sm">
                     <Link href={routes.shop}>Discover Collection</Link>
@@ -154,13 +167,16 @@ export function AccountDashboardView() {
           <div className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-xl">
             <div className="flex items-center justify-between border-b border-white/40 pb-4">
               <h2 className="font-display text-lg font-bold text-ink">Primary Destination</h2>
-              <Link href={routes.addresses} className="font-mono text-xs uppercase text-ink hover:underline">
+              <Link
+                href={routes.addresses}
+                className="font-mono text-xs text-ink uppercase hover:underline"
+              >
                 Manage &rarr;
               </Link>
             </div>
 
             {defaultAddr ? (
-              <div className="mt-4 font-text text-sm text-ink space-y-1">
+              <div className="mt-4 space-y-1 font-text text-sm text-ink">
                 <p className="font-semibold">{defaultAddr.name}</p>
                 <p>{defaultAddr.line1}</p>
                 {defaultAddr.line2 ? <p>{defaultAddr.line2}</p> : null}
@@ -168,7 +184,9 @@ export function AccountDashboardView() {
                   {defaultAddr.city}, {defaultAddr.region} {defaultAddr.postcode}
                 </p>
                 <p>{defaultAddr.country}</p>
-                {defaultAddr.phone ? <p className="font-mono text-xs text-ink-faint">{defaultAddr.phone}</p> : null}
+                {defaultAddr.phone ? (
+                  <p className="font-mono text-xs text-ink-faint">{defaultAddr.phone}</p>
+                ) : null}
               </div>
             ) : (
               <div className="py-8 text-center font-text text-sm text-ink-soft">
@@ -189,8 +207,13 @@ export function AccountOrdersView() {
     <AuthGuard>
       <div className="space-y-6">
         <div className="flex items-center justify-between border-b border-white/40 pb-4">
-          <h1 className="font-display text-2xl font-bold text-ink">Acquisition History ({orders.length})</h1>
-          <Link href={routes.trackOrder} className="font-mono text-xs uppercase text-ink hover:underline">
+          <h1 className="font-display text-2xl font-bold text-ink">
+            Acquisition History ({orders.length})
+          </h1>
+          <Link
+            href={routes.trackOrder}
+            className="font-mono text-xs text-ink uppercase hover:underline"
+          >
             Track via Courier Radar &rarr;
           </Link>
         </div>
@@ -217,11 +240,11 @@ export function AccountOrdersView() {
               >
                 <div className="flex flex-col justify-between gap-4 border-b border-white/40 pb-4 sm:flex-row sm:items-center">
                   <div>
-                    <span className="font-mono text-xs uppercase text-ink-faint">Order Number</span>
+                    <span className="font-mono text-xs text-ink-faint uppercase">Order Number</span>
                     <p className="font-mono text-lg font-bold text-ink">{order.number}</p>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="rounded-full bg-ink px-3 py-1 font-mono text-xs font-semibold uppercase text-canvas">
+                    <span className="rounded-full bg-ink px-3 py-1 font-mono text-xs font-semibold text-canvas uppercase">
                       {order.status}
                     </span>
                     <span className="font-mono text-sm font-bold text-ink">
@@ -238,12 +261,20 @@ export function AccountOrdersView() {
                         className="h-14 w-12 shrink-0 overflow-hidden rounded-xl bg-surface"
                       >
                         {line.image ? (
-                          <img src={line.image} alt={line.title} className="h-full w-full object-cover" />
+                          <Image
+                            src={line.image}
+                            alt={line.title}
+                            fill
+                            sizes="(min-width: 1024px) 33vw, 100vw"
+                            className="h-full w-full object-cover"
+                          />
                         ) : null}
                       </div>
                     ))}
                     {order.lines.length > 3 ? (
-                      <span className="font-mono text-xs text-ink-faint">+{order.lines.length - 3} more</span>
+                      <span className="font-mono text-xs text-ink-faint">
+                        +{order.lines.length - 3} more
+                      </span>
                     ) : null}
                   </div>
 
@@ -279,7 +310,7 @@ export function AccountOrderDetailView({ id }: { id: string }) {
             </h1>
           </div>
           {order ? (
-            <span className="rounded-full bg-ink px-3 py-1 font-mono text-xs font-semibold uppercase text-canvas">
+            <span className="rounded-full bg-ink px-3 py-1 font-mono text-xs font-semibold text-canvas uppercase">
               {order.status}
             </span>
           ) : null}
@@ -287,14 +318,22 @@ export function AccountOrderDetailView({ id }: { id: string }) {
 
         {order ? (
           <div className="glass glass-strong rounded-3xl border border-white/80 p-8 shadow-2xl">
-            <h2 className="font-mono text-xs uppercase tracking-wider text-ink-soft">Itemized Artifacts</h2>
+            <h2 className="font-mono text-xs tracking-wider text-ink-soft uppercase">
+              Itemized Artifacts
+            </h2>
             <ul className="mt-4 divide-y divide-white/40">
               {order.lines.map((line) => (
                 <li key={line.variantId} className="flex items-center justify-between py-4">
                   <div className="flex items-center gap-4">
                     {line.image ? (
-                      <div className="h-16 w-14 shrink-0 overflow-hidden rounded-xl bg-surface">
-                        <img src={line.image} alt={line.title} className="h-full w-full object-cover" />
+                      <div className="relative h-16 w-14 shrink-0 overflow-hidden rounded-xl bg-surface">
+                        <Image
+                          src={line.image}
+                          alt={line.title}
+                          fill
+                          sizes="64px"
+                          className="h-full w-full object-cover"
+                        />
                       </div>
                     ) : null}
                     <div>
@@ -313,7 +352,9 @@ export function AccountOrderDetailView({ id }: { id: string }) {
 
             <div className="mt-8 grid grid-cols-1 gap-6 border-t border-white/40 pt-6 sm:grid-cols-2">
               <div>
-                <h3 className="font-mono text-xs uppercase tracking-wider text-ink-soft">Destination</h3>
+                <h3 className="font-mono text-xs tracking-wider text-ink-soft uppercase">
+                  Destination
+                </h3>
                 <div className="mt-2 font-text text-sm text-ink">
                   <p className="font-semibold">{order.address.name}</p>
                   <p>{order.address.line1}</p>
@@ -326,10 +367,16 @@ export function AccountOrderDetailView({ id }: { id: string }) {
               </div>
 
               <div>
-                <h3 className="font-mono text-xs uppercase tracking-wider text-ink-soft">Payment & Transit</h3>
+                <h3 className="font-mono text-xs tracking-wider text-ink-soft uppercase">
+                  Payment & Transit
+                </h3>
                 <div className="mt-2 font-text text-sm text-ink">
-                  <p className="font-semibold">{order.payment.brand} ending in •••• {order.payment.last4}</p>
-                  <p className="mt-1 font-mono text-xs text-ink-soft">Courier: {order.shippingMethod.name}</p>
+                  <p className="font-semibold">
+                    {order.payment.brand} ending in •••• {order.payment.last4}
+                  </p>
+                  <p className="mt-1 font-mono text-xs text-ink-soft">
+                    Courier: {order.shippingMethod.name}
+                  </p>
                 </div>
               </div>
             </div>
@@ -338,7 +385,9 @@ export function AccountOrderDetailView({ id }: { id: string }) {
               <dl className="space-y-2 font-text text-sm">
                 <div className="flex justify-between text-ink-soft">
                   <dt>Subtotal</dt>
-                  <dd className="font-mono text-ink">{formatMoney(order.totals.subtotal, MONEY)}</dd>
+                  <dd className="font-mono text-ink">
+                    {formatMoney(order.totals.subtotal, MONEY)}
+                  </dd>
                 </div>
                 {order.totals.discount > 0 ? (
                   <div className="flex justify-between text-emerald-600">
@@ -349,7 +398,9 @@ export function AccountOrderDetailView({ id }: { id: string }) {
                 <div className="flex justify-between text-ink-soft">
                   <dt>Delivery</dt>
                   <dd className="font-mono text-ink">
-                    {order.totals.shipping === 0 ? 'Complimentary' : formatMoney(order.totals.shipping, MONEY)}
+                    {order.totals.shipping === 0
+                      ? 'Complimentary'
+                      : formatMoney(order.totals.shipping, MONEY)}
                   </dd>
                 </div>
                 <div className="flex justify-between text-ink-soft">
@@ -414,7 +465,9 @@ export function AccountAddressesView() {
     <AuthGuard>
       <div className="space-y-6">
         <div className="flex items-center justify-between border-b border-white/40 pb-4">
-          <h1 className="font-display text-2xl font-bold text-ink">Delivery Addresses ({addresses.length})</h1>
+          <h1 className="font-display text-2xl font-bold text-ink">
+            Delivery Addresses ({addresses.length})
+          </h1>
           <Button size="sm" onClick={() => setIsAdding(!isAdding)}>
             <Plus size={16} className="mr-1.5" />
             {isAdding ? 'Cancel' : 'Add New Destination'}
@@ -422,12 +475,21 @@ export function AccountAddressesView() {
         </div>
 
         {isAdding ? (
-          <form onSubmit={handleAdd} className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-xl">
-            <h2 className="font-display text-lg font-bold text-ink mb-4">New Address</h2>
+          <form
+            onSubmit={handleAdd}
+            className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-xl"
+          >
+            <h2 className="mb-4 font-display text-lg font-bold text-ink">New Address</h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
-                <label className="mb-1 block font-mono text-xs uppercase text-ink-soft">Full Name</label>
+                <label
+                  htmlFor="account-full-name"
+                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                >
+                  Full Name
+                </label>
                 <input
+                  id="account-full-name"
                   type="text"
                   required
                   value={name}
@@ -438,8 +500,14 @@ export function AccountAddressesView() {
               </div>
 
               <div className="sm:col-span-2">
-                <label className="mb-1 block font-mono text-xs uppercase text-ink-soft">Address Line 1</label>
+                <label
+                  htmlFor="account-address-line-1"
+                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                >
+                  Address Line 1
+                </label>
                 <input
+                  id="account-address-line-1"
                   type="text"
                   required
                   value={line1}
@@ -450,8 +518,14 @@ export function AccountAddressesView() {
               </div>
 
               <div className="sm:col-span-2">
-                <label className="mb-1 block font-mono text-xs uppercase text-ink-soft">Address Line 2</label>
+                <label
+                  htmlFor="account-address-line-2"
+                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                >
+                  Address Line 2
+                </label>
                 <input
+                  id="account-address-line-2"
                   type="text"
                   value={line2}
                   onChange={(e) => setLine2(e.target.value)}
@@ -461,8 +535,14 @@ export function AccountAddressesView() {
               </div>
 
               <div>
-                <label className="mb-1 block font-mono text-xs uppercase text-ink-soft">City</label>
+                <label
+                  htmlFor="account-city"
+                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                >
+                  City
+                </label>
                 <input
+                  id="account-city"
                   type="text"
                   required
                   value={city}
@@ -473,8 +553,14 @@ export function AccountAddressesView() {
               </div>
 
               <div>
-                <label className="mb-1 block font-mono text-xs uppercase text-ink-soft">Region</label>
+                <label
+                  htmlFor="account-region"
+                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                >
+                  Region
+                </label>
                 <input
+                  id="account-region"
                   type="text"
                   required
                   value={region}
@@ -485,8 +571,14 @@ export function AccountAddressesView() {
               </div>
 
               <div>
-                <label className="mb-1 block font-mono text-xs uppercase text-ink-soft">Postal Code</label>
+                <label
+                  htmlFor="account-postal-code"
+                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                >
+                  Postal Code
+                </label>
                 <input
+                  id="account-postal-code"
                   type="text"
                   required
                   value={postcode}
@@ -497,8 +589,14 @@ export function AccountAddressesView() {
               </div>
 
               <div>
-                <label className="mb-1 block font-mono text-xs uppercase text-ink-soft">Country</label>
+                <label
+                  htmlFor="account-country"
+                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                >
+                  Country
+                </label>
                 <input
+                  id="account-country"
                   type="text"
                   required
                   value={country}
@@ -510,8 +608,15 @@ export function AccountAddressesView() {
             </div>
 
             <div className="mt-6 flex gap-3">
-              <Button type="submit" size="sm">Save Address</Button>
-              <Button type="button" variant="secondary" size="sm" onClick={() => setIsAdding(false)}>
+              <Button type="submit" size="sm">
+                Save Address
+              </Button>
+              <Button
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={() => setIsAdding(false)}
+              >
                 Cancel
               </Button>
             </div>
@@ -522,18 +627,18 @@ export function AccountAddressesView() {
           {addresses.map((addr) => (
             <div
               key={addr.id}
-              className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-lg flex flex-col justify-between"
+              className="glass glass-strong flex flex-col justify-between rounded-3xl border border-white/80 p-6 shadow-lg"
             >
               <div>
                 <div className="flex items-center justify-between">
                   <span className="font-text font-bold text-ink">{addr.name}</span>
                   {addr.isDefault ? (
-                    <span className="rounded-full bg-accent-cyan/20 px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase text-ink">
+                    <span className="bg-accent-cyan/20 rounded-full px-2.5 py-0.5 font-mono text-[10px] font-semibold text-ink uppercase">
                       Primary
                     </span>
                   ) : null}
                 </div>
-                <div className="mt-3 font-text text-sm text-ink-soft space-y-0.5">
+                <div className="mt-3 space-y-0.5 font-text text-sm text-ink-soft">
                   <p>{addr.line1}</p>
                   {addr.line2 ? <p>{addr.line2}</p> : null}
                   <p>
@@ -560,7 +665,7 @@ export function AccountAddressesView() {
                     type="button"
                     onClick={() => deleteAddress(addr.id!)}
                     aria-label={`Delete ${addr.name}`}
-                    className="text-ink-soft hover:text-rose-500 transition-colors p-1"
+                    className="p-1 text-ink-soft transition-colors hover:text-rose-500"
                   >
                     <Trash size={16} />
                   </button>
@@ -606,10 +711,19 @@ export function AccountProfileView() {
           </div>
         ) : null}
 
-        <form onSubmit={handleSave} className="glass glass-strong rounded-3xl border border-white/80 p-8 shadow-xl space-y-5">
+        <form
+          onSubmit={handleSave}
+          className="glass glass-strong space-y-5 rounded-3xl border border-white/80 p-8 shadow-xl"
+        >
           <div>
-            <label className="mb-1 block font-mono text-xs uppercase text-ink-soft">Full Name</label>
+            <label
+              htmlFor="account-full-name-2"
+              className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+            >
+              Full Name
+            </label>
             <input
+              id="account-full-name-2"
               type="text"
               required
               value={name}
@@ -619,8 +733,14 @@ export function AccountProfileView() {
           </div>
 
           <div>
-            <label className="mb-1 block font-mono text-xs uppercase text-ink-soft">Email Address</label>
+            <label
+              htmlFor="account-email-address"
+              className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+            >
+              Email Address
+            </label>
             <input
+              id="account-email-address"
               type="email"
               required
               value={email}
@@ -630,8 +750,14 @@ export function AccountProfileView() {
           </div>
 
           <div>
-            <label className="mb-1 block font-mono text-xs uppercase text-ink-soft">Phone Number</label>
+            <label
+              htmlFor="account-phone-number"
+              className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+            >
+              Phone Number
+            </label>
             <input
+              id="account-phone-number"
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}

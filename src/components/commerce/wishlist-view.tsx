@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { ArrowRight, Heart, ShoppingBag, Trash } from '@/components/icons'
@@ -81,7 +82,9 @@ export function WishlistView() {
       <div className="mx-auto min-h-[50vh] max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <div className="glass mx-auto max-w-sm rounded-3xl p-8">
           <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-ink border-t-transparent" />
-          <p className="mt-4 font-mono text-xs uppercase tracking-widest text-ink-soft">Loading Wishlist...</p>
+          <p className="mt-4 font-mono text-xs tracking-widest text-ink-soft uppercase">
+            Loading Wishlist...
+          </p>
         </div>
       </div>
     )
@@ -98,7 +101,8 @@ export function WishlistView() {
             Your Wishlist is Empty
           </h1>
           <p className="mt-4 font-text text-sm leading-relaxed text-ink-soft sm:text-base">
-            Save pieces while browsing to reserve them in your private curation and test with Mirror Try.
+            Save pieces while browsing to reserve them in your private curation and test with Mirror
+            Try.
           </p>
           <div className="mt-8">
             <Button asChild size="lg">
@@ -118,14 +122,16 @@ export function WishlistView() {
       {/* Header */}
       <div className="mb-10 flex flex-col justify-between gap-4 border-b border-white/40 pb-6 sm:flex-row sm:items-end">
         <div>
-          <span className="font-mono text-xs uppercase tracking-widest text-ink-faint">PRYSM CURATION</span>
+          <span className="font-mono text-xs tracking-widest text-ink-faint uppercase">
+            PRYSM CURATION
+          </span>
           <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
             Saved Pieces ({products.length})
           </h1>
         </div>
         <Link
           href={routes.shop}
-          className="inline-flex items-center font-mono text-xs uppercase tracking-wider text-ink transition-colors hover:text-ink-soft"
+          className="inline-flex items-center font-mono text-xs tracking-wider text-ink uppercase transition-colors hover:text-ink-soft"
         >
           Continue Exploring &rarr;
         </Link>
@@ -144,9 +150,11 @@ export function WishlistView() {
                 {/* Media Image */}
                 <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-surface">
                   {mainImg ? (
-                    <img
+                    <Image
                       src={mainImg.src}
                       alt={mainImg.alt}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, 100vw"
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : null}
@@ -156,7 +164,7 @@ export function WishlistView() {
                     type="button"
                     onClick={() => toggleWishlist(product.id)}
                     aria-label={`Remove ${product.name} from wishlist`}
-                    className="glass absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full text-ink-soft shadow-md transition-colors hover:bg-white hover:text-rose-500"
+                    className="glass absolute top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full text-ink-soft shadow-md transition-colors hover:bg-white hover:text-rose-500"
                   >
                     <Trash size={16} />
                   </button>
@@ -164,7 +172,7 @@ export function WishlistView() {
 
                 {/* Details */}
                 <div className="mt-4">
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-ink-faint">
+                  <span className="font-mono text-[10px] tracking-wider text-ink-faint uppercase">
                     {product.subcategory}
                   </span>
                   <h3 className="mt-1 font-display text-base font-bold text-ink">

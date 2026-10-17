@@ -1,11 +1,14 @@
 // @vitest-environment node
 import { ESLint } from 'eslint'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 /**
  * Proves the architecture fences fire. Each case lints a snippet as if it lived at `filePath`.
  * A rule that silently stops working would let the plugin and the core grow tangled again.
  */
+// Linting through ESLint's API loads the full TypeScript-aware config, which is slow on a big codebase.
+vi.setConfig({ testTimeout: 60_000 })
+
 const eslint = new ESLint({ cwd: process.cwd() })
 
 async function violations(code: string, filePath: string): Promise<string[]> {

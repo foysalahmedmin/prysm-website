@@ -20,11 +20,28 @@ const testProducts: Product[] = [
     media: [{ src: '/coat.jpg', alt: 'Wool Coat', width: 800, height: 1000 }],
     optionGroups: [
       { key: 'size', label: 'Size', kind: 'size', values: [{ value: 'S' }, { value: 'XL' }] },
-      { key: 'color', label: 'Colour', kind: 'color', values: [{ value: 'Slate', swatch: '#4b5563' }] },
+      {
+        key: 'color',
+        label: 'Colour',
+        kind: 'color',
+        values: [{ value: 'Slate', swatch: '#4b5563' }],
+      },
     ],
     variants: [
-      { id: 'p-001-v1', sku: 'p-001-sku-1', price: 42000, stock: 5, options: { size: 'S', color: 'Slate' } },
-      { id: 'p-001-v2', sku: 'p-001-sku-2', price: 42000, stock: 3, options: { size: 'XL', color: 'Slate' } },
+      {
+        id: 'p-001-v1',
+        sku: 'p-001-sku-1',
+        price: 42000,
+        stock: 5,
+        options: { size: 'S', color: 'Slate' },
+      },
+      {
+        id: 'p-001-v2',
+        sku: 'p-001-sku-2',
+        price: 42000,
+        stock: 3,
+        options: { size: 'XL', color: 'Slate' },
+      },
     ],
     materials: '100% Wool',
     care: ['Dry clean'],
@@ -47,7 +64,12 @@ const testProducts: Product[] = [
     rating: { average: 4.9, count: 8 },
     media: [{ src: '/scarf.jpg', alt: 'Silk Scarf', width: 800, height: 1000 }],
     optionGroups: [
-      { key: 'color', label: 'Colour', kind: 'color', values: [{ value: 'Sand', swatch: '#e5d3b3' }] },
+      {
+        key: 'color',
+        label: 'Colour',
+        kind: 'color',
+        values: [{ value: 'Sand', swatch: '#e5d3b3' }],
+      },
     ],
     variants: [
       { id: 'p-002-v1', sku: 'p-002-sku-1', price: 9500, stock: 8, options: { color: 'Sand' } },
@@ -75,11 +97,28 @@ const testProducts: Product[] = [
     media: [{ src: '/sweater.jpg', alt: 'Merino Sweater', width: 800, height: 1000 }],
     optionGroups: [
       { key: 'size', label: 'Size', kind: 'size', values: [{ value: 'XS' }, { value: 'XL' }] },
-      { key: 'color', label: 'Colour', kind: 'color', values: [{ value: 'Slate', swatch: '#4b5563' }] },
+      {
+        key: 'color',
+        label: 'Colour',
+        kind: 'color',
+        values: [{ value: 'Slate', swatch: '#4b5563' }],
+      },
     ],
     variants: [
-      { id: 'p-003-v1', sku: 'p-003-sku-1', price: 12800, stock: 4, options: { size: 'XS', color: 'Slate' } },
-      { id: 'p-003-v2', sku: 'p-003-sku-2', price: 12800, stock: 0, options: { size: 'XL', color: 'Slate' } },
+      {
+        id: 'p-003-v1',
+        sku: 'p-003-sku-1',
+        price: 12800,
+        stock: 4,
+        options: { size: 'XS', color: 'Slate' },
+      },
+      {
+        id: 'p-003-v2',
+        sku: 'p-003-sku-2',
+        price: 12800,
+        stock: 0,
+        options: { size: 'XL', color: 'Slate' },
+      },
     ],
     materials: '100% Merino Wool',
     care: ['Hand wash'],
@@ -102,9 +141,7 @@ const testProducts: Product[] = [
     rating: { average: 5.0, count: 4 },
     media: [{ src: '/ring.jpg', alt: 'Gold Signet Ring', width: 800, height: 1000 }],
     optionGroups: [],
-    variants: [
-      { id: 'p-004-v1', sku: 'p-004-sku-1', price: 35000, stock: 2, options: {} },
-    ],
+    variants: [{ id: 'p-004-v1', sku: 'p-004-sku-1', price: 35000, stock: 2, options: {} }],
     materials: '18k Gold',
     care: ['Polish with cloth'],
     tags: ['ring', 'jewelry'],
@@ -127,9 +164,7 @@ const testProducts: Product[] = [
     rating: { average: 4.7, count: 9 },
     media: [{ src: '/earrings.jpg', alt: 'Hoop Earrings', width: 800, height: 1000 }],
     optionGroups: [],
-    variants: [
-      { id: 'p-005-v1', sku: 'p-005-sku-1', price: 13500, stock: 6, options: {} },
-    ],
+    variants: [{ id: 'p-005-v1', sku: 'p-005-sku-1', price: 13500, stock: 6, options: {} }],
     materials: '18k Gold',
     care: ['Polish with cloth'],
     tags: ['earrings', 'jewelry'],

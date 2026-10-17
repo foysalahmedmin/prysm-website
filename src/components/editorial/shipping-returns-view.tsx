@@ -10,26 +10,27 @@ export function ShippingReturnsView() {
     <div className="mx-auto max-w-5xl px-4 py-12 md:py-16">
       {/* Header */}
       <div className="mb-12 text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-brand">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-brand uppercase">
           <Sparkle size={12} />
           Global Logistics & Guarantee
         </span>
-        <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold tracking-tight text-ink">
+        <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-ink md:text-5xl">
           Shipping & Returns
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl font-text text-base md:text-lg text-ink-soft">
-          We ensure every garment is handled with archival care from our atelier to your door. Enjoy complimentary domestic delivery over $150 and hassle-free returns.
+        <p className="mx-auto mt-4 max-w-2xl font-text text-base text-ink-soft md:text-lg">
+          We ensure every garment is handled with archival care from our atelier to your door. Enjoy
+          complimentary domestic delivery over $150 and hassle-free returns.
         </p>
       </div>
 
       {/* Shipping Rates & Timelines Grid */}
       <section className="mb-16">
-        <h2 className="font-display text-2xl font-bold text-ink mb-6">
+        <h2 className="mb-6 font-display text-2xl font-bold text-ink">
           Delivery Options & Timelines
         </h2>
         <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-3xl border border-white/80 bg-white/70 p-6 shadow-glass backdrop-blur-xl">
-            <span className="font-mono text-xs uppercase tracking-wider text-brand font-semibold">
+          <div className="shadow-glass rounded-3xl border border-white/80 bg-white/70 p-6 backdrop-blur-xl">
+            <span className="font-mono text-xs font-semibold tracking-wider text-brand uppercase">
               Standard Ground
             </span>
             <div className="my-3 flex items-baseline gap-2">
@@ -51,11 +52,11 @@ export function ShippingReturnsView() {
             </ul>
           </div>
 
-          <div className="rounded-3xl border-2 border-brand/40 bg-white/80 p-6 shadow-glass-strong backdrop-blur-xl relative">
-            <span className="absolute -top-3 right-6 rounded-full bg-brand px-3 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-on-brand shadow-sm">
+          <div className="shadow-glass-strong relative rounded-3xl border-2 border-brand/40 bg-white/80 p-6 backdrop-blur-xl">
+            <span className="absolute -top-3 right-6 rounded-full bg-brand px-3 py-0.5 font-mono text-[10px] font-bold tracking-wider text-on-brand uppercase shadow-sm">
               Recommended
             </span>
-            <span className="font-mono text-xs uppercase tracking-wider text-brand font-semibold">
+            <span className="font-mono text-xs font-semibold tracking-wider text-brand uppercase">
               Express Air Delivery
             </span>
             <div className="my-3 flex items-baseline gap-2">
@@ -77,8 +78,8 @@ export function ShippingReturnsView() {
             </ul>
           </div>
 
-          <div className="rounded-3xl border border-white/80 bg-white/70 p-6 shadow-glass backdrop-blur-xl">
-            <span className="font-mono text-xs uppercase tracking-wider text-brand font-semibold">
+          <div className="shadow-glass rounded-3xl border border-white/80 bg-white/70 p-6 backdrop-blur-xl">
+            <span className="font-mono text-xs font-semibold tracking-wider text-brand uppercase">
               International Express
             </span>
             <div className="my-3 flex items-baseline gap-2">
@@ -103,16 +104,18 @@ export function ShippingReturnsView() {
       </section>
 
       {/* Returns Policy & Process */}
-      <section className="mb-16 rounded-3xl border border-white/80 bg-white/70 p-8 md:p-12 shadow-glass backdrop-blur-xl">
+      <section className="shadow-glass mb-16 rounded-3xl border border-white/80 bg-white/70 p-8 backdrop-blur-xl md:p-12">
         <div className="max-w-3xl">
-          <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand">
+          <span className="font-mono text-xs font-semibold tracking-wider text-brand uppercase">
             Complimentary 30-Day Policy
           </span>
-          <h2 className="mt-2 font-display text-2xl md:text-3xl font-bold text-ink">
+          <h2 className="mt-2 font-display text-2xl font-bold text-ink md:text-3xl">
             Atelier Returns & Exchanges
           </h2>
           <p className="mt-3 font-text text-base leading-relaxed text-ink-soft">
-            We want you to feel complete confidence in the drape, fit, and optical behavior of your pieces. If a garment does not meet your expectations, we accept returns within 30 days of receipt.
+            We want you to feel complete confidence in the drape, fit, and optical behavior of your
+            pieces. If a garment does not meet your expectations, we accept returns within 30 days
+            of receipt.
           </p>
 
           <div className="mt-8 grid gap-6 sm:grid-cols-3">
@@ -120,7 +123,8 @@ export function ShippingReturnsView() {
               <span className="font-mono text-xs font-bold text-ink">Step 01</span>
               <h3 className="mt-1 font-display text-sm font-bold text-ink">Request Online</h3>
               <p className="mt-1 font-text text-xs text-ink-soft">
-                Log into your Account or track order portal to generate your prepaid DHL / courier shipping label.
+                Log into your Account or track order portal to generate your prepaid DHL / courier
+                shipping label.
               </p>
             </div>
 
@@ -128,7 +132,8 @@ export function ShippingReturnsView() {
               <span className="font-mono text-xs font-bold text-ink">Step 02</span>
               <h3 className="mt-1 font-display text-sm font-bold text-ink">Package Garment</h3>
               <p className="mt-1 font-text text-xs text-ink-soft">
-                Place unworn pieces inside their original garment shroud and rigid presentation slide box with security tags attached.
+                Place unworn pieces inside their original garment shroud and rigid presentation
+                slide box with security tags attached.
               </p>
             </div>
 
@@ -136,13 +141,16 @@ export function ShippingReturnsView() {
               <span className="font-mono text-xs font-bold text-ink">Step 03</span>
               <h3 className="mt-1 font-display text-sm font-bold text-ink">Courier Collection</h3>
               <p className="mt-1 font-text text-xs text-ink-soft">
-                Drop off at any authorized drop-off station or schedule a complimentary doorstep courier collection.
+                Drop off at any authorized drop-off station or schedule a complimentary doorstep
+                courier collection.
               </p>
             </div>
           </div>
 
-          <div className="mt-8 rounded-2xl bg-indigo-50/50 p-4 border border-indigo-100/60 font-text text-xs text-ink-soft">
-            <span className="font-bold text-ink">Refund Timelines:</span> Once inspected by our atelier quality team (typically within 48 hours of return receipt), your refund is immediately credited to your original payment method.
+          <div className="mt-8 rounded-2xl border border-indigo-100/60 bg-indigo-50/50 p-4 font-text text-xs text-ink-soft">
+            <span className="font-bold text-ink">Refund Timelines:</span> Once inspected by our
+            atelier quality team (typically within 48 hours of return receipt), your refund is
+            immediately credited to your original payment method.
           </div>
         </div>
       </section>

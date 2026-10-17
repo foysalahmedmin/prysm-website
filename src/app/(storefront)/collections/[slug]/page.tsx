@@ -19,10 +19,7 @@ export async function generateMetadata({ params }: CollectionPageProps) {
   }
 }
 
-export default async function CollectionDetailPage({
-  params,
-  searchParams,
-}: CollectionPageProps) {
+export default async function CollectionDetailPage({ params, searchParams }: CollectionPageProps) {
   const { slug } = await params
   const coll = await services.catalog.getCollection(slug)
   if (!coll) notFound()

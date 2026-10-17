@@ -86,35 +86,39 @@ export function ContactView() {
     <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
       {/* Header */}
       <div className="mb-12 text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-brand">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-brand uppercase">
           <Sparkle size={12} />
           Atelier Concierge
         </span>
-        <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold tracking-tight text-ink">
+        <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-ink md:text-5xl">
           Direct Client Concierge
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl font-text text-base md:text-lg text-ink-soft">
-          Our client advisory team assists with bespoke sizing, order tracking, textile care consultations, and private appointments.
+        <p className="mx-auto mt-4 max-w-2xl font-text text-base text-ink-soft md:text-lg">
+          Our client advisory team assists with bespoke sizing, order tracking, textile care
+          consultations, and private appointments.
         </p>
       </div>
 
-      <div className="grid gap-12 lg:grid-cols-12 items-start">
+      <div className="grid items-start gap-12 lg:grid-cols-12">
         {/* Contact Form Card */}
         <div className="lg:col-span-7">
-          <div className="rounded-3xl border border-white/80 bg-white/70 p-8 shadow-glass-strong backdrop-blur-xl md:p-10">
+          <div className="shadow-glass-strong rounded-3xl border border-white/80 bg-white/70 p-8 backdrop-blur-xl md:p-10">
             {submitted ? (
-              <div className="py-6 text-center animate-fade-in" role="status">
+              <div className="animate-fade-in py-6 text-center" role="status">
                 <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shadow-sm">
                   <Check size={32} />
                 </div>
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-ink">
+                <h2 className="font-display text-2xl font-bold text-ink md:text-3xl">
                   Inquiry Submitted Successfully
                 </h2>
-                <p className="mt-2 font-mono text-xs uppercase tracking-wider text-brand font-semibold">
+                <p className="mt-2 font-mono text-xs font-semibold tracking-wider text-brand uppercase">
                   Reference: {ticketId}
                 </p>
-                <p className="mx-auto mt-4 max-w-md font-text text-sm md:text-base leading-relaxed text-ink-soft">
-                  Thank you for reaching out, {form.name}. Our atelier concierge has received your request and will respond to <span className="font-semibold text-ink">{form.email}</span> within 4 business hours.
+                <p className="mx-auto mt-4 max-w-md font-text text-sm leading-relaxed text-ink-soft md:text-base">
+                  Thank you for reaching out, {form.name}. Our atelier concierge has received your
+                  request and will respond to{' '}
+                  <span className="font-semibold text-ink">{form.email}</span> within 4 business
+                  hours.
                 </p>
 
                 <div className="mt-8">
@@ -156,7 +160,10 @@ export function ContactView() {
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="topic-select" className="font-text text-sm font-medium text-ink">
+                    <label
+                      htmlFor="topic-select"
+                      className="font-text text-sm font-medium text-ink"
+                    >
                       Inquiry Topic
                     </label>
                     <select
@@ -217,13 +224,13 @@ export function ContactView() {
 
         {/* Studio Contacts & Operating Hours Side Card */}
         <div className="space-y-6 lg:col-span-5">
-          <div className="rounded-3xl border border-white/80 bg-white/70 p-8 shadow-glass backdrop-blur-xl">
-            <h3 className="font-display text-lg font-bold text-ink">
-              Direct Atelier Contacts
-            </h3>
+          <div className="shadow-glass rounded-3xl border border-white/80 bg-white/70 p-8 backdrop-blur-xl">
+            <h3 className="font-display text-lg font-bold text-ink">Direct Atelier Contacts</h3>
             <ul className="mt-5 space-y-4 font-text text-sm">
               <li className="flex flex-col">
-                <span className="font-mono text-xs uppercase text-ink-faint">Client Concierge Email</span>
+                <span className="font-mono text-xs text-ink-faint uppercase">
+                  Client Concierge Email
+                </span>
                 <a
                   href={`mailto:concierge@${brand.id}-atelier.com`}
                   className="mt-1 font-semibold text-brand hover:underline"
@@ -232,27 +239,29 @@ export function ContactView() {
                 </a>
               </li>
               <li className="flex flex-col">
-                <span className="font-mono text-xs uppercase text-ink-faint">Telephone Advisory</span>
+                <span className="font-mono text-xs text-ink-faint uppercase">
+                  Telephone Advisory
+                </span>
                 <span className="mt-1 font-medium text-ink">+1 (212) 555-0192</span>
               </li>
               <li className="flex flex-col">
-                <span className="font-mono text-xs uppercase text-ink-faint">Operating Hours</span>
+                <span className="font-mono text-xs text-ink-faint uppercase">Operating Hours</span>
                 <span className="mt-1 text-ink-soft">
-                  Monday – Friday: 09:00 – 19:00 EST<br />
+                  Monday – Friday: 09:00 – 19:00 EST
+                  <br />
                   Saturday – Sunday: 11:00 – 17:00 EST
                 </span>
               </li>
             </ul>
           </div>
 
-          <div className="rounded-3xl border border-white/80 bg-white/70 p-8 shadow-glass backdrop-blur-xl">
-            <h3 className="font-display text-lg font-bold text-ink">
-              SoHo Flagship Consultations
-            </h3>
+          <div className="shadow-glass rounded-3xl border border-white/80 bg-white/70 p-8 backdrop-blur-xl">
+            <h3 className="font-display text-lg font-bold text-ink">SoHo Flagship Consultations</h3>
             <p className="mt-3 font-text text-sm leading-relaxed text-ink-soft">
-              Private fitting chamber sessions and garment previews are available by advance booking at 482 Broome Street, New York.
+              Private fitting chamber sessions and garment previews are available by advance booking
+              at 482 Broome Street, New York.
             </p>
-            <div className="mt-4 pt-4 border-t border-slate-200/60 font-mono text-xs text-brand">
+            <div className="mt-4 border-t border-slate-200/60 pt-4 font-mono text-xs text-brand">
               Walk-ins accommodated subject to fitting chamber availability.
             </div>
           </div>

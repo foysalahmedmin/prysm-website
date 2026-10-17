@@ -21,9 +21,7 @@ export const useOrdersStore = create<OrdersState>()(
         })),
       getOrder: (id) => get().orders.find((o) => o.id === id),
       getOrderByNumber: (number) =>
-        get().orders.find(
-          (o) => o.number.trim().toLowerCase() === number.trim().toLowerCase(),
-        ),
+        get().orders.find((o) => o.number.trim().toLowerCase() === number.trim().toLowerCase()),
       clearOrders: () => set({ orders: [] }),
     }),
     {

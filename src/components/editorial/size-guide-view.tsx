@@ -53,7 +53,8 @@ export function SizeGuideView() {
     const waist = unit === 'cm' ? waistInput : waistInput * 2.54
 
     // Adjust for fit preference and prominent waist
-    const adjustedChest = fitPreference === 'fitted' ? chest + 2 : fitPreference === 'relaxed' ? chest - 2 : chest
+    const adjustedChest =
+      fitPreference === 'fitted' ? chest + 2 : fitPreference === 'relaxed' ? chest - 2 : chest
     const effectiveMetric = Math.max(adjustedChest, waist * 1.1)
 
     for (const row of SIZE_CHART) {
@@ -71,35 +72,32 @@ export function SizeGuideView() {
     <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
       {/* Header */}
       <div className="mb-12 text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-brand">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-brand uppercase">
           <Sparkle size={12} />
           Anatomical Precision Sizing
         </span>
-        <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold tracking-tight text-ink">
+        <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-ink md:text-5xl">
           Size Guide & Interactive Finder
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl font-text text-base md:text-lg text-ink-soft">
-          PRYSM garments are tailored with architectural precision. Use our measurement charts and algorithmic Size Finder to determine your ideal fit.
+        <p className="mx-auto mt-4 max-w-2xl font-text text-base text-ink-soft md:text-lg">
+          PRYSM garments are tailored with architectural precision. Use our measurement charts and
+          algorithmic Size Finder to determine your ideal fit.
         </p>
 
         {/* Unit Selector */}
-        <div className="mt-8 inline-flex items-center rounded-full border border-white/80 bg-white/70 p-1 shadow-glass backdrop-blur-md">
+        <div className="shadow-glass mt-8 inline-flex items-center rounded-full border border-white/80 bg-white/70 p-1 backdrop-blur-md">
           <button
             onClick={() => setUnit('cm')}
-            className={`rounded-full px-5 py-2 font-mono text-xs font-semibold uppercase tracking-wider transition ${
-              unit === 'cm'
-                ? 'bg-brand text-on-brand shadow-sm'
-                : 'text-ink-soft hover:text-ink'
+            className={`rounded-full px-5 py-2 font-mono text-xs font-semibold tracking-wider uppercase transition ${
+              unit === 'cm' ? 'bg-brand text-on-brand shadow-sm' : 'text-ink-soft hover:text-ink'
             }`}
           >
             Metric (cm)
           </button>
           <button
             onClick={() => setUnit('in')}
-            className={`rounded-full px-5 py-2 font-mono text-xs font-semibold uppercase tracking-wider transition ${
-              unit === 'in'
-                ? 'bg-brand text-on-brand shadow-sm'
-                : 'text-ink-soft hover:text-ink'
+            className={`rounded-full px-5 py-2 font-mono text-xs font-semibold tracking-wider uppercase transition ${
+              unit === 'in' ? 'bg-brand text-on-brand shadow-sm' : 'text-ink-soft hover:text-ink'
             }`}
           >
             Imperial (in)
@@ -108,19 +106,20 @@ export function SizeGuideView() {
       </div>
 
       {/* Interactive Size Calculator Section */}
-      <section className="mb-16 overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 via-white/80 to-indigo-50/50 p-8 shadow-glass-strong backdrop-blur-xl md:p-12">
-        <div className="grid gap-10 lg:grid-cols-12 items-center">
+      <section className="shadow-glass-strong mb-16 overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 via-white/80 to-indigo-50/50 p-8 backdrop-blur-xl md:p-12">
+        <div className="grid items-center gap-10 lg:grid-cols-12">
           {/* Controls */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="space-y-6 lg:col-span-7">
             <div>
-              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand">
+              <span className="font-mono text-xs font-semibold tracking-wider text-brand uppercase">
                 Interactive Recommendation Tool
               </span>
-              <h2 className="mt-1 font-display text-2xl md:text-3xl font-bold text-ink">
+              <h2 className="mt-1 font-display text-2xl font-bold text-ink md:text-3xl">
                 Calculate Your Tailored Size
               </h2>
               <p className="mt-2 font-text text-sm text-ink-soft">
-                Adjust your anatomical measurements below. Our sizing algorithm accounts for ease and textile drape.
+                Adjust your anatomical measurements below. Our sizing algorithm accounts for ease
+                and textile drape.
               </p>
             </div>
 
@@ -182,7 +181,7 @@ export function SizeGuideView() {
 
               {/* Fit Preference */}
               <div>
-                <span className="text-sm font-medium text-ink block mb-2">
+                <span className="mb-2 block text-sm font-medium text-ink">
                   Drape & Fit Preference
                 </span>
                 <div className="grid grid-cols-3 gap-2">
@@ -191,13 +190,17 @@ export function SizeGuideView() {
                       key={pref}
                       type="button"
                       onClick={() => setFitPreference(pref)}
-                      className={`rounded-xl border p-2.5 font-text text-xs capitalize font-medium transition ${
+                      className={`rounded-xl border p-2.5 font-text text-xs font-medium capitalize transition ${
                         fitPreference === pref
-                          ? 'border-brand bg-brand/10 text-brand font-semibold'
+                          ? 'border-brand bg-brand/10 font-semibold text-brand'
                           : 'border-slate-200 bg-white/70 text-ink-soft hover:bg-white'
                       }`}
                     >
-                      {pref === 'fitted' ? 'Architectural' : pref === 'regular' ? 'True Fit' : 'Relaxed Drape'}
+                      {pref === 'fitted'
+                        ? 'Architectural'
+                        : pref === 'regular'
+                          ? 'True Fit'
+                          : 'Relaxed Drape'}
                     </button>
                   ))}
                 </div>
@@ -207,21 +210,31 @@ export function SizeGuideView() {
 
           {/* Recommendation Output Card */}
           <div className="lg:col-span-5">
-            <div className="rounded-3xl border border-white/90 bg-white/80 p-8 shadow-glass-strong text-center">
-              <span className="font-mono text-xs uppercase tracking-wider text-ink-faint">
+            <div className="shadow-glass-strong rounded-3xl border border-white/90 bg-white/80 p-8 text-center">
+              <span className="font-mono text-xs tracking-wider text-ink-faint uppercase">
                 Recommended Brand Size
               </span>
-              <div className="my-4 font-display text-6xl md:text-7xl font-bold tracking-tight text-brand">
+              <div className="my-4 font-display text-6xl font-bold tracking-tight text-brand md:text-7xl">
                 {recommendedSize}
               </div>
               <p className="font-text text-sm font-medium text-ink">
-                Optimized for {fitPreference === 'fitted' ? 'close architectural tailoring' : fitPreference === 'regular' ? 'standard drape' : 'flowing oversized volume'}
+                Optimized for{' '}
+                {fitPreference === 'fitted'
+                  ? 'close architectural tailoring'
+                  : fitPreference === 'regular'
+                    ? 'standard drape'
+                    : 'flowing oversized volume'}
               </p>
-              <p className="mt-2 font-text text-xs text-ink-soft leading-relaxed">
-                Matches chest measurements between {formatRange(SIZE_CHART.find(r => r.size === recommendedSize)?.chestCm || [96, 102], unit)}.
+              <p className="mt-2 font-text text-xs leading-relaxed text-ink-soft">
+                Matches chest measurements between{' '}
+                {formatRange(
+                  SIZE_CHART.find((r) => r.size === recommendedSize)?.chestCm || [96, 102],
+                  unit,
+                )}
+                .
               </p>
 
-              <div className="mt-6 pt-6 border-t border-slate-200/60">
+              <div className="mt-6 border-t border-slate-200/60 pt-6">
                 <Button asChild size="lg" className="w-full justify-center">
                   <Link href={routes.shop}>
                     Shop In Size {recommendedSize}
@@ -247,15 +260,30 @@ export function SizeGuideView() {
           </div>
         </div>
 
-        <div className="overflow-x-auto rounded-3xl border border-white/80 bg-white/70 shadow-glass backdrop-blur-xl">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="Size chart, scrolls sideways on small screens"
+          className="shadow-glass overflow-x-auto rounded-3xl border border-white/80 bg-white/70 backdrop-blur-xl"
+        >
           <table className="w-full border-collapse text-left font-text text-sm">
             <thead>
               <tr className="border-b border-slate-200/80 bg-slate-50/50">
-                <th className="p-4 pl-6 font-mono text-xs uppercase tracking-wider text-ink font-semibold">Size</th>
-                <th className="p-4 font-mono text-xs uppercase tracking-wider text-ink font-semibold">Chest</th>
-                <th className="p-4 font-mono text-xs uppercase tracking-wider text-ink font-semibold">Waist</th>
-                <th className="p-4 font-mono text-xs uppercase tracking-wider text-ink font-semibold">Hips</th>
-                <th className="p-4 pr-6 font-mono text-xs uppercase tracking-wider text-ink font-semibold">Sleeve Length</th>
+                <th className="p-4 pl-6 font-mono text-xs font-semibold tracking-wider text-ink uppercase">
+                  Size
+                </th>
+                <th className="p-4 font-mono text-xs font-semibold tracking-wider text-ink uppercase">
+                  Chest
+                </th>
+                <th className="p-4 font-mono text-xs font-semibold tracking-wider text-ink uppercase">
+                  Waist
+                </th>
+                <th className="p-4 font-mono text-xs font-semibold tracking-wider text-ink uppercase">
+                  Hips
+                </th>
+                <th className="p-4 pr-6 font-mono text-xs font-semibold tracking-wider text-ink uppercase">
+                  Sleeve Length
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -269,7 +297,7 @@ export function SizeGuideView() {
                   <td className="p-4 pl-6 font-mono font-bold text-ink">
                     {row.size}
                     {row.size === recommendedSize && (
-                      <span className="ml-2 rounded-full bg-brand/10 px-2 py-0.5 text-[10px] uppercase text-brand">
+                      <span className="ml-2 rounded-full bg-brand/10 px-2 py-0.5 text-[10px] text-brand uppercase">
                         Your Fit
                       </span>
                     )}
@@ -286,37 +314,41 @@ export function SizeGuideView() {
       </section>
 
       {/* How to Measure Anatomical Guide */}
-      <section className="rounded-3xl border border-white/80 bg-white/70 p-8 md:p-12 shadow-glass backdrop-blur-xl">
-        <h2 className="font-display text-2xl font-bold text-ink mb-6">
+      <section className="shadow-glass rounded-3xl border border-white/80 bg-white/70 p-8 backdrop-blur-xl md:p-12">
+        <h2 className="mb-6 font-display text-2xl font-bold text-ink">
           How to Measure with Precision
         </h2>
         <div className="grid gap-6 md:grid-cols-4">
           <div className="rounded-2xl border border-white/70 bg-white/60 p-5 shadow-sm">
-            <span className="font-mono text-xs font-semibold uppercase text-brand">01. Chest</span>
+            <span className="font-mono text-xs font-semibold text-brand uppercase">01. Chest</span>
             <h3 className="mt-1 font-display text-base font-bold text-ink">Across Fullest Point</h3>
             <p className="mt-2 font-text text-xs leading-relaxed text-ink-soft">
-              Wrap the tape level around the fullest portion of your chest, keeping the tape taut but comfortably flat across shoulder blades.
+              Wrap the tape level around the fullest portion of your chest, keeping the tape taut
+              but comfortably flat across shoulder blades.
             </p>
           </div>
           <div className="rounded-2xl border border-white/70 bg-white/60 p-5 shadow-sm">
-            <span className="font-mono text-xs font-semibold uppercase text-brand">02. Waist</span>
+            <span className="font-mono text-xs font-semibold text-brand uppercase">02. Waist</span>
             <h3 className="mt-1 font-display text-base font-bold text-ink">Natural Crease Line</h3>
             <p className="mt-2 font-text text-xs leading-relaxed text-ink-soft">
-              Bend gently sideways to locate your natural waistline crease, typically an inch above your belly button. Measure without holding your breath.
+              Bend gently sideways to locate your natural waistline crease, typically an inch above
+              your belly button. Measure without holding your breath.
             </p>
           </div>
           <div className="rounded-2xl border border-white/70 bg-white/60 p-5 shadow-sm">
-            <span className="font-mono text-xs font-semibold uppercase text-brand">03. Hips</span>
+            <span className="font-mono text-xs font-semibold text-brand uppercase">03. Hips</span>
             <h3 className="mt-1 font-display text-base font-bold text-ink">Fullest Pelvic Span</h3>
             <p className="mt-2 font-text text-xs leading-relaxed text-ink-soft">
-              Stand with heels together and pass the tape horizontally around the widest part of your hips and seat.
+              Stand with heels together and pass the tape horizontally around the widest part of
+              your hips and seat.
             </p>
           </div>
           <div className="rounded-2xl border border-white/70 bg-white/60 p-5 shadow-sm">
-            <span className="font-mono text-xs font-semibold uppercase text-brand">04. Sleeve</span>
+            <span className="font-mono text-xs font-semibold text-brand uppercase">04. Sleeve</span>
             <h3 className="mt-1 font-display text-base font-bold text-ink">Center Back to Wrist</h3>
             <p className="mt-2 font-text text-xs leading-relaxed text-ink-soft">
-              Measure from the center back of your neck, across the shoulder point, down along the bent elbow to your prominent wrist bone.
+              Measure from the center back of your neck, across the shoulder point, down along the
+              bent elbow to your prominent wrist bone.
             </p>
           </div>
         </div>

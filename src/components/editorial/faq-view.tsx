@@ -37,11 +37,9 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
       title: item.question,
       content: (
         <div className="pt-2">
-          <p className="font-text text-sm leading-relaxed text-ink-soft">
-            {item.answer}
-          </p>
+          <p className="font-text text-sm leading-relaxed text-ink-soft">{item.answer}</p>
           <div className="mt-3">
-            <span className="inline-block rounded-md bg-slate-100 px-2 py-0.5 font-mono text-[10px] uppercase text-ink-faint">
+            <span className="inline-block rounded-md bg-slate-100 px-2 py-0.5 font-mono text-[10px] text-ink-faint uppercase">
               Topic: {item.group}
             </span>
           </div>
@@ -54,15 +52,16 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
     <div className="mx-auto max-w-5xl px-4 py-12 md:py-16">
       {/* Header */}
       <div className="mb-12 text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-brand">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-brand uppercase">
           <Sparkle size={12} />
           Knowledge Base & Client Care
         </span>
-        <h1 className="mt-3 font-display text-4xl md:text-5xl font-bold tracking-tight text-ink">
+        <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-ink md:text-5xl">
           Frequently Asked Questions
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl font-text text-base md:text-lg text-ink-soft">
-          Answers to client inquiries regarding orders, global express delivery, virtual fitting technology, and optical textile maintenance.
+        <p className="mx-auto mt-4 max-w-2xl font-text text-base text-ink-soft md:text-lg">
+          Answers to client inquiries regarding orders, global express delivery, virtual fitting
+          technology, and optical textile maintenance.
         </p>
 
         {/* Search Bar */}
@@ -75,7 +74,7 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search questions or keywords..."
-            className="glass glass-strong h-13 w-full rounded-full border border-border-strong pl-11 pr-5 font-text text-sm text-ink placeholder:text-ink-faint focus-visible:outline-2 focus-visible:outline-focus"
+            className="glass glass-strong h-13 w-full rounded-full border border-border-strong pr-5 pl-11 font-text text-sm text-ink placeholder:text-ink-faint focus-visible:outline-2 focus-visible:outline-focus"
           />
         </div>
 
@@ -85,10 +84,10 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
             <button
               key={group}
               onClick={() => setSelectedGroup(group)}
-              className={`rounded-full px-4 py-1.5 font-mono text-xs font-semibold uppercase tracking-wider transition ${
+              className={`rounded-full px-4 py-1.5 font-mono text-xs font-semibold tracking-wider uppercase transition ${
                 selectedGroup === group
                   ? 'bg-brand text-on-brand shadow-sm'
-                  : 'bg-white/60 text-ink-soft hover:bg-white hover:text-ink border border-white/70'
+                  : 'border border-white/70 bg-white/60 text-ink-soft hover:bg-white hover:text-ink'
               }`}
             >
               {group}
@@ -98,7 +97,8 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
       </div>
 
       {/* Accordion Questions List */}
-      <div className="rounded-3xl border border-white/80 bg-white/70 p-6 md:p-10 shadow-glass backdrop-blur-xl">
+      <div className="shadow-glass rounded-3xl border border-white/80 bg-white/70 p-6 backdrop-blur-xl md:p-10">
+        <h2 className="sr-only">Questions</h2>
         {accordionItems.length > 0 ? (
           <Accordion items={accordionItems} />
         ) : (
@@ -114,7 +114,7 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
                 setSearchQuery('')
                 setSelectedGroup('All')
               }}
-              className="mt-4 font-mono text-xs uppercase tracking-wider text-brand font-semibold hover:underline"
+              className="mt-4 font-mono text-xs font-semibold tracking-wider text-brand uppercase hover:underline"
             >
               Reset Filters
             </button>
@@ -123,13 +123,14 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
       </div>
 
       {/* Contact Concierge Support Banner */}
-      <div className="mt-12 rounded-3xl border border-white/80 bg-gradient-to-r from-white/90 via-white/80 to-indigo-50/50 p-8 shadow-glass text-center md:flex md:items-center md:justify-between md:text-left">
+      <div className="shadow-glass mt-12 rounded-3xl border border-white/80 bg-gradient-to-r from-white/90 via-white/80 to-indigo-50/50 p-8 text-center md:flex md:items-center md:justify-between md:text-left">
         <div>
           <h3 className="font-display text-xl font-bold text-ink">
             Require specialized assistance?
           </h3>
           <p className="mt-1 font-text text-sm text-ink-soft">
-            Our atelier client advisory staff is at your disposal for bespoke fitting advice and inquiries.
+            Our atelier client advisory staff is at your disposal for bespoke fitting advice and
+            inquiries.
           </p>
         </div>
         <div className="mt-6 md:mt-0">

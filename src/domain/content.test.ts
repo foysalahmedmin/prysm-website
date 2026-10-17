@@ -26,14 +26,24 @@ describe('editorial content schemas', () => {
           slug: 'clothing',
           title: 'Clothing',
           subtitle: 'Upper-body focus',
-          media: { src: '/images/cat-clothing.webp', alt: 'Clothing category', width: 800, height: 1000 },
+          media: {
+            src: '/images/cat-clothing.webp',
+            alt: 'Clothing category',
+            width: 800,
+            height: 1000,
+          },
         },
       ],
       editorial: {
         title: 'The Optics of Liquid Silk',
         body: 'Textiles woven to refract ambient light across the collarbone and shoulders.',
         quote: 'Structure without rigidity.',
-        media: { src: '/images/editorial.webp', alt: 'Silk weaving close-up', width: 1200, height: 800 },
+        media: {
+          src: '/images/editorial.webp',
+          alt: 'Silk weaving close-up',
+          width: 1200,
+          height: 800,
+        },
         cta: { label: 'Read the monograph', href: '/journal/optics-of-liquid-silk' },
       },
       mirrorTryExplainer: {
@@ -58,7 +68,9 @@ describe('editorial content schemas', () => {
       },
     }
 
-    expect(HomeContentSchema.parse(validHome).hero.headline).toBe('Formed from light, worn in motion.')
+    expect(HomeContentSchema.parse(validHome).hero.headline).toBe(
+      'Formed from light, worn in motion.',
+    )
   })
 
   it('validates a LookbookContent object', () => {
@@ -71,7 +83,12 @@ describe('editorial content schemas', () => {
           id: 'look-01',
           title: 'Look 01: Refractive Trench & Liquid Pant',
           description: 'Layered technical organza over fluid liquid silk.',
-          media: { src: '/images/look-01.webp', alt: 'Model wearing trench', width: 1200, height: 1600 },
+          media: {
+            src: '/images/look-01.webp',
+            alt: 'Model wearing trench',
+            width: 1200,
+            height: 1600,
+          },
           productSlugs: ['refractive-trench', 'liquid-pant'],
         },
       ],

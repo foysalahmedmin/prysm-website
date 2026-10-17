@@ -65,6 +65,7 @@ test('robots.txt blocks crawlers while demo mode is on', async ({ request }) => 
 })
 
 test('sitemap lists product pages', async ({ request }) => {
+  const [slug] = await services.catalog.listProductSlugs()
   const body = await (await request.get('/sitemap.xml')).text()
-  expect(body).toContain('/products/longline-coat')
+  expect(body).toContain(routes.product(slug!))
 })

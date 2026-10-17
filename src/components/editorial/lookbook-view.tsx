@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useState } from 'react'
 import Link from 'next/link'
 import { ConnectedProductCard } from '@/components/commerce/connected-product-card'
@@ -28,14 +29,14 @@ export function LookbookView({
     <div className="mx-auto max-w-7xl px-4 py-12 md:py-16">
       {/* Editorial Header */}
       <div className="mb-12 text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold uppercase tracking-wider text-brand">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-brand uppercase">
           <Sparkle size={12} />
           {lookbook.season} Lookbook
         </span>
-        <h1 className="mt-3 font-display text-4xl md:text-6xl font-bold tracking-tight text-ink">
+        <h1 className="mt-3 font-display text-4xl font-bold tracking-tight text-ink md:text-6xl">
           {lookbook.title}
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl font-text text-base md:text-lg text-ink-soft">
+        <p className="mx-auto mt-4 max-w-2xl font-text text-base text-ink-soft md:text-lg">
           {lookbook.description}
         </p>
 
@@ -45,10 +46,10 @@ export function LookbookView({
             <button
               key={look.id}
               onClick={() => setActiveLookIndex(idx)}
-              className={`rounded-full px-5 py-2 font-mono text-xs font-semibold uppercase tracking-wider transition ${
+              className={`rounded-full px-5 py-2 font-mono text-xs font-semibold tracking-wider uppercase transition ${
                 activeLookIndex === idx
-                  ? 'bg-brand text-on-brand shadow-glass-strong'
-                  : 'bg-white/60 text-ink-soft hover:bg-white hover:text-ink border border-white/70'
+                  ? 'shadow-glass-strong bg-brand text-on-brand'
+                  : 'border border-white/70 bg-white/60 text-ink-soft hover:bg-white hover:text-ink'
               }`}
             >
               Look {String(idx + 1).padStart(2, '0')}
@@ -59,25 +60,25 @@ export function LookbookView({
 
       {/* Featured Active Look Presentation */}
       {currentLook && (
-        <section className="mb-20 grid gap-8 lg:grid-cols-12 items-start">
+        <section className="mb-20 grid items-start gap-8 lg:grid-cols-12">
           {/* Main Visual with Lens Frame */}
-          <div className="relative overflow-hidden rounded-3xl border border-white/80 bg-white/70 p-3 shadow-glass-strong backdrop-blur-xl lg:col-span-7">
+          <div className="shadow-glass-strong relative overflow-hidden rounded-3xl border border-white/80 bg-white/70 p-3 backdrop-blur-xl lg:col-span-7">
             <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-slate-100">
-              <img
+              <Image
                 src={currentLook.media.src}
                 alt={currentLook.media.alt}
+                fill
+                sizes="(min-width: 1024px) 33vw, 100vw"
                 className="h-full w-full object-cover transition duration-700 hover:scale-105"
               />
 
               {/* Floating Hotspot indicator badge */}
-              <div className="absolute bottom-6 left-6 rounded-2xl border border-white/80 bg-white/85 p-4 shadow-glass backdrop-blur-md max-w-xs">
-                <span className="font-mono text-xs font-semibold uppercase tracking-wider text-brand">
+              <div className="shadow-glass absolute bottom-6 left-6 max-w-xs rounded-2xl border border-white/80 bg-white/85 p-4 backdrop-blur-md">
+                <span className="font-mono text-xs font-semibold tracking-wider text-brand uppercase">
                   Active Dossier
                 </span>
-                <p className="mt-1 font-display text-sm font-bold text-ink">
-                  {currentLook.title}
-                </p>
-                <p className="mt-1 font-text text-xs text-ink-soft line-clamp-2">
+                <p className="mt-1 font-display text-sm font-bold text-ink">{currentLook.title}</p>
+                <p className="mt-1 line-clamp-2 font-text text-xs text-ink-soft">
                   {currentLook.description}
                 </p>
               </div>
@@ -86,19 +87,18 @@ export function LookbookView({
 
           {/* Shoppable Products Side Rail */}
           <div className="flex flex-col gap-6 lg:col-span-5">
-            <div className="rounded-3xl border border-white/80 bg-white/70 p-6 shadow-glass backdrop-blur-xl">
+            <div className="shadow-glass rounded-3xl border border-white/80 bg-white/70 p-6 backdrop-blur-xl">
               <div className="flex items-center justify-between border-b border-slate-200/60 pb-4">
                 <div>
-                  <h2 className="font-display text-xl font-bold text-ink">
-                    Pieces in This Look
-                  </h2>
+                  <h2 className="font-display text-xl font-bold text-ink">Pieces in This Look</h2>
                   <p className="font-text text-xs text-ink-soft">
-                    {currentProducts.length} shoppable garment{currentProducts.length === 1 ? '' : 's'}
+                    {currentProducts.length} shoppable garment
+                    {currentProducts.length === 1 ? '' : 's'}
                   </p>
                 </div>
                 <Link
                   href={routes.shop}
-                  className="font-text text-xs font-semibold text-brand hover:underline inline-flex items-center gap-1"
+                  className="inline-flex items-center gap-1 font-text text-xs font-semibold text-brand hover:underline"
                 >
                   Shop all <ArrowRight size={12} />
                 </Link>
@@ -109,7 +109,7 @@ export function LookbookView({
                 {currentProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="overflow-hidden rounded-2xl border border-white/80 bg-white/80 p-2 shadow-sm transition hover:shadow-glass"
+                    className="hover:shadow-glass overflow-hidden rounded-2xl border border-white/80 bg-white/80 p-2 shadow-sm transition"
                   >
                     <ConnectedProductCard product={product} />
                   </div>
@@ -128,7 +128,7 @@ export function LookbookView({
 
       {/* All Looks Overview Grid */}
       <section className="border-t border-slate-200/80 pt-16">
-        <h2 className="font-display text-2xl md:text-3xl font-bold text-ink mb-8 text-center">
+        <h2 className="mb-8 text-center font-display text-2xl font-bold text-ink md:text-3xl">
           Complete Seasonal Collection
         </h2>
         <div className="grid gap-8 md:grid-cols-3">
@@ -139,27 +139,29 @@ export function LookbookView({
                 setActiveLookIndex(idx)
                 window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
-              className="group cursor-pointer flex flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/60 p-4 shadow-glass backdrop-blur-md transition hover:-translate-y-1 hover:shadow-glass-strong"
+              className="group shadow-glass hover:shadow-glass-strong flex cursor-pointer flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/60 p-4 backdrop-blur-md transition hover:-translate-y-1"
             >
-              <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-slate-100 mb-4">
-                <img
+              <div className="relative mb-4 aspect-[3/4] overflow-hidden rounded-2xl bg-slate-100">
+                <Image
                   src={look.media.src}
                   alt={look.media.alt}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, 100vw"
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                 />
               </div>
               <div className="flex items-center justify-between">
-                <span className="font-mono text-xs uppercase font-semibold text-brand">
+                <span className="font-mono text-xs font-semibold text-brand uppercase">
                   Look {String(idx + 1).padStart(2, '0')}
                 </span>
                 <span className="font-text text-xs text-ink-faint">
                   {look.productSlugs.length} piece{look.productSlugs.length === 1 ? '' : 's'}
                 </span>
               </div>
-              <h3 className="mt-2 font-display text-base font-bold text-ink group-hover:text-brand transition">
+              <h3 className="mt-2 font-display text-base font-bold text-ink transition group-hover:text-brand">
                 {look.title}
               </h3>
-              <p className="mt-1 font-text text-xs text-ink-soft line-clamp-2">
+              <p className="mt-1 line-clamp-2 font-text text-xs text-ink-soft">
                 {look.description}
               </p>
             </div>

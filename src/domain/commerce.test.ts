@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  AddressSchema,
-  CustomerSchema,
-  OrderSchema,
-  OrderStatusSchema,
-} from './commerce'
+import { AddressSchema, CustomerSchema, OrderSchema, OrderStatusSchema } from './commerce'
 
 describe('Commerce Domain Schemas', () => {
   it('validates a correct Address', () => {

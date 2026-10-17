@@ -56,6 +56,8 @@ export function Gallery({ media, labels, className }: GalleryProps & { className
               key={item.src}
               type="button"
               onClick={() => setIndex(i)}
+              aria-label={labels.position(i + 1, media.length)}
+              aria-current={index === i}
               className={cn(
                 'relative h-20 w-16 shrink-0 overflow-hidden rounded-[14px] border-2 transition-all',
                 index === i
