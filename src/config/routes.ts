@@ -1,0 +1,42 @@
+/** Single source of truth for URLs. Navigation, sitemap and e2e tests all read from here. */
+export const routes = {
+  home: '/',
+  shop: '/shop',
+  category: (slug: string) => `/shop/${slug}`,
+  collections: '/collections',
+  collection: (slug: string) => `/collections/${slug}`,
+  product: (slug: string) => `/products/${slug}`,
+  search: '/search',
+  sale: '/sale',
+  newArrivals: '/new-arrivals',
+  lookbook: '/lookbook',
+  tryOn: '/try-on',
+  cart: '/cart',
+  checkout: '/checkout',
+  checkoutSuccess: '/checkout/success',
+  wishlist: '/wishlist',
+  trackOrder: '/track-order',
+  login: '/account/login',
+  register: '/account/register',
+  forgotPassword: '/account/forgot-password',
+  account: '/account',
+  orders: '/account/orders',
+  order: (id: string) => `/account/orders/${id}`,
+  addresses: '/account/addresses',
+  profile: '/account/profile',
+  about: '/about',
+  journal: '/journal',
+  journalPost: (slug: string) => `/journal/${slug}`,
+  contact: '/contact',
+  faq: '/faq',
+  shippingReturns: '/shipping-returns',
+  sizeGuide: '/size-guide',
+  stores: '/stores',
+  privacy: '/privacy',
+  terms: '/terms',
+} as const
+
+/** Every route that has no dynamic segment. */
+export const staticRoutes: string[] = Object.values(routes).filter(
+  (value): value is Extract<typeof value, string> => typeof value === 'string',
+)
