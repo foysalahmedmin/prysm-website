@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { products } from '@/data/products'
 import { useCartStore } from '@/stores/cart-store'
@@ -32,7 +32,10 @@ describe('MirrorTryHost', () => {
         <Driver />
       </MirrorTryHost>,
     )
-    getByRole('button', { name: 'drive' }).click()
+
+    await act(async () => {
+      getByRole('button', { name: 'drive' }).click()
+    })
 
     await expect
       .poll(() => useCartStore.getState().lines)

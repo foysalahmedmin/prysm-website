@@ -10,6 +10,7 @@ export const brand = {
   currency: 'USD' as CurrencyCode,
   taxRate: 0.08,
   contactEmail: 'hello@prysm.example',
+  cartNoun: 'Bag',
 } as const
 
 export type Brand = typeof brand

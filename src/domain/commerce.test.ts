@@ -2,8 +2,6 @@ import { describe, expect, it } from 'vitest'
 import {
   AddressSchema,
   CustomerSchema,
-  OrderLineSchema,
-  OrderPaymentSchema,
   OrderSchema,
   OrderStatusSchema,
 } from './commerce'

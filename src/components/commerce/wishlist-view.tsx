@@ -32,24 +32,27 @@ export function WishlistView() {
     if (!hydrated) return
     let cancelled = false
 
-    if (productIds.length === 0) {
-      setProducts([])
-      setLoading(false)
-      return
-    }
+    Promise.resolve().then(() => {
+      if (cancelled) return
+      if (productIds.length === 0) {
+        setProducts([])
+        setLoading(false)
+        return
+      }
 
-    setLoading(true)
-    import('@/services')
-      .then(({ services }) => services.catalog.getProductsByIds(productIds))
-      .then((prods) => {
-        if (!cancelled) {
-          setProducts(prods)
-          setLoading(false)
-        }
-      })
-      .catch(() => {
-        if (!cancelled) setLoading(false)
-      })
+      setLoading(true)
+      import('@/services')
+        .then(({ services }) => services.catalog.getProductsByIds(productIds))
+        .then((prods) => {
+          if (!cancelled) {
+            setProducts(prods)
+            setLoading(false)
+          }
+        })
+        .catch(() => {
+          if (!cancelled) setLoading(false)
+        })
+    })
 
     return () => {
       cancelled = true

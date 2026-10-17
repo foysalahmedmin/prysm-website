@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { ArrowRight, Check, Sparkle } from '@/components/icons'
+import { ArrowRight, Check } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { brand } from '@/config/brand'
 import { routes } from '@/config/routes'

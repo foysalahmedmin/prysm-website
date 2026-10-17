@@ -39,22 +39,26 @@ export function CartView() {
   useEffect(() => {
     if (!hydrated) return
     let cancelled = false
-    setLoading(true)
 
-    quoteCartAction({
-      lines,
-      promoCode: appliedPromo,
-      shippingMethodId,
+    Promise.resolve().then(() => {
+      if (cancelled) return
+      setLoading(true)
+
+      quoteCartAction({
+        lines,
+        promoCode: appliedPromo,
+        shippingMethodId,
+      })
+        .then((q) => {
+          if (!cancelled) {
+            setQuote(q)
+            setLoading(false)
+          }
+        })
+        .catch(() => {
+          if (!cancelled) setLoading(false)
+        })
     })
-      .then((q) => {
-        if (!cancelled) {
-          setQuote(q)
-          setLoading(false)
-        }
-      })
-      .catch(() => {
-        if (!cancelled) setLoading(false)
-      })
 
     return () => {
       cancelled = true

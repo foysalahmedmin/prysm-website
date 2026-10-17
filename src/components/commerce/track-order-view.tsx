@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { ArrowRight, Check, MagnifyingGlass, Sparkle } from '@/components/icons'
+import { Check, MagnifyingGlass } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { brand } from '@/config/brand'
 import { routes } from '@/config/routes'

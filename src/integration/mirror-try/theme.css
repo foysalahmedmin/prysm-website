@@ -1,32 +1,594 @@
-/* PRYSM Mirror Try theme: The Lens (Phase 2 trigger styles) */
+/**
+ * PRYSM Mirror Try Theme: "The Lens"
+ * Aesthetics: Full-screen refractive glass, prismatic edge border glow,
+ * floating glass pills, spectrum scan sweep, 120ms capture flash.
+ */
+
+/* CSS Variable Tokens for The Lens */
+:root {
+  --mt-surface: rgb(255 255 255 / 0.72);
+  --mt-surface-card: rgb(255 255 255 / 0.82);
+  --mt-ink: #111827;
+  --mt-ink-muted: #4b5563;
+  --mt-accent: #4f46e5;
+  --mt-prism-glow: conic-gradient(from 180deg at 50% 50%, #ff7170 0deg, #ffe57f 72deg, #7cf4cb 144deg, #78a5ff 216deg, #e388ff 288deg, #ff7170 360deg);
+  --mt-radius-modal: 32px;
+  --mt-radius-viewport: 24px;
+  --mt-radius-pill: 9999px;
+  --mt-shadow-lens: 0 24px 60px -12px rgb(99 102 241 / 0.25), 0 0 0 1px rgb(255 255 255 / 0.8);
+  --mt-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --mt-duration: 280ms;
+}
+
+/* 1. Trigger Button */
 [data-mt-part='trigger'] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  background: rgb(255 255 255 / var(--alpha-glass-strong, 0.72));
-  backdrop-filter: blur(var(--blur-glass, 26px)) saturate(170%);
-  -webkit-backdrop-filter: blur(var(--blur-glass, 26px)) saturate(170%);
-  border: 1px solid rgb(255 255 255 / 0.72);
-  color: var(--color-ink);
-  font-family: var(--font-text);
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--mt-radius-pill);
+  background: rgb(255 255 255 / var(--alpha-glass-strong, 0.75));
+  backdrop-filter: blur(var(--blur-glass, 26px)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-glass, 26px)) saturate(180%);
+  border: 1px solid rgb(255 255 255 / 0.8);
+  color: var(--mt-ink);
+  font-family: var(--font-text, sans-serif);
   font-size: 0.8125rem;
   font-weight: 600;
-  box-shadow: 0 4px 12px -2px rgb(40 52 110 / 0.15);
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 16px -2px rgb(79 70 229 / 0.15);
+  transition: all var(--mt-duration) var(--mt-ease);
   cursor: pointer;
 }
 
 [data-mt-part='trigger']:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   box-shadow:
     0 0 0 1px #fff,
-    0 6px 16px -2px rgb(40 52 110 / 0.25);
+    0 8px 24px -4px rgb(79 70 229 / 0.3);
 }
 
 [data-mt-part='trigger']:focus-visible {
-  outline: 2px solid var(--color-focus);
+  outline: 2px solid var(--mt-accent);
   outline-offset: 2px;
+}
+
+/* 2. Modal Overlay */
+[data-mt-part='overlay'] {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgb(15 23 42 / 0.45);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  animation: mt-overlay-in 300ms var(--mt-ease);
+}
+
+@keyframes mt-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 3. Modal Panel ("The Lens" Card) */
+[data-mt-part='panel'] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+  width: min(94vw, 1080px);
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: var(--mt-radius-modal);
+  background: rgb(255 255 255 / 0.84);
+  backdrop-filter: blur(32px) saturate(190%);
+  -webkit-backdrop-filter: blur(32px) saturate(190%);
+  border: 1px solid rgb(255 255 255 / 0.85);
+  box-shadow: var(--mt-shadow-lens);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  animation: mt-panel-in 320ms var(--mt-ease);
+}
+
+@keyframes mt-panel-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Prismatic iridescent edge ring */
+[data-mt-part='panel']::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--mt-radius-modal) + 2px);
+  background: var(--mt-prism-glow);
+  z-index: -1;
+  opacity: 0.35;
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+/* 4. Header */
+[data-mt-part='header'] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.6);
+}
+
+.mt-header-copy .mt-title {
+  font-family: var(--font-display, sans-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--mt-ink);
+}
+
+.mt-header-copy .mt-subtitle {
+  font-size: 0.875rem;
+  color: var(--mt-ink-muted);
+}
+
+[data-mt-part='close'] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--mt-radius-pill);
+  background: rgb(255 255 255 / 0.6);
+  border: 1px solid rgb(255 255 255 / 0.8);
+  color: var(--mt-ink);
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+[data-mt-part='close']:hover {
+  background: #ffffff;
+  transform: rotate(90deg) scale(1.05);
+}
+
+/* 5. Content Layout Grid */
+.mt-content-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .mt-content-body {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+/* 6. Viewport ("The Lens" Optical Chamber) */
+[data-mt-part='viewport'] {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  min-height: 440px;
+  max-height: 580px;
+  border-radius: var(--mt-radius-viewport);
+  overflow: hidden;
+  background: linear-gradient(135deg, #eef2ff 0%, #fdf4ff 50%, #f0fdf4 100%);
+  border: 1px solid rgb(255 255 255 / 0.9);
+  box-shadow: inset 0 2px 8px rgb(0 0 0 / 0.04);
+}
+
+[data-mt-part='viewport']:focus-visible {
+  outline: 2px solid var(--mt-accent);
+}
+
+/* 120ms Capture Flash */
+[data-mt-part='viewport'].is-flashing::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  z-index: 50;
+  animation: mt-flash 120ms ease-out;
+}
+
+@keyframes mt-flash {
+  0% { opacity: 0.95; }
+  100% { opacity: 0; }
+}
+
+/* Model & Media Background */
+.mt-model-bg-wrapper,
+.mt-upload-bg-wrapper,
+.mt-camera-bg-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mt-model-silhouette {
+  width: 100%;
+  height: 100%;
+  background-color: #f1f5f9;
+}
+
+.mt-uploaded-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mt-camera-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mt-camera-guide {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(255 255 255 / 0.6);
+}
+
+.mt-guide-svg {
+  width: 60%;
+  height: 60%;
+}
+
+/* Spectrum Scan Sweep */
+.mt-scan-sweep {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, #818cf8 25%, #c084fc 50%, #38bdf8 75%, transparent 100%);
+  box-shadow: 0 0 14px 2px rgb(129 140 248 / 0.6);
+  z-index: 10;
+  pointer-events: none;
+  animation: spectrum-scan 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes spectrum-scan {
+  0% {
+    top: 5%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: 95%;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mt-scan-sweep {
+    display: none;
+  }
+}
+
+/* Garment Overlay Cutout */
+.mt-garment-overlay {
+  z-index: 5;
+  filter: drop-shadow(0 12px 20px rgb(30 27 75 / 0.2));
+  user-select: none;
+}
+
+.mt-garment-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* 7. Controls Panel */
+[data-mt-part='controls'] {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Mode Switcher Tabs */
+[data-mt-part='mode-selector'] {
+  display: flex;
+  gap: 0.5rem;
+  background: rgb(255 255 255 / 0.5);
+  padding: 0.375rem;
+  border-radius: var(--mt-radius-pill);
+  border: 1px solid rgb(255 255 255 / 0.7);
+}
+
+.mt-mode-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--mt-radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--mt-ink-muted);
+  cursor: pointer;
+  transition: all 180ms ease;
+  background: transparent;
+  border: none;
+}
+
+.mt-mode-tab.is-active {
+  background: #ffffff;
+  color: var(--mt-ink);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+}
+
+/* Model Selector Pills */
+.mt-section-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mt-ink-muted);
+  margin-bottom: 0.5rem;
+}
+
+.mt-model-pills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.mt-model-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0.25rem;
+  border-radius: 14px;
+  background: rgb(255 255 255 / 0.6);
+  border: 1px solid rgb(255 255 255 / 0.8);
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.mt-model-pill.is-active {
+  background: #ffffff;
+  border-color: var(--mt-accent);
+  box-shadow: 0 0 0 1px var(--mt-accent), 0 4px 12px rgb(79 70 229 / 0.15);
+}
+
+.mt-model-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--mt-ink);
+}
+
+.mt-model-height {
+  font-size: 0.6875rem;
+  color: var(--mt-ink-muted);
+}
+
+/* Size Recommendation Badge */
+[data-mt-part='size'] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--mt-radius-pill);
+  background: rgb(99 102 241 / 0.1);
+  color: var(--mt-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Variant Chips */
+.mt-variant-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.mt-variant-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--mt-radius-pill);
+  background: rgb(255 255 255 / 0.6);
+  border: 1px solid rgb(255 255 255 / 0.8);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--mt-ink);
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.mt-variant-chip.is-active {
+  background: var(--mt-ink);
+  color: #ffffff;
+  border-color: var(--mt-ink);
+}
+
+/* Capture Button */
+[data-mt-part='capture'] .mt-capture-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem;
+  border-radius: var(--mt-radius-pill);
+  background: rgb(255 255 255 / 0.8);
+  border: 1px solid rgb(255 255 255 / 0.9);
+  color: var(--mt-ink);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+[data-mt-part='capture'] .mt-capture-btn:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.1);
+}
+
+/* Saved Looks Tray */
+[data-mt-part='looks'] .mt-looks-tray {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.mt-look-thumbnail {
+  width: 52px;
+  height: 68px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.9);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.08);
+}
+
+.mt-look-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 8. Footer Actions */
+[data-mt-part='actions'] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(255 255 255 / 0.6);
+}
+
+.mt-btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--mt-radius-pill);
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: #ffffff;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 16px -2px rgb(79 70 229 / 0.4);
+  cursor: pointer;
+  transition: all var(--mt-duration) var(--mt-ease);
+}
+
+.mt-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -2px rgb(79 70 229 / 0.5);
+}
+
+.mt-btn-ghost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  color: var(--mt-ink-muted);
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.mt-btn-ghost:hover {
+  color: var(--mt-ink);
+}
+
+.mt-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--mt-radius-pill);
+  background: #ffffff;
+  border: 1px solid rgb(203 213 225 / 0.8);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--mt-ink);
+  cursor: pointer;
+}
+
+.mt-btn-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--mt-radius-pill);
+  background: rgb(255 255 255 / 0.7);
+  border: 1px solid rgb(255 255 255 / 0.9);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--mt-ink);
+  cursor: pointer;
+}
+
+.mt-sliders-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.mt-slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--mt-ink-muted);
+}
+
+.mt-slider-row input[type='range'] {
+  accent-color: var(--mt-accent);
+}
+
+.mt-disclaimer {
+  font-size: 0.6875rem;
+  color: var(--mt-ink-muted);
+  line-height: 1.4;
+}
+
+.mt-btn-block {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem;
+  border-radius: var(--mt-radius-pill);
+  background: rgb(255 255 255 / 0.7);
+  border: 1px solid rgb(255 255 255 / 0.9);
+  color: var(--mt-ink);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  cursor: pointer;
 }

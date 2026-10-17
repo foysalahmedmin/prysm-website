@@ -51,10 +51,34 @@ export interface TryOnEventMap {
 
 export type TryOnEventName = keyof TryOnEventMap
 
+export type FidelityMode = 'models' | 'upload' | 'camera'
+
+export interface UserAdjustment {
+  x: number
+  y: number
+  scale: number
+  rotation: number
+}
+
+export interface CapturedLook {
+  id: string
+  productId: string
+  variantId?: string
+  imageDataUrl: string
+  timestamp: number
+}
+
 export interface MirrorTryState {
   status: 'idle' | 'opening' | 'ready' | 'error'
   request: TryOnRequest | null
   error: TryOnError | null
+  product?: MirrorTryProduct | null
+  mode?: FidelityMode
+  selectedModelId?: string
+  userPhotoUrl?: string | null
+  userAdjustment?: UserAdjustment
+  cameraActive?: boolean
+  looks?: CapturedLook[]
 }
 
 /** What every engine behind the plugin (the demo mock, the real SDK) must implement. */
@@ -65,6 +89,12 @@ export interface MirrorTryAdapter {
   close(): void
   setVariant(variantId: string): void
   addToCart(variantId: string): void
+  setMode?(mode: FidelityMode): void
+  setModel?(modelId: string): void
+  setUserPhoto?(dataUrl: string | null): void
+  setAdjustment?(adj: Partial<UserAdjustment>): void
+  setCameraActive?(active: boolean): void
+  capture?(imageDataUrl?: string): void
   getState(): MirrorTryState
   /** For React's useSyncExternalStore. Returns an unsubscribe function. */
   subscribe(listener: () => void): () => void

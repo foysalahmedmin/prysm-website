@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { ArrowRight, Check, Sparkle, User } from '@/components/icons'
+import { ArrowRight, Check, Sparkle } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { routes } from '@/config/routes'
 import { useSessionStore } from '@/stores/session-store'
