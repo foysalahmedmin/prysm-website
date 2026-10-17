@@ -7,6 +7,18 @@ export default function DesignSystemPage() {
   return (
     <>
       <h1>Design system</h1>
+      <section data-ds-section="surfaces" aria-labelledby="ds-surfaces">
+        <h2 id="ds-surfaces">Surfaces</h2>
+        <div className="light-field" data-ds-surface="light-field" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+          <i />
+        </div>
+        <div className="glass glass-strong p-6" data-ds-surface="glass">
+          <p>Glass surface carries text with AA contrast</p>
+        </div>
+      </section>
       <section data-ds-section="forms" aria-labelledby="ds-forms">
         <h2 id="ds-forms">Forms</h2>
         <TextField label="Email" hint="We never share it" />
