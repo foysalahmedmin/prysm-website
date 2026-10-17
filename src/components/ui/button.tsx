@@ -36,8 +36,7 @@ const button = cva(
 )
 
 export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof button> {
+  extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof button> {
   loading?: boolean
   /** Render the child element (for example a Next.js <Link>) instead of a <button>. */
   asChild?: boolean

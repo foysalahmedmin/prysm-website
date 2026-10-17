@@ -59,7 +59,7 @@ export function Dialog({
             </RadixDialog.Title>
             <RadixDialog.Close
               aria-label={closeLabel}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-ink hover:bg-ink/10 focus-visible:outline-2 focus-visible:outline-focus text-lg leading-none"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-lg leading-none text-ink hover:bg-ink/10 focus-visible:outline-2 focus-visible:outline-focus"
             >
               ×
             </RadixDialog.Close>

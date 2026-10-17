@@ -34,7 +34,7 @@ export function Tabs({
           <RadixTabs.Trigger
             key={item.value}
             value={item.value}
-            className="rounded-full px-5 py-2 font-text text-sm font-medium text-ink-soft transition-all duration-200 data-[state=active]:bg-brand data-[state=active]:text-on-brand data-[state=active]:shadow-sm focus-visible:outline-2 focus-visible:outline-focus"
+            className="rounded-full px-5 py-2 font-text text-sm font-medium text-ink-soft transition-all duration-200 focus-visible:outline-2 focus-visible:outline-focus data-[state=active]:bg-brand data-[state=active]:text-on-brand data-[state=active]:shadow-sm"
           >
             {item.label}
           </RadixTabs.Trigger>

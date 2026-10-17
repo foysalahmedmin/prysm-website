@@ -10,13 +10,7 @@ export interface AccordionItem {
   content: ReactNode
 }
 
-export function Accordion({
-  items,
-  className,
-}: {
-  items: AccordionItem[]
-  className?: string
-}) {
+export function Accordion({ items, className }: { items: AccordionItem[]; className?: string }) {
   return (
     <RadixAccordion.Root type="single" collapsible className={cn('w-full space-y-2', className)}>
       {items.map((item) => (
