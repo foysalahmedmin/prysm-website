@@ -21,11 +21,7 @@ export const stores: Store[] = [
     city: '75004 Paris',
     country: 'France',
     phone: '+33 1 42 68 55 00',
-    hours: [
-      'Tuesday – Saturday: 10:30 – 19:30',
-      'Sunday: 13:00 – 19:00',
-      'Closed Mondays',
-    ],
+    hours: ['Tuesday – Saturday: 10:30 – 19:30', 'Sunday: 13:00 – 19:00', 'Closed Mondays'],
   },
   {
     id: 's-003',
@@ -34,9 +30,6 @@ export const stores: Store[] = [
     city: 'Tokyo 107-0062',
     country: 'Japan',
     phone: '+81 3 5468 0199',
-    hours: [
-      'Daily: 11:00 – 20:00',
-      'Virtual Spectral Chamber on 2nd Floor',
-    ],
+    hours: ['Daily: 11:00 – 20:00', 'Virtual Spectral Chamber on 2nd Floor'],
   },
 ]

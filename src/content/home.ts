@@ -7,8 +7,8 @@ export const home: HomeContent = {
     body: 'A study in refractive tailoring, spectral organza, and liquid silks.',
     cta: { label: 'Explore the collection', href: '/shop' },
     media: {
-      src: '/images/products/spectral-trench-1.webp',
-      alt: 'Model in iridescent tailored trench under prismatic illumination',
+      src: '/images/home/hero.webp',
+      alt: 'Three tailored coats, a blazer, a trench and a duster, laid out on a pale prismatic backdrop',
       width: 1920,
       height: 1080,
     },
@@ -18,8 +18,8 @@ export const home: HomeContent = {
     subtitle: 'Signature upper-body silhouettes engineered for virtual try-on',
     productSlugs: [
       'spectral-trench-coat',
-      'refractive-silk-blazer',
-      'liquid-silk-button-down',
+      'refractive-double-breasted-blazer',
+      'spectral-silk-button-down',
       'holographic-mesh-tee',
     ],
   },
@@ -29,8 +29,8 @@ export const home: HomeContent = {
       title: 'Clothing',
       subtitle: 'Refractive tailoring & lightwear',
       media: {
-        src: '/images/products/refractive-blazer-1.webp',
-        alt: 'Refractive silk blazer drape',
+        src: '/images/home/category-clothing.webp',
+        alt: 'A double-breasted blazer in deep ink on a soft spectrum backdrop',
         width: 800,
         height: 1067,
       },
@@ -40,8 +40,8 @@ export const home: HomeContent = {
       title: 'Accessories',
       subtitle: 'Prismatic leather & optical nylon',
       media: {
-        src: '/images/products/glass-clasp-crossbody-1.webp',
-        alt: 'Glass-clasp crossbody bag detail',
+        src: '/images/home/category-accessories.webp',
+        alt: 'A glass-clasp crossbody bag above a technical belt on a soft spectrum backdrop',
         width: 800,
         height: 1067,
       },
@@ -51,8 +51,8 @@ export const home: HomeContent = {
       title: 'Jewelry',
       subtitle: 'Titanium & spectral crystal forms',
       media: {
-        src: '/images/products/titanium-prism-ring-1.webp',
-        alt: 'Titanium prism signet ring reflection',
+        src: '/images/home/category-jewelry.webp',
+        alt: 'A titanium signet ring above a refraction pendant on a soft spectrum backdrop',
         width: 800,
         height: 1067,
       },
@@ -63,8 +63,8 @@ export const home: HomeContent = {
     body: 'Spun from high-twist mulberry fibres infused with micronised silica, our signature liquid silk moves like running water and refracts ambient sunlight with every gesture.',
     quote: 'Structure without rigidity, radiance without ostentation.',
     media: {
-      src: '/images/products/liquid-silk-duster-1.webp',
-      alt: 'Macro view of liquid silk drape',
+      src: '/images/home/editorial.webp',
+      alt: 'Close view of the neck and shoulders of a sand-coloured silk duster',
       width: 1200,
       height: 800,
     },
@@ -98,7 +98,8 @@ export const home: HomeContent = {
   },
   newsletter: {
     title: 'The Prism Dispatch',
-    description: 'New capsule drops, technical textile journals, and invitations to private trunk viewings.',
+    description:
+      'New capsule drops, technical textile journals, and invitations to private trunk viewings.',
     placeholder: 'Enter your email address',
     cta: 'Join Dispatch',
   },

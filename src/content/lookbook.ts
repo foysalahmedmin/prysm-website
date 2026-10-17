@@ -8,10 +8,11 @@ export const lookbook: LookbookContent = {
     {
       id: 'look-01',
       title: 'Look 01 — Spectral Trench & Tailored Pant',
-      description: 'The Spectral Trench Coat layered over fluid tailored trousers in refractive ink.',
+      description:
+        'The Spectral Trench Coat layered over fluid tailored trousers in refractive ink.',
       media: {
-        src: '/images/products/spectral-trench-1.webp',
-        alt: 'Model walking in Spectral Trench Coat',
+        src: '/images/lookbook/look-01.webp',
+        alt: 'The Spectral Trench Coat over tailored trousers, laid out on a prismatic backdrop',
         width: 1200,
         height: 1600,
       },
@@ -22,8 +23,8 @@ export const lookbook: LookbookContent = {
       title: 'Look 02 — Double-Breasted Refractive Blazer',
       description: 'Structured silk-organza tailoring paired with iridescent column skirt.',
       media: {
-        src: '/images/products/refractive-blazer-1.webp',
-        alt: 'Model wearing Refractive Blazer in daylight',
+        src: '/images/lookbook/look-02.webp',
+        alt: 'The Refractive Double-Breasted Blazer with the iridescent pleated column skirt, laid out on a prismatic backdrop',
         width: 1200,
         height: 1600,
       },
@@ -32,10 +33,11 @@ export const lookbook: LookbookContent = {
     {
       id: 'look-03',
       title: 'Look 03 — Liquid Silk Duster & Titanium Signet',
-      description: 'Unstructured liquid silk duster accented with hand-turned titanium prism signet ring.',
+      description:
+        'Unstructured liquid silk duster accented with hand-turned titanium prism signet ring.',
       media: {
-        src: '/images/products/liquid-silk-duster-1.webp',
-        alt: 'Model in Liquid Silk Duster',
+        src: '/images/lookbook/look-03.webp',
+        alt: 'The Liquid Silk Duster beside the titanium prism signet ring, laid out on a prismatic backdrop',
         width: 1200,
         height: 1600,
       },

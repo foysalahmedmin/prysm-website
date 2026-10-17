@@ -4,12 +4,13 @@ export const journal: JournalPost[] = [
   {
     slug: 'how-to-choose-your-size',
     title: 'How to Choose Your Size: Three Measurements and Virtual Fitting',
-    excerpt: 'Three anatomical measurements and our interactive virtual lens for checking fit across movement.',
+    excerpt:
+      'Three anatomical measurements and our interactive virtual lens for checking fit across movement.',
     publishedAt: '2026-09-15T09:00:00.000Z',
     readingMinutes: 4,
     cover: {
-      src: '/images/products/spectral-trench-2.webp',
-      alt: 'Architectural measuring tape placed over tailored wool cloth',
+      src: '/images/journal/prysm/how-to-choose-your-size.webp',
+      alt: 'Close view of a poplin shirt collar and placket, the points to check when choosing a size',
       width: 1200,
       height: 800,
     },
@@ -22,12 +23,13 @@ export const journal: JournalPost[] = [
   {
     slug: 'the-physics-of-liquid-silk',
     title: 'The Physics of Liquid Silk: Light Refraction in High-Twist Textiles',
-    excerpt: 'Exploring how micronised silica particles infused into pure mulberry silk create a self-refracting cloth.',
+    excerpt:
+      'Exploring how micronised silica particles infused into pure mulberry silk create a self-refracting cloth.',
     publishedAt: '2026-09-01T10:00:00.000Z',
     readingMinutes: 6,
     cover: {
-      src: '/images/products/liquid-silk-duster-2.webp',
-      alt: 'Macro photograph of high-twist mulberry silk fibers refracting prism light',
+      src: '/images/journal/prysm/the-physics-of-liquid-silk.webp',
+      alt: 'Close view of the fall of a liquid silk duster in prismatic light',
       width: 1200,
       height: 800,
     },
@@ -40,12 +42,13 @@ export const journal: JournalPost[] = [
   {
     slug: 'light-absorption-in-modern-textiles',
     title: 'Light Absorption and Chromatic Aberration in Modern Tailoring',
-    excerpt: 'How our design team balances deep light absorption with spectral highlights in structured blazers.',
+    excerpt:
+      'How our design team balances deep light absorption with spectral highlights in structured blazers.',
     publishedAt: '2026-08-20T11:00:00.000Z',
     readingMinutes: 5,
     cover: {
-      src: '/images/products/refractive-blazer-2.webp',
-      alt: 'Tailored peak lapel showing subtle chromatic violet edge reflection',
+      src: '/images/journal/prysm/light-absorption-in-modern-textiles.webp',
+      alt: 'Close view of a double-breasted blazer lapel and buttons',
       width: 1200,
       height: 800,
     },
@@ -58,12 +61,13 @@ export const journal: JournalPost[] = [
   {
     slug: 'care-guide-for-technical-organza',
     title: 'Living with Technical Organza: Washing, Steaming, and Longevity',
-    excerpt: 'Best practices for preserving the crisp geometric volume of our laser-bonded technical overshirts.',
+    excerpt:
+      'Best practices for preserving the crisp geometric volume of our laser-bonded technical overshirts.',
     publishedAt: '2026-08-05T14:00:00.000Z',
     readingMinutes: 3,
     cover: {
-      src: '/images/products/refractive-organza-overshirt-2.webp',
-      alt: 'Technical organza overshirt hung on cedar hanger against frosted glass',
+      src: '/images/journal/prysm/care-guide-for-technical-organza.webp',
+      alt: 'Close view of a sheer organza overshirt with its pockets and placket',
       width: 1200,
       height: 800,
     },
@@ -76,12 +80,13 @@ export const journal: JournalPost[] = [
   {
     slug: 'milling-aerospace-titanium',
     title: 'Milling Grade-5 Titanium: Precision Forms for the Human Body',
-    excerpt: 'A visit to our precision CNC milling studio where aerospace titanium is transformed into signet rings and cuffs.',
+    excerpt:
+      'A visit to our precision CNC milling studio where aerospace titanium is transformed into signet rings and cuffs.',
     publishedAt: '2026-07-18T16:00:00.000Z',
     readingMinutes: 7,
     cover: {
-      src: '/images/products/titanium-prism-ring-2.webp',
-      alt: 'CNC machine precision milling a raw titanium prism signet ring face',
+      src: '/images/journal/prysm/milling-aerospace-titanium.webp',
+      alt: 'A titanium signet ring seen up close',
       width: 1200,
       height: 800,
     },
@@ -94,12 +99,13 @@ export const journal: JournalPost[] = [
   {
     slug: 'autumn-winter-2026-design-notes',
     title: 'Autumn / Winter 2026 Design Notes: Light, Refraction, and Motion',
-    excerpt: 'Creative Director reflections on our inaugural collection of light-refracting luxury tailoring.',
+    excerpt:
+      'Creative Director reflections on our inaugural collection of light-refracting luxury tailoring.',
     publishedAt: '2026-07-01T12:00:00.000Z',
     readingMinutes: 5,
     cover: {
-      src: '/images/products/spectral-trench-1.webp',
-      alt: 'Runway silhouette of the Autumn Winter 2026 Spectral Lightwear presentation',
+      src: '/images/journal/prysm/autumn-winter-2026-design-notes.webp',
+      alt: 'Close view of the collar and belt line of the Spectral Trench Coat',
       width: 1200,
       height: 800,
     },
