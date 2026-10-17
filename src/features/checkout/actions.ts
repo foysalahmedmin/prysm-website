@@ -8,7 +8,7 @@ import { services } from '@/services'
 import { generateOrderId, generateOrderNumber } from './order-generator'
 import { CheckoutFormSchema } from './schemas'
 
-export const PlaceOrderInputSchema = z.object({
+const PlaceOrderInputSchema = z.object({
   checkout: CheckoutFormSchema,
   lines: z.array(
     z.object({
