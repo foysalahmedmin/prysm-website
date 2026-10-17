@@ -6,7 +6,7 @@
 export interface TorsoAnchor {
   /** Normalised horizontal center of the torso (0-1). */
   x: number
-  /** Normalised vertical center of the torso (0-1). */
+  /** Normalised vertical position of the base of the neck (0-1): the garment's neckline lands here. */
   y: number
   /** Scaling factor relative to default garment overlay width. */
   scale: number
@@ -35,7 +35,7 @@ export const sampleModels: readonly SampleModel[] = [
     image: '/mirror-try/models/model-kai.svg',
     torsoAnchor: {
       x: 0.5,
-      y: 0.48,
+      y: 0.338,
       scale: 1.0,
       rotation: 0,
     },
@@ -49,7 +49,7 @@ export const sampleModels: readonly SampleModel[] = [
     image: '/mirror-try/models/model-elena.svg',
     torsoAnchor: {
       x: 0.5,
-      y: 0.5,
+      y: 0.338,
       scale: 0.94,
       rotation: 0,
     },
@@ -63,7 +63,7 @@ export const sampleModels: readonly SampleModel[] = [
     image: '/mirror-try/models/model-devon.svg',
     torsoAnchor: {
       x: 0.5,
-      y: 0.47,
+      y: 0.338,
       scale: 1.08,
       rotation: 0,
     },

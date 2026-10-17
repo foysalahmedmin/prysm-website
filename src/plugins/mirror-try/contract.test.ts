@@ -33,10 +33,7 @@ const defaultRequest: TryOnRequest = {
  * Reusable contract test suite for any Mirror Try adapter implementation.
  * Used for verifying both the demo MockMirrorTryAdapter and future production SDK adapters.
  */
-export function describeAdapterContract(
-  name: string,
-  createAdapter: () => MirrorTryAdapter,
-) {
+export function describeAdapterContract(name: string, createAdapter: () => MirrorTryAdapter) {
   describe(`MirrorTryAdapter Contract: ${name}`, () => {
     it('implements isSupported according to plugin taxonomy rules', () => {
       const adapter = createAdapter()

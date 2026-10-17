@@ -8,6 +8,13 @@ export interface MirrorTryImage {
   alt: string
 }
 
+/** A cut-out of the garment on a transparent background: front view, worn, centred. */
+export interface MirrorTryOverlay {
+  src: string
+  /** Where the neckline sits, from the top of the image, as a fraction of its height. */
+  neck?: number
+}
+
 export interface MirrorTryVariant {
   id: string
   /** Option name to value, for example { size: 'M', color: 'Slate' }. */
@@ -21,6 +28,8 @@ export interface MirrorTryProduct {
   category: string
   subcategory: string
   images: MirrorTryImage[]
+  /** The garment cut-out shown on the model. The plugin falls back to a generic one without it. */
+  overlay?: MirrorTryOverlay
   variants: MirrorTryVariant[]
 }
 

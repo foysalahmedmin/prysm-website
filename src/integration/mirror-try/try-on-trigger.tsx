@@ -5,7 +5,7 @@ import { MirrorTryButton, type TryOnSource } from '@/plugins/mirror-try'
 import { toMirrorTryProduct } from './to-plugin-product'
 
 interface TryOnTriggerProps {
-  product: Pick<Product, 'id' | 'name' | 'category' | 'subcategory' | 'media' | 'variants'>
+  product: Pick<Product, 'id' | 'slug' | 'name' | 'category' | 'subcategory' | 'media' | 'variants'>
   variantId?: string
   source: TryOnSource
   label?: string

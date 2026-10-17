@@ -63,7 +63,7 @@ export function MirrorTryEventInspector() {
       data-mt-part="event-inspector"
       className="fixed bottom-4 left-4 z-50 font-mono text-xs text-neutral-200"
     >
-      <div className="flex items-center gap-2 rounded-t-lg bg-neutral-900/90 px-3 py-1.5 shadow-xl backdrop-blur-md border border-neutral-700/60">
+      <div className="flex items-center gap-2 rounded-t-lg border border-neutral-700/60 bg-neutral-900/90 px-3 py-1.5 shadow-xl backdrop-blur-md">
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
@@ -78,7 +78,7 @@ export function MirrorTryEventInspector() {
           <button
             type="button"
             onClick={() => setLogs([])}
-            className="ml-auto text-neutral-400 hover:text-rose-400 p-1"
+            className="ml-auto p-1 text-neutral-400 hover:text-rose-400"
             title="Clear event logs"
           >
             <Trash size={12} />
@@ -87,7 +87,7 @@ export function MirrorTryEventInspector() {
       </div>
 
       {isOpen && (
-        <div className="max-h-72 w-80 md:w-96 overflow-y-auto rounded-b-lg border-x border-b border-neutral-700/60 bg-neutral-950/95 p-2 shadow-2xl backdrop-blur-md">
+        <div className="max-h-72 w-80 overflow-y-auto rounded-b-lg border-x border-b border-neutral-700/60 bg-neutral-950/95 p-2 shadow-2xl backdrop-blur-md md:w-96">
           {logs.length === 0 ? (
             <div className="py-6 text-center text-neutral-500">
               No events recorded yet. Trigger a try-on session to see telemetry.

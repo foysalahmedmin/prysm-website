@@ -23,9 +23,16 @@ describe('toMirrorTryProduct', () => {
       'id',
       'images',
       'name',
+      'overlay',
       'subcategory',
       'variants',
     ])
     expect(Object.keys(mapped.variants[0]!).sort()).toEqual(['id', 'options'])
+  })
+
+  it('points the plugin at the garment cut-out published under /mirror-try/overlays', () => {
+    expect(toMirrorTryProduct(sample).overlay).toEqual({
+      src: `/mirror-try/overlays/${sample.slug}.webp`,
+    })
   })
 })

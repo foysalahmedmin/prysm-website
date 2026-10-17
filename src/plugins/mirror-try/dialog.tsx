@@ -1,5 +1,7 @@
 'use client'
 
+/* eslint-disable @next/next/no-img-element -- the plugin stays framework-agnostic: it shows data-URL photos and transparent cut-outs that next/image cannot optimise */
+
 import {
   ArrowClockwise,
   Camera,
@@ -14,6 +16,7 @@ import {
 import { Dialog } from 'radix-ui'
 import { useCallback, useId, useRef, useState } from 'react'
 import { sampleModels, type SampleModel } from './models'
+import { placeOverlay, resolveOverlay } from './overlay'
 import { useMirrorTry } from './provider'
 import type { FidelityMode, UserAdjustment } from './types'
 
@@ -119,41 +122,45 @@ export function MirrorTryDialog() {
     setActionFeedback('Look captured and saved to tray.')
   }
 
-  // Garment overlay image fallback
-  const garmentOverlaySrc =
-    product?.images[0]?.src ||
-    `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240"><path d="M50 20 L80 50 L120 50 L150 20 L180 60 L150 80 L150 220 L50 220 L50 80 L20 60 Z" fill="%234f46e5" opacity="0.85"/></svg>`
-
-  // Overlay transform style based on active mode
+  // The garment cut-out lands on the model's neck; in upload and camera mode the user nudges it.
+  const overlay = resolveOverlay(product)
+  const anchor = activeModel.torsoAnchor
   const overlayStyle: React.CSSProperties =
     mode === 'models'
       ? {
-          position: 'absolute',
-          left: `${activeModel.torsoAnchor.x * 100}%`,
-          top: `${activeModel.torsoAnchor.y * 100}%`,
-          transform: `translate(-50%, -50%) scale(${activeModel.torsoAnchor.scale}) rotate(${activeModel.torsoAnchor.rotation}deg)`,
-          width: '55%',
-          maxWidth: '320px',
+          ...placeOverlay({
+            x: anchor.x,
+            y: anchor.y,
+            neck: overlay.neck,
+            scale: anchor.scale,
+            rotation: anchor.rotation,
+          }),
           transition: 'all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
         }
       : mode === 'upload'
         ? {
-            position: 'absolute',
-            left: `calc(50% + ${adjust.x}px)`,
-            top: `calc(48% + ${adjust.y}px)`,
-            transform: `translate(-50%, -50%) scale(${adjust.scale}) rotate(${adjust.rotation}deg)`,
-            width: '55%',
-            maxWidth: '320px',
+            ...placeOverlay({
+              x: 0.5,
+              y: 0.36,
+              neck: overlay.neck,
+              scale: adjust.scale,
+              rotation: adjust.rotation,
+              offset: { x: adjust.x, y: adjust.y },
+            }),
             cursor: 'grab',
           }
-        : {
-            position: 'absolute',
-            left: '50%',
-            top: '48%',
-            transform: 'translate(-50%, -50%) scale(1)',
-            width: '55%',
-            maxWidth: '320px',
-          }
+        : placeOverlay({ x: 0.5, y: 0.34, neck: overlay.neck })
+
+  const garmentOverlay = (
+    <div data-mt-part="garment-overlay" className="mt-garment-overlay" style={overlayStyle}>
+      <img
+        src={overlay.src}
+        alt={product?.name ?? 'Garment try-on'}
+        className="mt-garment-img"
+        draggable={false}
+      />
+    </div>
+  )
 
   // Format cart button text: supports brand specific nouns like "Add to Bag", "Add to Cart", "Add to Basket"
   const cartButtonText = labels.addToCartAction || labels.addToCart
@@ -227,17 +234,26 @@ export function MirrorTryDialog() {
                     setAdjust((a) => ({ ...a, scale: Math.max(0.5, a.scale - 0.05) }))
                 }}
               >
-                {/* L1: Sample Models Background */}
+                {/* L1: Sample Models Background. The figure keeps the model's 4:5 shape so the garment lines up at any size. */}
                 {mode === 'models' && (
                   <div className="mt-model-bg-wrapper">
                     <div
-                      className="mt-model-silhouette"
+                      className="mt-model-figure"
                       style={{
-                        backgroundImage: `url(${activeModel.image})`,
-                        backgroundPosition: 'center',
-                        backgroundSize: 'cover',
+                        position: 'relative',
+                        height: '100%',
+                        aspectRatio: '4 / 5',
+                        flex: 'none',
                       }}
-                    />
+                    >
+                      <img
+                        src={activeModel.image}
+                        alt={`Sample model ${activeModel.name}`}
+                        className="mt-model-silhouette"
+                        draggable={false}
+                      />
+                      {garmentOverlay}
+                    </div>
                   </div>
                 )}
 
@@ -265,22 +281,12 @@ export function MirrorTryDialog() {
                 {/* L3: Camera Stream / Video Feed */}
                 {mode === 'camera' && (
                   <div className="mt-camera-bg-wrapper">
-                    <video
-                      ref={videoRef}
-                      autoPlay
-                      playsInline
-                      muted
-                      className="mt-camera-video"
-                    />
+                    <video ref={videoRef} autoPlay playsInline muted className="mt-camera-video" />
                     {!cameraActive && (
                       <div className="mt-camera-placeholder">
                         <Camera size={48} />
                         <p>Camera is off. Start preview to align with the silhouette guide.</p>
-                        <button
-                          type="button"
-                          className="mt-btn-secondary"
-                          onClick={toggleCamera}
-                        >
+                        <button type="button" className="mt-btn-secondary" onClick={toggleCamera}>
                           Start Camera
                         </button>
                       </div>
@@ -288,26 +294,30 @@ export function MirrorTryDialog() {
                     {/* Torso Guide Outline */}
                     <div className="mt-camera-guide" aria-hidden="true">
                       <svg viewBox="0 0 100 120" className="mt-guide-svg">
-                        <ellipse cx="50" cy="20" rx="14" ry="18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" />
-                        <path d="M25 45 C25 35 75 35 75 45 L85 110 L15 110 Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" />
+                        <ellipse
+                          cx="50"
+                          cy="20"
+                          rx="14"
+                          ry="18"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeDasharray="3 3"
+                        />
+                        <path
+                          d="M25 45 C25 35 75 35 75 45 L85 110 L15 110 Z"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeDasharray="3 3"
+                        />
                       </svg>
                     </div>
                   </div>
                 )}
 
-                {/* Garment Overlay */}
-                <div
-                  data-mt-part="garment-overlay"
-                  className="mt-garment-overlay"
-                  style={overlayStyle}
-                >
-                  <img
-                    src={garmentOverlaySrc}
-                    alt={product?.name ?? 'Garment try-on'}
-                    className="mt-garment-img"
-                    draggable={false}
-                  />
-                </div>
+                {/* Garment Overlay (on a sample model it sits inside the figure above) */}
+                {mode !== 'models' && garmentOverlay}
 
                 {/* Scan sweep dynamic animation line */}
                 <div data-mt-part="scan" className="mt-scan-sweep" aria-hidden="true" />
@@ -394,7 +404,9 @@ export function MirrorTryDialog() {
                     {/* Size recommendation badge */}
                     <div data-mt-part="size" className="mt-size-hint">
                       <Sparkle size={14} className="mt-sparkle-icon" />
-                      <span>{activeModel.name}&apos;s Fit: <strong>{activeModel.sampleSize}</strong></span>
+                      <span>
+                        {activeModel.name}&apos;s Fit: <strong>{activeModel.sampleSize}</strong>
+                      </span>
                     </div>
                   </div>
                 )}
@@ -430,7 +442,9 @@ export function MirrorTryDialog() {
                           max="2"
                           step="0.05"
                           value={adjust.scale}
-                          onChange={(e) => setAdjust((a) => ({ ...a, scale: parseFloat(e.target.value) }))}
+                          onChange={(e) =>
+                            setAdjust((a) => ({ ...a, scale: parseFloat(e.target.value) }))
+                          }
                           aria-label="Overlay scale"
                         />
                       </label>
@@ -442,7 +456,9 @@ export function MirrorTryDialog() {
                           max="45"
                           step="1"
                           value={adjust.rotation}
-                          onChange={(e) => setAdjust((a) => ({ ...a, rotation: parseInt(e.target.value, 10) }))}
+                          onChange={(e) =>
+                            setAdjust((a) => ({ ...a, rotation: parseInt(e.target.value, 10) }))
+                          }
                           aria-label="Overlay rotation"
                         />
                       </label>
@@ -462,7 +478,8 @@ export function MirrorTryDialog() {
                       <span>{cameraActive ? 'Pause Camera Feed' : 'Enable Live Camera'}</span>
                     </button>
                     <p className="mt-disclaimer">
-                      Privacy notice: Video is processed locally in your browser. No frames or biometric data leave your device.
+                      Privacy notice: Video is processed locally in your browser. No frames or
+                      biometric data leave your device.
                     </p>
                   </div>
                 )}
@@ -495,11 +512,7 @@ export function MirrorTryDialog() {
 
                 {/* Snapshot Capture Action */}
                 <div data-mt-part="capture" className="mt-capture-row">
-                  <button
-                    type="button"
-                    className="mt-capture-btn"
-                    onClick={handleCapture}
-                  >
+                  <button type="button" className="mt-capture-btn" onClick={handleCapture}>
                     <Camera size={18} weight="bold" />
                     <span>{labels.captureAction}</span>
                   </button>
@@ -534,11 +547,7 @@ export function MirrorTryDialog() {
                     <span>{cartButtonText}</span>
                   </button>
 
-                  <button
-                    type="button"
-                    className="mt-btn-ghost"
-                    onClick={() => close()}
-                  >
+                  <button type="button" className="mt-btn-ghost" onClick={() => close()}>
                     {labels.close}
                   </button>
                 </div>
