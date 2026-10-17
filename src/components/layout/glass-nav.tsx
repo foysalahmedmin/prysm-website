@@ -2,9 +2,11 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { ShoppingBag } from '@/components/icons'
+import { Heart, MagnifyingGlass, ShoppingBag, User } from '@/components/icons'
 import { Dialog } from '@/components/ui'
 import { cn } from '@/lib/cn'
+import { useHydrated } from '@/stores/hydration'
+import { useUiStore } from '@/stores/ui-store'
 
 export interface NavLink {
   href: string
@@ -12,42 +14,61 @@ export interface NavLink {
 }
 
 export interface GlassNavProps {
-  brandName: string
-  links: NavLink[]
-  cartLabel: string
-  cartCount: number
+  brandName?: string
+  links?: NavLink[]
+  cartLabel?: string
+  cartCount?: number
   onCartClick?: () => void
+  onSearchClick?: () => void
   className?: string
 }
 
+const DEFAULT_LINKS: NavLink[] = [
+  { href: '/new-arrivals', label: 'New in' },
+  { href: '/shop/clothing', label: 'Clothing' },
+  { href: '/shop/accessories', label: 'Accessories' },
+  { href: '/shop/jewelry', label: 'Jewelry' },
+  { href: '/lookbook', label: 'Lookbook' },
+  { href: '/journal', label: 'Journal' },
+]
+
 export function GlassNav({
-  brandName,
-  links,
-  cartLabel,
-  cartCount,
+  brandName = 'PRYSM',
+  links = DEFAULT_LINKS,
+  cartLabel = 'Bag',
+  cartCount = 0,
   onCartClick,
+  onSearchClick,
   className,
 }: GlassNavProps) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const isHydrated = useHydrated()
+  const openPanel = useUiStore((s) => s.openPanel)
+
+  const handleCartClick = onCartClick ?? (() => openPanel('cart'))
+  const handleSearchClick = onSearchClick ?? (() => openPanel('search'))
+
+  // Use count prop if passed, otherwise default
+  const displayCount = isHydrated ? cartCount : 0
 
   return (
-    <header className="sticky top-6 z-40 mx-auto w-full max-w-5xl px-4">
+    <header className="sticky top-6 z-40 mx-auto w-full max-w-6xl px-4">
       <nav
         aria-label="Main"
         className={cn(
-          'glass glass-strong flex h-16 items-center justify-between rounded-full px-6 shadow-xl',
+          'glass glass-strong flex h-16 items-center justify-between rounded-full border border-white/70 px-6 shadow-xl backdrop-blur-md',
           className,
         )}
       >
         <div className="flex items-center gap-8">
           <Link
             href="/"
-            className="font-display text-xl font-black tracking-wider text-ink focus-visible:outline-2 focus-visible:outline-focus"
+            className="font-display text-xl font-black tracking-widest text-ink focus-visible:outline-2 focus-visible:outline-focus"
           >
             {brandName}
           </Link>
 
-          <ul className="hidden items-center gap-6 md:flex">
+          <ul className="hidden items-center gap-6 lg:flex">
             {links.map((link) => (
               <li key={link.href}>
                 <Link
@@ -61,20 +82,50 @@ export function GlassNav({
           </ul>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Search Trigger */}
           <button
             type="button"
-            onClick={onCartClick}
-            aria-label={`${cartLabel} (${cartCount})`}
+            onClick={handleSearchClick}
+            aria-label="Search catalog"
+            className="glass flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus"
+          >
+            <MagnifyingGlass size={18} aria-hidden="true" />
+          </button>
+
+          {/* Wishlist Link */}
+          <Link
+            href="/wishlist"
+            aria-label="Wishlist"
+            className="glass hidden h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus sm:flex"
+          >
+            <Heart size={18} aria-hidden="true" />
+          </Link>
+
+          {/* Account Link */}
+          <Link
+            href="/account"
+            aria-label="Account"
+            className="glass hidden h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus sm:flex"
+          >
+            <User size={18} aria-hidden="true" />
+          </Link>
+
+          {/* Cart Trigger */}
+          <button
+            type="button"
+            onClick={handleCartClick}
+            aria-label={`${cartLabel} (${displayCount})`}
             className="glass flex h-10 items-center gap-2 rounded-full px-4 font-mono text-xs font-semibold text-ink transition hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus"
           >
             <ShoppingBag size={16} aria-hidden="true" />
             <span>
-              {cartLabel} ({cartCount})
+              {cartLabel} ({displayCount})
             </span>
           </button>
 
-          <div className="md:hidden">
+          {/* Mobile Menu Trigger & Dialog */}
+          <div className="lg:hidden">
             <Dialog
               open={menuOpen}
               onOpenChange={setMenuOpen}
@@ -91,19 +142,45 @@ export function GlassNav({
               closeLabel="Close menu"
               side="center"
             >
-              <ul className="flex flex-col gap-4 py-4">
-                {links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      className="font-display text-lg font-bold text-ink hover:text-ink/80"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <div className="flex flex-col gap-6 py-4">
+                <ul className="flex flex-col gap-4">
+                  {links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        onClick={() => setMenuOpen(false)}
+                        className="font-display text-xl font-bold text-ink transition-colors hover:text-ink/80"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex flex-col gap-3 border-t border-white/40 pt-6 font-mono text-xs">
+                  <Link
+                    href="/wishlist"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-2 text-ink-soft hover:text-ink"
+                  >
+                    <Heart size={16} /> Wishlist
+                  </Link>
+                  <Link
+                    href="/account"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-2 text-ink-soft hover:text-ink"
+                  >
+                    <User size={16} /> Account
+                  </Link>
+                  <Link
+                    href="/stores"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-ink-faint hover:text-ink"
+                  >
+                    Boutiques & Studios
+                  </Link>
+                </div>
+              </div>
             </Dialog>
           </div>
         </div>
