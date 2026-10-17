@@ -1,9 +1,19 @@
 import type { Metadata } from 'next'
+import { Bricolage_Grotesque, Geist_Mono, Hanken_Grotesk } from 'next/font/google'
 import './globals.css'
 import { brand } from '@/config/brand'
 import { env } from '@/config/env'
 import { MirrorTryHost } from '@/integration/mirror-try'
 import { StoreHydrator } from '@/stores/hydration'
+
+const display = Bricolage_Grotesque({
+  subsets: ['latin'],
+  axes: ['opsz', 'wdth'],
+  variable: '--font-bricolage',
+  display: 'swap',
+})
+const text = Hanken_Grotesk({ subsets: ['latin'], variable: '--font-hanken', display: 'swap' })
+const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono', display: 'swap' })
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.siteUrl),
@@ -14,8 +24,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={`${display.variable} ${text.variable} ${mono.variable}`}>
+      <body className="bg-canvas font-text text-ink antialiased">
         <MirrorTryHost>
           <StoreHydrator />
           {children}
