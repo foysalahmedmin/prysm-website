@@ -42,3 +42,18 @@ export const Sparkle = createIcon(PhosphorSparkle)
 export const Trash = createIcon(PhosphorTrash)
 export const User = createIcon(PhosphorUser)
 export const X = createIcon(PhosphorX)
+
+// Aliases
+export const ArrowRightIcon = ArrowRight
+export const ArrowLeftIcon = ArrowLeft
+export const BagIcon = ShoppingBag
+export const CheckIcon = Check
+export const CloseIcon = X
+export const HeartIcon = Heart
+export const MinusIcon = Minus
+export const PlusIcon = Plus
+export const SearchIcon = MagnifyingGlass
+export const SlidersIcon = Faders
+export const SparkleIcon = Sparkle
+export const SpinnerIcon = Sparkle
+export const StarIcon = Sparkle

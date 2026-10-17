@@ -9,7 +9,7 @@ test('style guide renders every section, is not indexable, and has no serious a1
   await expect(page.locator('meta[name="robots"]').first()).toHaveAttribute('content', /noindex/)
 
   const sections = page.locator('[data-ds-section]')
-  expect(await sections.count()).toBeGreaterThanOrEqual(4)
+  expect(await sections.count()).toBe(13)
   for (const section of await sections.all()) await expect(section).toBeVisible()
 
   const { violations } = await new AxeBuilder({ page }).analyze()

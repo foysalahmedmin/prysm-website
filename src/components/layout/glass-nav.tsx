@@ -68,9 +68,9 @@ export function GlassNav({
             aria-label={`${cartLabel} (${cartCount})`}
             className="glass flex h-10 items-center gap-2 rounded-full px-4 font-mono text-xs font-semibold text-ink transition hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus"
           >
-            <ShoppingBag size={16} />
+            <ShoppingBag size={16} aria-hidden="true" />
             <span>
-              {cartLabel} · {cartCount}
+              {cartLabel} ({cartCount})
             </span>
           </button>
 
