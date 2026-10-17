@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { CartLineInputSchema, unitPrice } from '@/domain'
-import type { CartTotals, Media, ShippingMethod } from '@/domain'
+import type { CartTotals, Media, Product, ShippingMethod } from '@/domain'
 import type { Services } from '@/services/types'
 import { priceCart, type PricedLine } from './pricing'
 
@@ -18,6 +18,8 @@ export interface QuoteLine {
   productId: string
   variantId: string
   slug: string
+  category: Product['category']
+  subcategory: string
   name: string
   image: Media
   options: Record<string, string>
@@ -69,6 +71,8 @@ export async function quoteCart(
       productId: product.id,
       variantId: variant.id,
       slug: product.slug,
+      category: product.category,
+      subcategory: product.subcategory,
       name: product.name,
       image: product.media[0]!,
       options: variant.options,

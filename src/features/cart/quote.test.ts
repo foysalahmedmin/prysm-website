@@ -53,13 +53,39 @@ const mockCoat: Product = {
 }
 
 const mockShipping: ShippingMethod[] = [
-  { id: 'standard', name: 'Standard Delivery', description: '3-5 business days', price: 800, freeOver: 15000, etaDays: { min: 3, max: 5 } },
-  { id: 'express', name: 'Express Delivery', description: '1-2 business days', price: 1800, freeOver: undefined, etaDays: { min: 1, max: 2 } },
+  {
+    id: 'standard',
+    name: 'Standard Delivery',
+    description: '3-5 business days',
+    price: 800,
+    freeOver: 15000,
+    etaDays: { min: 3, max: 5 },
+  },
+  {
+    id: 'express',
+    name: 'Express Delivery',
+    description: '1-2 business days',
+    price: 1800,
+    freeOver: undefined,
+    etaDays: { min: 1, max: 2 },
+  },
 ]
 
 const mockPromos: Promo[] = [
-  { code: 'WELCOME10', label: '10% off your first order', kind: 'percent', value: 10, minSubtotal: 0 },
-  { code: 'SAVE20', label: '$20 off orders over $150', kind: 'fixed', value: 2000, minSubtotal: 15000 },
+  {
+    code: 'WELCOME10',
+    label: '10% off your first order',
+    kind: 'percent',
+    value: 10,
+    minSubtotal: 0,
+  },
+  {
+    code: 'SAVE20',
+    label: '$20 off orders over $150',
+    kind: 'fixed',
+    value: 2000,
+    minSubtotal: 15000,
+  },
 ]
 
 const services: Pick<Services, 'catalog' | 'commerce'> = {
@@ -92,6 +118,13 @@ describe('quoteCart', () => {
     expect(result.lines).toHaveLength(1)
     expect(result.lines[0]).toMatchObject({ name: 'Silk Scarf', unitPrice: 9500, lineTotal: 19000 })
     expect(result.totals.subtotal).toBe(19000)
+  })
+
+  it('names the category and subcategory, so a cart line can be tried on', async () => {
+    const result = await quote({
+      lines: [{ productId: 'p-001', variantId: 'p-001-v1', quantity: 1 }],
+    })
+    expect(result.lines[0]).toMatchObject({ category: 'clothing', subcategory: 'outerwear' })
   })
 
   it('drops lines whose product or variant no longer exists', async () => {

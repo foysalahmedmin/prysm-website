@@ -33,7 +33,6 @@ export function CartView() {
   const [loading, setLoading] = useState(false)
   const [promoInput, setPromoInput] = useState('')
   const [appliedPromo, setAppliedPromo] = useState<string | undefined>()
-  const [promoError, setPromoError] = useState<string | null>(null)
   const [shippingMethodId, setShippingMethodId] = useState('standard')
 
   useEffect(() => {
@@ -71,21 +70,21 @@ export function CartView() {
     if (!clean) return
 
     setAppliedPromo(clean)
-    setPromoError(null)
   }
 
   const handleRemovePromo = () => {
     setAppliedPromo(undefined)
     setPromoInput('')
-    setPromoError(null)
   }
 
   if (!hydrated) {
     return (
       <div className="mx-auto min-h-[60vh] max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <div className="glass mx-auto max-w-md rounded-3xl p-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-ink border-t-transparent mx-auto" />
-          <p className="mt-4 font-mono text-xs uppercase tracking-widest text-ink-soft">Loading Bag...</p>
+          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-ink border-t-transparent" />
+          <p className="mt-4 font-mono text-xs tracking-widest text-ink-soft uppercase">
+            Loading Bag...
+          </p>
         </div>
       </div>
     )
@@ -109,7 +108,8 @@ export function CartView() {
             Your Bag is Empty
           </h1>
           <p className="mt-4 font-text text-sm leading-relaxed text-ink-soft sm:text-base">
-            Discover photonic outerwear, fluid mulberry silks, and spectral glass accessories engineered for luminosity.
+            Discover photonic outerwear, fluid mulberry silks, and spectral glass accessories
+            engineered for luminosity.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="lg">
@@ -132,14 +132,16 @@ export function CartView() {
       {/* Header */}
       <div className="mb-10 flex flex-col justify-between gap-4 border-b border-white/40 pb-6 sm:flex-row sm:items-end">
         <div>
-          <span className="font-mono text-xs uppercase tracking-widest text-ink-faint">PRYSM ARCHIVE</span>
+          <span className="font-mono text-xs tracking-widest text-ink-faint uppercase">
+            PRYSM ARCHIVE
+          </span>
           <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
             Shopping Bag ({itemCount})
           </h1>
         </div>
         <Link
           href={routes.shop}
-          className="inline-flex items-center font-mono text-xs uppercase tracking-wider text-ink transition-colors hover:text-ink-soft"
+          className="inline-flex items-center font-mono text-xs tracking-wider text-ink uppercase transition-colors hover:text-ink-soft"
         >
           Continue Shopping &rarr;
         </Link>
@@ -153,7 +155,7 @@ export function CartView() {
             <div className="mb-2 flex items-center justify-between text-xs">
               <span className="font-mono font-medium text-ink">
                 {freeRemaining === 0 ? (
-                  <span className="flex items-center gap-1.5 text-ink font-semibold">
+                  <span className="flex items-center gap-1.5 font-semibold text-ink">
                     <Sparkle size={14} />
                     Complimentary Spectral Delivery unlocked
                   </span>
@@ -172,15 +174,23 @@ export function CartView() {
           </div>
 
           {/* Cart Lines */}
-          <ul className="space-y-4">
+          <ul className="space-y-4" aria-busy={loading}>
             {quote?.lines.map((line) => {
               const tryOnProduct = {
                 id: line.productId,
+                slug: line.slug,
                 name: line.name,
-                category: 'clothing' as const,
-                subcategory: 'garments',
+                category: line.category,
+                subcategory: line.subcategory,
                 media: [line.image],
-                variants: [{ id: line.variantId, sku: line.variantId, options: line.options, stock: line.quantity }],
+                variants: [
+                  {
+                    id: line.variantId,
+                    sku: line.variantId,
+                    options: line.options,
+                    stock: line.quantity,
+                  },
+                ],
               }
 
               return (
@@ -216,12 +226,18 @@ export function CartView() {
 
             {/* Promo code drawer */}
             <form onSubmit={handleApplyPromo} className="mt-6 border-b border-white/40 pb-6">
-              <label htmlFor="promo" className="mb-2 block font-mono text-xs uppercase tracking-wider text-ink-soft">
+              <label
+                htmlFor="promo"
+                className="mb-2 block font-mono text-xs tracking-wider text-ink-soft uppercase"
+              >
                 Promotional Code
               </label>
               <div className="flex gap-2">
                 <div className="relative flex-1">
-                  <Sparkle size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-faint" />
+                  <Sparkle
+                    size={16}
+                    className="absolute top-1/2 left-3 -translate-y-1/2 text-ink-faint"
+                  />
                   <input
                     id="promo"
                     type="text"
@@ -229,7 +245,7 @@ export function CartView() {
                     onChange={(e) => setPromoInput(e.target.value)}
                     placeholder="e.g. WELCOME10"
                     disabled={Boolean(appliedPromo)}
-                    className="glass w-full rounded-xl border border-white/60 py-2 pl-9 pr-3 font-mono text-xs text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
+                    className="glass w-full rounded-xl border border-white/60 py-2 pr-3 pl-9 font-mono text-xs text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
                   />
                 </div>
                 {appliedPromo ? (
@@ -244,7 +260,9 @@ export function CartView() {
               </div>
               {appliedPromo && quote?.promo ? (
                 <div className="mt-2 flex items-center justify-between text-xs text-emerald-600">
-                  <span>Code {appliedPromo} applied: {quote.promo.label}</span>
+                  <span>
+                    Code {appliedPromo} applied: {quote.promo.label}
+                  </span>
                 </div>
               ) : null}
               {appliedPromo && quote?.promoError ? (
@@ -258,11 +276,11 @@ export function CartView() {
 
             {/* Shipping selection */}
             <div className="mt-6 border-b border-white/40 pb-6">
-              <label className="mb-2 block font-mono text-xs uppercase tracking-wider text-ink-soft">
+              <label className="mb-2 block font-mono text-xs tracking-wider text-ink-soft uppercase">
                 Delivery Option
               </label>
               <div className="space-y-2">
-                <label className="glass flex cursor-pointer items-center justify-between rounded-xl p-3 border border-white/60">
+                <label className="glass flex cursor-pointer items-center justify-between rounded-xl border border-white/60 p-3">
                   <div className="flex items-center gap-2">
                     <input
                       type="radio"
@@ -271,13 +289,15 @@ export function CartView() {
                       onChange={() => setShippingMethodId('standard')}
                       className="accent-ink"
                     />
-                    <span className="font-text text-sm font-medium text-ink">Standard (3–5 days)</span>
+                    <span className="font-text text-sm font-medium text-ink">
+                      Standard (3–5 days)
+                    </span>
                   </div>
                   <span className="font-mono text-xs text-ink">
                     {freeRemaining === 0 ? 'FREE' : formatMoney(800, MONEY)}
                   </span>
                 </label>
-                <label className="glass flex cursor-pointer items-center justify-between rounded-xl p-3 border border-white/60">
+                <label className="glass flex cursor-pointer items-center justify-between rounded-xl border border-white/60 p-3">
                   <div className="flex items-center gap-2">
                     <input
                       type="radio"
@@ -286,7 +306,9 @@ export function CartView() {
                       onChange={() => setShippingMethodId('express')}
                       className="accent-ink"
                     />
-                    <span className="font-text text-sm font-medium text-ink">Express (1–2 days)</span>
+                    <span className="font-text text-sm font-medium text-ink">
+                      Express (1–2 days)
+                    </span>
                   </div>
                   <span className="font-mono text-xs text-ink">{formatMoney(1800, MONEY)}</span>
                 </label>
@@ -308,7 +330,9 @@ export function CartView() {
               <div className="flex justify-between text-ink-soft">
                 <dt>Estimated Shipping</dt>
                 <dd className="font-mono text-ink">
-                  {quote?.totals.shipping === 0 ? 'Complimentary' : formatMoney(quote?.totals.shipping ?? 0, MONEY)}
+                  {quote?.totals.shipping === 0
+                    ? 'Complimentary'
+                    : formatMoney(quote?.totals.shipping ?? 0, MONEY)}
                 </dd>
               </div>
               <div className="flex justify-between text-ink-soft">

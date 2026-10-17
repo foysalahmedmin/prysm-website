@@ -101,6 +101,8 @@ describe('CartLine', () => {
     productId: 'p-006',
     variantId: 'p-006-v1',
     slug: 'silk-scarf',
+    category: 'accessories',
+    subcategory: 'scarves',
     name: 'Silk Scarf',
     image: { src: '/images/placeholder.svg', alt: 'Silk Scarf, front', width: 1200, height: 1500 },
     options: { color: 'Slate' },
@@ -210,8 +212,8 @@ describe('FilterPanel', () => {
   it('toggles sizes and colours, keeping the other selections', async () => {
     const onChange = vi.fn()
     render(<Harness onChange={onChange} />)
-    const size1 = facets.sizes.includes('S') ? 'S' : facets.sizes[0] ?? 'S'
-    const size2 = facets.sizes.includes('M') ? 'M' : facets.sizes[1] ?? 'M'
+    const size1 = facets.sizes.includes('S') ? 'S' : (facets.sizes[0] ?? 'S')
+    const size2 = facets.sizes.includes('M') ? 'M' : (facets.sizes[1] ?? 'M')
     await userEvent.click(screen.getByLabelText(size1))
     await userEvent.click(screen.getByLabelText(size2))
     expect(onChange).toHaveBeenLastCalledWith({ sizes: [size1, size2] })
@@ -240,7 +242,7 @@ describe('FilterPanel', () => {
 
   it('clears every filter', async () => {
     render(<Harness onChange={() => {}} />)
-    const size1 = facets.sizes.includes('S') ? 'S' : facets.sizes[0] ?? 'S'
+    const size1 = facets.sizes.includes('S') ? 'S' : (facets.sizes[0] ?? 'S')
     await userEvent.click(screen.getByLabelText(size1))
     expect(screen.getByLabelText(size1)).toBeChecked()
     await userEvent.click(screen.getByRole('button', { name: 'Clear all' }))

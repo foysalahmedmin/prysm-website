@@ -101,6 +101,8 @@ const sampleQuoteLine: QuoteLine = {
   productId: demoProduct.id,
   variantId: 'v1',
   slug: demoProduct.slug,
+  category: demoProduct.category,
+  subcategory: demoProduct.subcategory,
   name: demoProduct.name,
   image: demoProduct.media[0]!,
   options: { Color: 'Slate', Size: 'S' },
