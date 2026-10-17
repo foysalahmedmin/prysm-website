@@ -1,21 +1,44 @@
 import { notFound } from 'next/navigation'
-import { PageShell } from '@/components/layout/page-shell'
+import { ProductDetailView } from '@/components/commerce/product-detail-view'
 import { services } from '@/services'
 
-export async function generateStaticParams() {
-  const slugs = await services.catalog.listProductSlugs()
-  return slugs.map((slug) => ({ slug }))
+interface ProductPageProps {
+  params: Promise<{ slug: string }>
 }
 
-export async function generateMetadata({ params }: PageProps<'/products/[slug]'>) {
+export async function generateMetadata({ params }: ProductPageProps) {
   const { slug } = await params
   const product = await services.catalog.getProduct(slug)
-  return product ? { title: product.name, description: product.summary } : {}
+  if (!product) return { title: 'Piece Not Found' }
+
+  return {
+    title: `${product.name} — PRYSM`,
+    description: product.summary,
+    openGraph: {
+      title: `${product.name} — PRYSM`,
+      description: product.summary,
+      images: product.media[0]?.src ? [{ url: product.media[0].src }] : [],
+    },
+  }
 }
 
-export default async function ProductPage({ params }: PageProps<'/products/[slug]'>) {
+export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params
   const product = await services.catalog.getProduct(slug)
   if (!product) notFound()
-  return <PageShell id="product" title={product.name} description={product.summary} />
+
+  const [reviews, relatedProducts, allCatalogResult] = await Promise.all([
+    services.catalog.listReviews(product.id),
+    services.catalog.getRelatedProducts(product.slug, 4),
+    services.catalog.listProducts({ pageSize: 48 }),
+  ])
+
+  return (
+    <ProductDetailView
+      product={product}
+      reviews={reviews}
+      relatedProducts={relatedProducts}
+      allCatalogProducts={allCatalogResult.page.items}
+    />
+  )
 }

@@ -41,4 +41,31 @@ describe('ui store', () => {
     clearRecentSearches()
     expect(useUiStore.getState().recentSearches).toEqual([])
   })
+
+  it('records recently viewed products without duplicates and caps size', () => {
+    const { recordProductView } = useUiStore.getState()
+    recordProductView('p-01')
+    recordProductView('p-02')
+    recordProductView('p-03')
+    recordProductView('p-01') // moves to front
+    recordProductView('p-04')
+    recordProductView('p-05')
+    recordProductView('p-06')
+    recordProductView('p-07')
+    recordProductView('p-08')
+    recordProductView('p-09')
+
+    const viewed = useUiStore.getState().recentlyViewedIds
+    expect(viewed[0]).toBe('p-09')
+    expect(viewed).toContain('p-01')
+    expect(viewed).not.toContain('p-02') // pushed out by cap of 8
+    expect(viewed.length).toBeLessThanOrEqual(8)
+  })
+
+  it('clears recently viewed products', () => {
+    const { recordProductView, clearRecentlyViewed } = useUiStore.getState()
+    recordProductView('p-01')
+    clearRecentlyViewed()
+    expect(useUiStore.getState().recentlyViewedIds).toEqual([])
+  })
 })

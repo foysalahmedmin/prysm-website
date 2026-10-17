@@ -1,21 +1,51 @@
 import { notFound } from 'next/navigation'
-import { PageShell } from '@/components/layout/page-shell'
+import { Suspense } from 'react'
+import { ProductListView } from '@/components/commerce/product-list-view'
+import { parseProductQuery } from '@/features/catalog/query-params'
 import { services } from '@/services'
 
-export async function generateStaticParams() {
-  const collections = await services.catalog.listCollections()
-  return collections.map((collection) => ({ slug: collection.slug }))
+interface CollectionPageProps {
+  params: Promise<{ slug: string }>
+  searchParams: Promise<Record<string, string | string[] | undefined>>
 }
 
-export async function generateMetadata({ params }: PageProps<'/collections/[slug]'>) {
+export async function generateMetadata({ params }: CollectionPageProps) {
   const { slug } = await params
-  const found = await services.catalog.getCollection(slug)
-  return found ? { title: found.name, description: found.description } : {}
+  const coll = await services.catalog.getCollection(slug)
+  if (!coll) return { title: 'Collection' }
+  return {
+    title: `${coll.name} — PRYSM`,
+    description: coll.description,
+  }
 }
 
-export default async function CollectionPage({ params }: PageProps<'/collections/[slug]'>) {
+export default async function CollectionDetailPage({
+  params,
+  searchParams,
+}: CollectionPageProps) {
   const { slug } = await params
-  const found = await services.catalog.getCollection(slug)
-  if (!found) notFound()
-  return <PageShell id="collection" title={found.name} description={found.description} />
+  const coll = await services.catalog.getCollection(slug)
+  if (!coll) notFound()
+
+  const rawParams = await searchParams
+  const query = parseProductQuery({
+    ...rawParams,
+    collection: slug,
+  })
+
+  const result = await services.catalog.listProducts(query)
+
+  return (
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+      <ProductListView
+        products={result.page.items}
+        total={result.page.total}
+        facets={result.facets}
+        query={query}
+        title={coll.name}
+        description={coll.description}
+        basePath={`/collections/${slug}`}
+      />
+    </Suspense>
+  )
 }

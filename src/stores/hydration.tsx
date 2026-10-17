@@ -2,6 +2,7 @@
 
 import { useEffect, useSyncExternalStore } from 'react'
 import { useCartStore } from './cart-store'
+import { useUiStore } from './ui-store'
 import { useWishlistStore } from './wishlist-store'
 
 const subscribe = () => () => {}
@@ -20,6 +21,7 @@ export function StoreHydrator() {
   useEffect(() => {
     void useCartStore.persist.rehydrate()
     void useWishlistStore.persist.rehydrate()
+    void useUiStore.persist.rehydrate()
   }, [])
   return null
 }
