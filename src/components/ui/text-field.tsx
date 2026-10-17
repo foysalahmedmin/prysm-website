@@ -4,7 +4,18 @@ import { cn } from '@/lib/cn'
 export type InputProps = InputHTMLAttributes<HTMLInputElement>
 
 export function Input({ className, ...rest }: InputProps) {
-  return <input className={cn(className)} {...rest} />
+  return (
+    <input
+      className={cn(
+        'glass glass-strong h-12 w-full rounded-[16px] px-4 font-text text-ink placeholder:text-ink-faint',
+        'border border-border-strong transition-all duration-200',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus focus-visible:border-transparent',
+        'disabled:pointer-events-none disabled:opacity-50',
+        className,
+      )}
+      {...rest}
+    />
+  )
 }
 
 export interface TextFieldProps extends Omit<InputProps, 'id'> {
@@ -21,8 +32,10 @@ export function TextField({ label, hint, error, className, ...rest }: TextFieldP
   const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined
 
   return (
-    <div data-invalid={error ? '' : undefined}>
-      <label htmlFor={id}>{label}</label>
+    <div className="flex flex-col gap-1.5" data-invalid={error ? '' : undefined}>
+      <label htmlFor={id} className="font-text text-sm font-medium text-ink">
+        {label}
+      </label>
       <Input
         id={id}
         className={className}
@@ -30,9 +43,13 @@ export function TextField({ label, hint, error, className, ...rest }: TextFieldP
         aria-describedby={describedBy}
         {...rest}
       />
-      {hint ? <p id={hintId}>{hint}</p> : null}
+      {hint ? (
+        <p id={hintId} className="font-text text-xs text-ink-soft">
+          {hint}
+        </p>
+      ) : null}
       {error ? (
-        <p id={errorId} role="alert">
+        <p id={errorId} role="alert" className="font-text text-xs text-danger">
           {error}
         </p>
       ) : null}
