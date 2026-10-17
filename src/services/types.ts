@@ -2,7 +2,9 @@ import type {
   Category,
   Collection,
   FaqItem,
+  HomeContent,
   JournalPost,
+  LookbookContent,
   PageContent,
   PageId,
   Product,
@@ -39,6 +41,8 @@ export interface ContentService {
   listJournal(): Promise<JournalPost[]>
   getJournalPost(slug: string): Promise<JournalPost | null>
   listStores(): Promise<Store[]>
+  getHome(): Promise<HomeContent>
+  getLookbook(): Promise<LookbookContent>
 }
 
 export interface CommerceService {

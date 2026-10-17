@@ -1,5 +1,7 @@
 import { faq } from '@/content/faq'
+import { home } from '@/content/home'
 import { journal } from '@/content/journal'
+import { lookbook } from '@/content/lookbook'
 import { pages } from '@/content/pages'
 import { site } from '@/content/site'
 import { stores } from '@/content/stores'
@@ -24,6 +26,12 @@ export function createStaticContentService(): ContentService {
     },
     async listStores() {
       return stores
+    },
+    async getHome() {
+      return home
+    },
+    async getLookbook() {
+      return lookbook
     },
   }
 }
