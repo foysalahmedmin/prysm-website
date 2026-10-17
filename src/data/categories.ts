@@ -4,34 +4,31 @@ export const categories: Category[] = [
   {
     slug: 'clothing',
     name: 'Clothing',
-    description: 'Coats, dresses, shirts and trousers.',
+    description: 'Shirts, knitwear, jackets, coats and trousers.',
     subcategories: [
       { slug: 'outerwear', name: 'Outerwear' },
-      { slug: 'dresses', name: 'Dresses' },
+      { slug: 'knitwear', name: 'Knitwear' },
       { slug: 'tops', name: 'Tops' },
+      { slug: 'sweatshirts', name: 'Sweatshirts' },
       { slug: 'trousers', name: 'Trousers' },
     ],
   },
   {
     slug: 'accessories',
     name: 'Accessories',
-    description: 'Bags, scarves, hats and eyewear.',
+    description: 'Bags and scarves.',
     subcategories: [
       { slug: 'bags', name: 'Bags' },
       { slug: 'scarves', name: 'Scarves' },
-      { slug: 'hats', name: 'Hats' },
-      { slug: 'eyewear', name: 'Eyewear' },
     ],
   },
   {
     slug: 'jewelry',
     name: 'Jewelry',
-    description: 'Necklaces, earrings, rings and bracelets.',
+    description: 'A small edit of necklaces and earrings.',
     subcategories: [
       { slug: 'necklaces', name: 'Necklaces' },
       { slug: 'earrings', name: 'Earrings' },
-      { slug: 'rings', name: 'Rings' },
-      { slug: 'bracelets', name: 'Bracelets' },
     ],
   },
 ]

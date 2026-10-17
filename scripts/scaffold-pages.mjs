@@ -19,7 +19,6 @@ const pages = [
   ['storefront', 'sale', 'sale', 'SalePage'],
   ['storefront', 'new-arrivals', 'new-arrivals', 'NewArrivalsPage'],
   ['storefront', 'lookbook', 'lookbook', 'LookbookPage'],
-  ['storefront', 'try-on', 'try-on', 'TryOnPage'],
   ['storefront', 'wishlist', 'wishlist', 'WishlistPage'],
   ['storefront', 'cart', 'cart', 'CartPage'],
   ['storefront', 'track-order', 'track-order', 'TrackOrderPage'],

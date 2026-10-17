@@ -12,7 +12,6 @@ export const PAGE_IDS = [
   'sale',
   'new-arrivals',
   'lookbook',
-  'try-on',
   'cart',
   'checkout',
   'checkout-success',
@@ -57,7 +56,6 @@ export const SiteContentSchema = z.object({
     groups: z.array(z.object({ title: z.string().min(1), links: z.array(NavLinkSchema).min(1) })),
     legal: z.string().min(1),
   }),
-  tryOn: z.object({ cta: z.string().min(1) }),
   newsletter: z.object({
     title: z.string().min(1),
     description: z.string().min(1),

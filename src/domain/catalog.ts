@@ -14,38 +14,6 @@ export const MediaSchema = z.object({
 })
 export type Media = z.infer<typeof MediaSchema>
 
-export const TryOnTypeSchema = z.enum([
-  'garment',
-  'eyewear',
-  'headwear',
-  'bag',
-  'scarf',
-  'necklace',
-  'earring',
-  'ring',
-  'bracelet',
-  'watch',
-])
-export const TryOnAnchorSchema = z.enum([
-  'torso',
-  'shoulder',
-  'face',
-  'head',
-  'neck',
-  'ear',
-  'hand',
-  'wrist',
-])
-
-/** Tells Mirror Try how a product is worn. `null` on a product means "not try-on capable". */
-export const TryOnSpecSchema = z.object({
-  type: TryOnTypeSchema,
-  anchor: TryOnAnchorSchema,
-  overlay: z.string().min(1).optional(),
-  sizeAware: z.boolean(),
-})
-export type TryOnSpec = z.infer<typeof TryOnSpecSchema>
-
 export const OptionGroupSchema = z.object({
   key: z.string().min(1),
   label: z.string().min(1),
@@ -86,7 +54,6 @@ export const ProductSchema = z.object({
   collectionSlugs: z.array(slug),
   badges: z.array(BadgeSchema),
   rating: z.object({ average: z.number().min(0).max(5), count: z.number().int().nonnegative() }),
-  tryOn: TryOnSpecSchema.nullable(),
   featured: z.boolean(),
   createdAt: z.iso.datetime(),
 })

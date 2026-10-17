@@ -10,7 +10,6 @@ export const routes = {
   sale: '/sale',
   newArrivals: '/new-arrivals',
   lookbook: '/lookbook',
-  tryOn: '/try-on',
   cart: '/cart',
   checkout: '/checkout',
   checkoutSuccess: '/checkout/success',

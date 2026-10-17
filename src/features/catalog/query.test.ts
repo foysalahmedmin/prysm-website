@@ -14,7 +14,7 @@ describe('listProducts', () => {
 
   it('filters by category', () => {
     const result = listProducts(products, { category: 'jewelry' })
-    expect(result.page.total).toBe(4)
+    expect(result.page.total).toBe(2)
     expect(result.page.items.every((p) => p.category === 'jewelry')).toBe(true)
   })
 
@@ -23,9 +23,7 @@ describe('listProducts', () => {
   })
 
   it('searches every term across name, tags and materials', () => {
-    expect(names(listProducts(products, { q: 'silk' }))).toEqual(
-      expect.arrayContaining(['Silk Scarf', 'Silk Slip Dress']),
-    )
+    expect(names(listProducts(products, { q: 'silk' }))).toEqual(['Silk Scarf'])
     expect(listProducts(products, { q: 'silk scarf' }).page.total).toBe(1)
     expect(listProducts(products, { q: 'nonexistent' }).page.total).toBe(0)
   })
@@ -36,27 +34,28 @@ describe('listProducts', () => {
     expect(result.page.items.every((p) => p.optionGroups.some((g) => g.key === 'size'))).toBe(true)
   })
 
-  it('narrows by colour', () => {
-    const result = listProducts(products, { colors: ['Tortoise'] })
-    expect(names(result)).toEqual(['Round Sunglasses'])
+  it('narrows by colour using in-stock variants only', () => {
+    const result = listProducts(products, { colors: ['Sand'] })
+    expect(result.page.total).toBeGreaterThan(0)
+    expect(
+      result.page.items.every((p) =>
+        p.variants.some((v) => v.stock > 0 && v.options.color === 'Sand'),
+      ),
+    ).toBe(true)
   })
 
   it('applies an inclusive price range', () => {
     const result = listProducts(products, { minPrice: 12000, maxPrice: 14000 })
     expect(result.page.items.every((p) => p.price >= 12000 && p.price <= 14000)).toBe(true)
-    expect(names(result)).toEqual(expect.arrayContaining(['Hoop Earrings', 'Signet Ring']))
+    expect(names(result)).toEqual(
+      expect.arrayContaining(['Hoop Earrings', 'Linen Shirt', 'Merino Sweater']),
+    )
   })
 
   it('keeps only sale products when onSale is set', () => {
     const result = listProducts(products, { onSale: true })
     expect(result.page.items.every(isOnSale)).toBe(true)
     expect(result.page.total).toBe(2)
-  })
-
-  it('keeps only try-on capable products when tryOn is set', () => {
-    const result = listProducts(products, { tryOn: true })
-    expect(result.page.items.every((p) => p.tryOn !== null)).toBe(true)
-    expect(result.page.total).toBe(11)
   })
 
   it('sorts by price in both directions', () => {
@@ -95,8 +94,9 @@ describe('listProducts', () => {
   it('computes facets inside the scope, ignoring shopper filters', () => {
     const result = listProducts(products, { category: 'clothing', sizes: ['XL'] })
     expect(result.facets.subcategories.map((s) => s.slug).sort()).toEqual([
-      'dresses',
+      'knitwear',
       'outerwear',
+      'sweatshirts',
       'tops',
       'trousers',
     ])
@@ -106,9 +106,9 @@ describe('listProducts', () => {
 describe('computeFacets', () => {
   it('collects sizes, colours with swatches and the price range', () => {
     const facets = computeFacets(products)
-    expect(facets.sizes).toEqual(expect.arrayContaining(['XS', 'XL', '5']))
+    expect(facets.sizes).toEqual(expect.arrayContaining(['XS', 'XL']))
     expect(facets.colors).toEqual(expect.arrayContaining([{ value: 'Slate', swatch: '#4b5563' }]))
-    expect(facets.priceRange).toEqual({ min: 9500, max: 42000 })
+    expect(facets.priceRange).toEqual({ min: 4800, max: 42000 })
   })
 
   it('returns a zero range for no products', () => {

@@ -42,7 +42,6 @@ function passesFilters(product: Product, query: ProductQuery): boolean {
   if (query.colors.length > 0 && !hasInStockOption(product, 'color', query.colors)) return false
   if (query.minPrice !== undefined && product.price < query.minPrice) return false
   if (query.maxPrice !== undefined && product.price > query.maxPrice) return false
-  if (query.tryOn && product.tryOn === null) return false
   return true
 }
 

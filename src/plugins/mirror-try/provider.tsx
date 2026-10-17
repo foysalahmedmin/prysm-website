@@ -8,14 +8,15 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from 'react'
-import type { TryOnSpec } from '@/domain'
+import { defaultLabels, type MirrorTryLabels } from './labels'
 import { MockMirrorTryAdapter } from './mock-adapter'
-import type { MirrorTryAdapter, MirrorTryState, TryOnRequest } from './types'
+import type { MirrorTryAdapter, MirrorTryProduct, MirrorTryState, TryOnRequest } from './types'
 
 interface MirrorTryApi {
   adapter: MirrorTryAdapter
+  labels: MirrorTryLabels
   state: MirrorTryState
-  open: (request: TryOnRequest, product: { tryOn: TryOnSpec | null }) => Promise<void>
+  open: (request: TryOnRequest, product: MirrorTryProduct) => Promise<void>
   close: () => void
   setVariant: (variantId: string) => void
   addToCart: (variantId: string) => void
@@ -25,9 +26,11 @@ const MirrorTryContext = createContext<MirrorTryApi | null>(null)
 
 export function MirrorTryProvider({
   adapter: provided,
+  labels: overrides,
   children,
 }: {
   adapter?: MirrorTryAdapter
+  labels?: Partial<MirrorTryLabels>
   children: ReactNode
 }) {
   const [fallback] = useState(() => new MockMirrorTryAdapter())
@@ -41,13 +44,14 @@ export function MirrorTryProvider({
   const api = useMemo<MirrorTryApi>(
     () => ({
       adapter,
+      labels: { ...defaultLabels, ...overrides },
       state,
       open: (request, product) => adapter.open(request, product),
       close: () => adapter.close(),
       setVariant: (variantId) => adapter.setVariant(variantId),
       addToCart: (variantId) => adapter.addToCart(variantId),
     }),
-    [adapter, state],
+    [adapter, overrides, state],
   )
 
   return <MirrorTryContext.Provider value={api}>{children}</MirrorTryContext.Provider>

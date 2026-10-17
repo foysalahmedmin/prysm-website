@@ -24,7 +24,6 @@ describe('parseProductQuery', () => {
       min: '50',
       max: '200.5',
       sale: '1',
-      tryon: '1',
       sort: 'price-desc',
       page: '3',
     })
@@ -36,7 +35,6 @@ describe('parseProductQuery', () => {
       minPrice: 5000,
       maxPrice: 20050,
       onSale: true,
-      tryOn: true,
       sort: 'price-desc',
       page: 3,
     })

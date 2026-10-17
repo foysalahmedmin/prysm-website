@@ -42,7 +42,6 @@ export const site: SiteContent = {
     ],
     legal: 'Demo store built to showcase Mirror Try. No real orders are taken.',
   },
-  tryOn: { cta: 'Try on' },
   newsletter: {
     title: 'Join the list',
     description: 'New pieces and early access, once a month.',

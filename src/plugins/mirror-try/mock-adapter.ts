@@ -1,6 +1,7 @@
-import type { TryOnSpec } from '@/domain'
+import { capabilityFor } from './capabilities'
 import type {
   MirrorTryAdapter,
+  MirrorTryProduct,
   MirrorTryState,
   TryOnEventMap,
   TryOnEventName,
@@ -11,7 +12,7 @@ const IDLE: MirrorTryState = { status: 'idle', request: null, error: null }
 
 type Handler = (payload: never) => void
 
-/** Stand-in for the real Mirror Try plugin. Same events and lifecycle, no camera or ML. */
+/** Stand-in for the real Mirror Try engine. Same lifecycle and events, no camera or ML. */
 export class MockMirrorTryAdapter implements MirrorTryAdapter {
   readonly id = 'mock'
   private state: MirrorTryState = IDLE
@@ -20,11 +21,11 @@ export class MockMirrorTryAdapter implements MirrorTryAdapter {
 
   constructor(private readonly options: { readyDelayMs?: number } = {}) {}
 
-  isSupported(product: { tryOn: TryOnSpec | null }): boolean {
-    return product.tryOn !== null
+  isSupported(product: MirrorTryProduct): boolean {
+    return capabilityFor(product) !== null
   }
 
-  async open(request: TryOnRequest, product: { tryOn: TryOnSpec | null }): Promise<void> {
+  async open(request: TryOnRequest, product: MirrorTryProduct): Promise<void> {
     if (!this.isSupported(product)) {
       this.fail(request.productId, {
         code: 'unsupported',

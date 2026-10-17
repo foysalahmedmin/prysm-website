@@ -41,7 +41,6 @@ export function parseProductQuery(params: RawParams): ProductQuery {
     minPrice: priceToMinor(first(params.min)),
     maxPrice: priceToMinor(first(params.max)),
     onSale: first(params.sale) === '1',
-    tryOn: first(params.tryon) === '1',
     sort: sort.success ? sort.data : DEFAULT_QUERY.sort,
     page: positiveInt(first(params.page)) ?? DEFAULT_QUERY.page,
     pageSize: pageSize && pageSize <= 48 ? pageSize : DEFAULT_QUERY.pageSize,
@@ -60,7 +59,6 @@ export function serializeProductQuery(query: Partial<ProductQuery>): string {
   if (query.minPrice !== undefined) params.set('min', String(query.minPrice / 100))
   if (query.maxPrice !== undefined) params.set('max', String(query.maxPrice / 100))
   if (query.onSale) params.set('sale', '1')
-  if (query.tryOn) params.set('tryon', '1')
   if (query.sort && query.sort !== DEFAULT_QUERY.sort) params.set('sort', query.sort)
   if (query.page && query.page !== DEFAULT_QUERY.page) params.set('page', String(query.page))
   if (query.pageSize && query.pageSize !== DEFAULT_QUERY.pageSize)

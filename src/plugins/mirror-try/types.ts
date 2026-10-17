@@ -1,10 +1,30 @@
-import type { TryOnSpec } from '@/domain'
-
 /**
- * The seam between a store and Mirror Try. The stores only ever talk to this interface, so the
- * mock used in the demos can be replaced by the real plugin without touching any page.
+ * The public contract of the Mirror Try plugin. The plugin owns these types and imports nothing
+ * from the store; a store describes its products to the plugin in this shape (see src/integration).
  */
-export type TryOnSource = 'pdp' | 'plp' | 'studio' | 'cart'
+
+export interface MirrorTryImage {
+  src: string
+  alt: string
+}
+
+export interface MirrorTryVariant {
+  id: string
+  /** Option name to value, for example { size: 'M', color: 'Slate' }. */
+  options: Record<string, string>
+}
+
+export interface MirrorTryProduct {
+  id: string
+  name: string
+  /** The merchant's own taxonomy. The plugin decides what it can try on from `subcategory`. */
+  category: string
+  subcategory: string
+  images: MirrorTryImage[]
+  variants: MirrorTryVariant[]
+}
+
+export type TryOnSource = 'pdp' | 'plp' | 'cart' | 'wishlist' | 'other'
 
 export interface TryOnRequest {
   productId: string
@@ -37,10 +57,11 @@ export interface MirrorTryState {
   error: TryOnError | null
 }
 
+/** What every engine behind the plugin (the demo mock, the real SDK) must implement. */
 export interface MirrorTryAdapter {
   readonly id: string
-  isSupported(product: { tryOn: TryOnSpec | null }): boolean
-  open(request: TryOnRequest, product: { tryOn: TryOnSpec | null }): Promise<void>
+  isSupported(product: MirrorTryProduct): boolean
+  open(request: TryOnRequest, product: MirrorTryProduct): Promise<void>
   close(): void
   setVariant(variantId: string): void
   addToCart(variantId: string): void

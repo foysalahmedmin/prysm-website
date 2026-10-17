@@ -1,17 +1,27 @@
 import { describe, expect, it, vi } from 'vitest'
 import { MockMirrorTryAdapter } from './mock-adapter'
+import type { MirrorTryProduct } from './types'
 
-const supported = { tryOn: { type: 'ring', anchor: 'hand', sizeAware: true } } as const
-const unsupported = { tryOn: null }
-const request = { productId: 'p-011', variantId: 'p-011-v1', source: 'pdp' } as const
+const product = (subcategory: string, id = 'p-001'): MirrorTryProduct => ({
+  id,
+  name: 'Test product',
+  category: 'clothing',
+  subcategory,
+  images: [],
+  variants: [],
+})
+
+const coat = product('outerwear')
+const trousers = product('trousers', 'p-004')
+const request = { productId: 'p-001', variantId: 'p-001-v1', source: 'pdp' } as const
 
 const newAdapter = () => new MockMirrorTryAdapter({ readyDelayMs: 0 })
 
 describe('MockMirrorTryAdapter', () => {
-  it('reports support from the product try-on spec', () => {
+  it('reports support from the plugin capabilities, not from store data', () => {
     const adapter = newAdapter()
-    expect(adapter.isSupported(supported)).toBe(true)
-    expect(adapter.isSupported(unsupported)).toBe(false)
+    expect(adapter.isSupported(coat)).toBe(true)
+    expect(adapter.isSupported(trousers)).toBe(false)
   })
 
   it('opens a session: open event, then ready event, ending in the ready state', async () => {
@@ -20,7 +30,7 @@ describe('MockMirrorTryAdapter', () => {
     adapter.on('tryon:open', () => order.push('open'))
     adapter.on('tryon:ready', () => order.push('ready'))
 
-    const opening = adapter.open(request, supported)
+    const opening = adapter.open(request, coat)
     expect(adapter.getState().status).toBe('opening')
     await opening
 
@@ -33,7 +43,7 @@ describe('MockMirrorTryAdapter', () => {
     const onError = vi.fn()
     adapter.on('tryon:error', onError)
 
-    await adapter.open({ ...request, productId: 'p-004' }, unsupported)
+    await adapter.open({ ...request, productId: 'p-004' }, trousers)
 
     expect(adapter.getState()).toMatchObject({ status: 'error', error: { code: 'unsupported' } })
     expect(onError).toHaveBeenCalledWith(
@@ -45,14 +55,14 @@ describe('MockMirrorTryAdapter', () => {
     const adapter = newAdapter()
     const onClose = vi.fn()
     adapter.on('tryon:close', onClose)
-    await adapter.open(request, supported)
+    await adapter.open(request, coat)
 
     adapter.close()
     adapter.close()
 
     expect(adapter.getState().status).toBe('idle')
     expect(onClose).toHaveBeenCalledTimes(1)
-    expect(onClose).toHaveBeenCalledWith({ productId: 'p-011' })
+    expect(onClose).toHaveBeenCalledWith({ productId: 'p-001' })
   })
 
   it('does not report ready if it was closed while opening', async () => {
@@ -60,7 +70,7 @@ describe('MockMirrorTryAdapter', () => {
     const onReady = vi.fn()
     adapter.on('tryon:ready', onReady)
 
-    const opening = adapter.open(request, supported)
+    const opening = adapter.open(request, coat)
     adapter.close()
     await opening
 
@@ -74,14 +84,14 @@ describe('MockMirrorTryAdapter', () => {
     const onAdd = vi.fn()
     adapter.on('tryon:variant-change', onVariant)
     adapter.on('tryon:add-to-cart', onAdd)
-    await adapter.open(request, supported)
+    await adapter.open(request, coat)
 
-    adapter.setVariant('p-011-v3')
-    adapter.addToCart('p-011-v3')
+    adapter.setVariant('p-001-v3')
+    adapter.addToCart('p-001-v3')
 
-    expect(adapter.getState().request?.variantId).toBe('p-011-v3')
-    expect(onVariant).toHaveBeenCalledWith({ productId: 'p-011', variantId: 'p-011-v3' })
-    expect(onAdd).toHaveBeenCalledWith({ productId: 'p-011', variantId: 'p-011-v3' })
+    expect(adapter.getState().request?.variantId).toBe('p-001-v3')
+    expect(onVariant).toHaveBeenCalledWith({ productId: 'p-001', variantId: 'p-001-v3' })
+    expect(onAdd).toHaveBeenCalledWith({ productId: 'p-001', variantId: 'p-001-v3' })
   })
 
   it('notifies state subscribers and stops after unsubscribe', async () => {
@@ -89,7 +99,7 @@ describe('MockMirrorTryAdapter', () => {
     const listener = vi.fn()
     const unsubscribe = adapter.subscribe(listener)
 
-    await adapter.open(request, supported)
+    await adapter.open(request, coat)
     const callsWhileSubscribed = listener.mock.calls.length
     expect(callsWhileSubscribed).toBeGreaterThan(0)
 
