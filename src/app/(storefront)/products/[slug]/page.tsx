@@ -33,12 +33,74 @@ export default async function ProductPage({ params }: ProductPageProps) {
     services.catalog.listProducts({ pageSize: 48 }),
   ])
 
+  const inStock = product.variants.some((v) => v.stock > 0)
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.summary,
+    image: product.media.map((m) => m.src),
+    category: product.category,
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'USD',
+      price: (product.price / 100).toFixed(2),
+      availability: inStock
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
+    },
+    ...(product.rating.count > 0
+      ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: product.rating.average.toFixed(1),
+            reviewCount: product.rating.count,
+          },
+        }
+      : {}),
+  }
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: '/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: product.category.charAt(0).toUpperCase() + product.category.slice(1),
+        item: `/category/${product.category}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: product.name,
+      },
+    ],
+  }
+
   return (
-    <ProductDetailView
-      product={product}
-      reviews={reviews}
-      relatedProducts={relatedProducts}
-      allCatalogProducts={allCatalogResult.page.items}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <ProductDetailView
+        product={product}
+        reviews={reviews}
+        relatedProducts={relatedProducts}
+        allCatalogProducts={allCatalogResult.page.items}
+      />
+    </>
   )
 }
+
