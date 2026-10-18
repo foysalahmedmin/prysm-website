@@ -24,7 +24,7 @@ export function QuantityStepper({
     <div
       role="group"
       aria-label={labels.group}
-      className={cn('glass inline-flex h-11 items-center gap-2 rounded-full px-2', className)}
+      className={cn('glass inline-flex h-11 items-center gap-2 rounded-md px-2', className)}
     >
       <button
         type="button"
@@ -37,7 +37,7 @@ export function QuantityStepper({
       </button>
       <output
         aria-live="polite"
-        className="min-w-6 text-center font-mono text-sm font-medium text-ink"
+        className="min-w-6 text-center text-sm font-medium text-ink tabular-nums"
       >
         {value}
       </output>

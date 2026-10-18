@@ -7,7 +7,7 @@ export function Input({ className, ...rest }: InputProps) {
   return (
     <input
       className={cn(
-        'glass glass-strong h-12 w-full rounded-[16px] px-4 font-text text-ink placeholder:text-ink-faint',
+        'glass glass-strong h-12 w-full rounded-md px-4 font-text text-ink placeholder:text-ink-faint',
         'border border-border-strong transition-all duration-200',
         'focus-visible:border-transparent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
         'disabled:pointer-events-none disabled:opacity-50',

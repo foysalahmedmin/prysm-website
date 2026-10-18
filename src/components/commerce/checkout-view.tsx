@@ -94,9 +94,7 @@ export function CheckoutView() {
       <div className="mx-auto min-h-[50vh] max-w-4xl py-20 text-center">
         <div className="glass mx-auto max-w-sm rounded-3xl p-8">
           <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-ink border-t-transparent" />
-          <p className="mt-4 font-mono text-xs tracking-widest text-ink-soft uppercase">
-            Loading Checkout...
-          </p>
+          <p className="mt-4 text-xs text-ink-soft tabular-nums">Loading Checkout...</p>
         </div>
       </div>
     )
@@ -105,8 +103,8 @@ export function CheckoutView() {
   if (lines.length === 0) {
     return (
       <div className="mx-auto min-h-[50vh] max-w-2xl px-4 py-20 text-center">
-        <div className="glass glass-strong rounded-3xl p-10 shadow-xl">
-          <h1 className="font-display text-2xl font-bold text-ink">Your bag is empty</h1>
+        <div className="glass glass-strong rounded-3xl p-10">
+          <h1 className="font-display text-2xl font-medium text-ink">Your bag is empty</h1>
           <p className="mt-2 text-sm text-ink-soft">
             Add items to your bag before proceeding to checkout.
           </p>
@@ -173,10 +171,8 @@ export function CheckoutView() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-8">
-        <span className="font-mono text-xs tracking-widest text-ink-faint uppercase">
-          PRYSM ENCRYPTED CHECKOUT
-        </span>
-        <h1 className="font-display text-3xl font-bold tracking-tight text-ink">
+        <span className="text-xs text-ink-faint tabular-nums">PRYSM encrypted checkout</span>
+        <h1 className="font-display text-3xl font-medium tracking-tight text-ink">
           Finalize Acquisition
         </h1>
       </div>
@@ -191,20 +187,17 @@ export function CheckoutView() {
         {/* Form Column */}
         <form onSubmit={handleSubmit} className="space-y-8 lg:col-span-7">
           {/* Section 1: Contact Information */}
-          <section className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-xl">
+          <section className="glass glass-strong rounded-3xl border border-white/80 p-6">
             <div className="flex items-center gap-2 border-b border-white/40 pb-4">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs font-bold text-canvas">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs font-semibold text-canvas">
                 1
               </span>
-              <h2 className="font-display text-lg font-bold text-ink">Contact Details</h2>
+              <h2 className="font-display text-lg font-medium text-ink">Contact Details</h2>
             </div>
 
             <div className="mt-4 space-y-4">
               <div>
-                <label
-                  htmlFor="email"
-                  className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-                >
+                <label htmlFor="email" className="mb-1 block text-xs text-ink-soft tabular-nums">
                   Email Address *
                 </label>
                 <input
@@ -231,20 +224,17 @@ export function CheckoutView() {
           </section>
 
           {/* Section 2: Delivery Address */}
-          <section className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-xl">
+          <section className="glass glass-strong rounded-3xl border border-white/80 p-6">
             <div className="flex items-center gap-2 border-b border-white/40 pb-4">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs font-bold text-canvas">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs font-semibold text-canvas">
                 2
               </span>
-              <h2 className="font-display text-lg font-bold text-ink">Shipping Destination</h2>
+              <h2 className="font-display text-lg font-medium text-ink">Shipping Destination</h2>
             </div>
 
             <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
-                <label
-                  htmlFor="name"
-                  className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-                >
+                <label htmlFor="name" className="mb-1 block text-xs text-ink-soft tabular-nums">
                   Full Name *
                 </label>
                 <input
@@ -259,10 +249,7 @@ export function CheckoutView() {
               </div>
 
               <div className="sm:col-span-2">
-                <label
-                  htmlFor="line1"
-                  className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-                >
+                <label htmlFor="line1" className="mb-1 block text-xs text-ink-soft tabular-nums">
                   Street Address *
                 </label>
                 <input
@@ -277,10 +264,7 @@ export function CheckoutView() {
               </div>
 
               <div className="sm:col-span-2">
-                <label
-                  htmlFor="line2"
-                  className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-                >
+                <label htmlFor="line2" className="mb-1 block text-xs text-ink-soft tabular-nums">
                   Apartment, Suite, Unit (Optional)
                 </label>
                 <input
@@ -294,10 +278,7 @@ export function CheckoutView() {
               </div>
 
               <div>
-                <label
-                  htmlFor="city"
-                  className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-                >
+                <label htmlFor="city" className="mb-1 block text-xs text-ink-soft tabular-nums">
                   City *
                 </label>
                 <input
@@ -312,10 +293,7 @@ export function CheckoutView() {
               </div>
 
               <div>
-                <label
-                  htmlFor="region"
-                  className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-                >
+                <label htmlFor="region" className="mb-1 block text-xs text-ink-soft tabular-nums">
                   State / Region *
                 </label>
                 <input
@@ -330,10 +308,7 @@ export function CheckoutView() {
               </div>
 
               <div>
-                <label
-                  htmlFor="postcode"
-                  className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-                >
+                <label htmlFor="postcode" className="mb-1 block text-xs text-ink-soft tabular-nums">
                   Postal Code *
                 </label>
                 <input
@@ -348,10 +323,7 @@ export function CheckoutView() {
               </div>
 
               <div>
-                <label
-                  htmlFor="country"
-                  className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-                >
+                <label htmlFor="country" className="mb-1 block text-xs text-ink-soft tabular-nums">
                   Country *
                 </label>
                 <input
@@ -368,12 +340,12 @@ export function CheckoutView() {
           </section>
 
           {/* Section 3: Delivery Speed */}
-          <section className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-xl">
+          <section className="glass glass-strong rounded-3xl border border-white/80 p-6">
             <div className="flex items-center gap-2 border-b border-white/40 pb-4">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs font-bold text-canvas">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs font-semibold text-canvas">
                 3
               </span>
-              <h2 className="font-display text-lg font-bold text-ink">Delivery Method</h2>
+              <h2 className="font-display text-lg font-medium text-ink">Delivery Method</h2>
             </div>
 
             <div className="mt-4 space-y-3">
@@ -390,10 +362,10 @@ export function CheckoutView() {
                     <span className="block font-text text-sm font-semibold text-ink">
                       Standard Courier Delivery
                     </span>
-                    <span className="font-mono text-xs text-ink-faint">3–5 business days</span>
+                    <span className="text-xs text-ink-faint tabular-nums">3–5 business days</span>
                   </div>
                 </div>
-                <span className="font-mono text-sm font-semibold text-ink">
+                <span className="text-sm font-semibold text-ink tabular-nums">
                   {quote?.totals.subtotal && quote.totals.subtotal >= 15000
                     ? 'COMPLIMENTARY'
                     : formatMoney(800, MONEY)}
@@ -413,10 +385,10 @@ export function CheckoutView() {
                     <span className="block font-text text-sm font-semibold text-ink">
                       Priority Air Express
                     </span>
-                    <span className="font-mono text-xs text-ink-faint">1–2 business days</span>
+                    <span className="text-xs text-ink-faint tabular-nums">1–2 business days</span>
                   </div>
                 </div>
-                <span className="font-mono text-sm font-semibold text-ink">
+                <span className="text-sm font-semibold text-ink tabular-nums">
                   {formatMoney(1800, MONEY)}
                 </span>
               </label>
@@ -424,21 +396,21 @@ export function CheckoutView() {
           </section>
 
           {/* Section 4: Payment Details */}
-          <section className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-xl">
+          <section className="glass glass-strong rounded-3xl border border-white/80 p-6">
             <div className="flex items-center justify-between border-b border-white/40 pb-4">
               <div className="flex items-center gap-2">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs font-bold text-canvas">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs font-semibold text-canvas">
                   4
                 </span>
-                <h2 className="font-display text-lg font-bold text-ink">Payment Card</h2>
+                <h2 className="font-display text-lg font-medium text-ink">Payment Card</h2>
               </div>
-              <div className="flex items-center gap-1 font-mono text-[11px] text-ink-soft">
+              <div className="flex items-center gap-1 text-[11px] text-ink-soft tabular-nums">
                 <Sparkle size={12} />
                 <span>256-bit TLS Encrypted</span>
               </div>
             </div>
 
-            <div className="mt-4 rounded-xl border border-white/60 bg-white/30 p-3 font-mono text-xs text-ink-soft">
+            <div className="mt-4 rounded-xl border border-white/60 bg-white/30 p-3 text-xs text-ink-soft tabular-nums">
               ✨ <strong>Demo Simulation:</strong> No payment is charged. Enter any 16-digit card
               number or use the default test numbers.
             </div>
@@ -447,7 +419,7 @@ export function CheckoutView() {
               <div>
                 <label
                   htmlFor="cardholder"
-                  className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
+                  className="mb-1 block text-xs text-ink-soft tabular-nums"
                 >
                   Cardholder Name *
                 </label>
@@ -465,7 +437,7 @@ export function CheckoutView() {
               <div>
                 <label
                   htmlFor="cardNumber"
-                  className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
+                  className="mb-1 block text-xs text-ink-soft tabular-nums"
                 >
                   Card Number (16 digits) *
                 </label>
@@ -481,17 +453,14 @@ export function CheckoutView() {
                     value={cardNumber}
                     onChange={(e) => setCardNumber(e.target.value)}
                     placeholder="4242 4242 4242 4242"
-                    className="glass w-full rounded-xl border border-white/80 p-3 pl-10 font-mono text-sm text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
+                    className="glass w-full rounded-xl border border-white/80 p-3 pl-10 text-sm text-ink tabular-nums placeholder:text-ink-faint focus:border-ink focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label
-                    htmlFor="exp"
-                    className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-                  >
+                  <label htmlFor="exp" className="mb-1 block text-xs text-ink-soft tabular-nums">
                     Expiry (MM/YY) *
                   </label>
                   <input
@@ -501,15 +470,12 @@ export function CheckoutView() {
                     value={expDate}
                     onChange={(e) => setExpDate(e.target.value)}
                     placeholder="12/28"
-                    className="glass w-full rounded-xl border border-white/80 p-3 font-mono text-sm text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
+                    className="glass w-full rounded-xl border border-white/80 p-3 text-sm text-ink tabular-nums placeholder:text-ink-faint focus:border-ink focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="cvv"
-                    className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-                  >
+                  <label htmlFor="cvv" className="mb-1 block text-xs text-ink-soft tabular-nums">
                     Security Code (CVV) *
                   </label>
                   <input
@@ -519,14 +485,14 @@ export function CheckoutView() {
                     value={cvv}
                     onChange={(e) => setCvv(e.target.value)}
                     placeholder="123"
-                    className="glass w-full rounded-xl border border-white/80 p-3 font-mono text-sm text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
+                    className="glass w-full rounded-xl border border-white/80 p-3 text-sm text-ink tabular-nums placeholder:text-ink-faint focus:border-ink focus:outline-none"
                   />
                 </div>
               </div>
             </div>
 
             <div className="mt-8">
-              <Button type="submit" size="lg" disabled={submitting} className="w-full shadow-2xl">
+              <Button type="submit" size="lg" disabled={submitting} className="w-full">
                 {submitting ? 'Confirming Order...' : 'Complete Acquisition'}
                 <ArrowRight size={16} className="ml-2" />
               </Button>
@@ -536,8 +502,8 @@ export function CheckoutView() {
 
         {/* Sidebar Column: Order Review */}
         <aside className="lg:col-span-5">
-          <div className="glass glass-strong sticky top-24 rounded-3xl border border-white/80 p-6 shadow-2xl">
-            <h2 className="font-display text-xl font-bold text-ink">Acquisition Review</h2>
+          <div className="glass glass-strong sticky top-24 rounded-3xl border border-white/80 p-6">
+            <h2 className="font-display text-xl font-medium text-ink">Acquisition Review</h2>
 
             {/* Line items thumbnail previews */}
             <ul className="mt-6 max-h-80 divide-y divide-white/40 overflow-y-auto">
@@ -554,11 +520,11 @@ export function CheckoutView() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="truncate font-text text-sm font-medium text-ink">{line.name}</p>
-                    <p className="font-mono text-xs text-ink-faint">
+                    <p className="text-xs text-ink-faint tabular-nums">
                       Qty {line.quantity} • {Object.values(line.options).join(' / ')}
                     </p>
                   </div>
-                  <span className="font-mono text-sm text-ink">
+                  <span className="text-sm text-ink tabular-nums">
                     {formatMoney(line.lineTotal, MONEY)}
                   </span>
                 </li>
@@ -568,13 +534,13 @@ export function CheckoutView() {
             <dl className="mt-6 space-y-2 border-t border-white/40 pt-4 font-text text-sm">
               <div className="flex justify-between text-ink-soft">
                 <dt>Subtotal</dt>
-                <dd className="font-mono text-ink">
+                <dd className="text-ink tabular-nums">
                   {formatMoney(quote?.totals.subtotal ?? 0, MONEY)}
                 </dd>
               </div>
               <div className="flex justify-between text-ink-soft">
                 <dt>Delivery</dt>
-                <dd className="font-mono text-ink">
+                <dd className="text-ink tabular-nums">
                   {quote?.totals.shipping === 0
                     ? 'Complimentary'
                     : formatMoney(quote?.totals.shipping ?? 0, MONEY)}
@@ -582,15 +548,17 @@ export function CheckoutView() {
               </div>
               <div className="flex justify-between text-ink-soft">
                 <dt>Estimated Tax (8%)</dt>
-                <dd className="font-mono text-ink">{formatMoney(quote?.totals.tax ?? 0, MONEY)}</dd>
+                <dd className="text-ink tabular-nums">
+                  {formatMoney(quote?.totals.tax ?? 0, MONEY)}
+                </dd>
               </div>
-              <div className="flex justify-between border-t border-white/60 pt-3 font-display text-lg font-bold text-ink">
+              <div className="flex justify-between border-t border-white/60 pt-3 font-display text-lg font-medium text-ink">
                 <dt>Total Due</dt>
-                <dd className="font-mono">{formatMoney(quote?.totals.total ?? 0, MONEY)}</dd>
+                <dd className="tabular-nums">{formatMoney(quote?.totals.total ?? 0, MONEY)}</dd>
               </div>
             </dl>
 
-            <div className="mt-6 flex items-center justify-center gap-2 font-mono text-[11px] text-ink-faint">
+            <div className="mt-6 flex items-center justify-center gap-2 text-[11px] text-ink-faint tabular-nums">
               <Sparkle size={14} />
               <span>Complimentary Returns • Insured Courier Transit</span>
             </div>

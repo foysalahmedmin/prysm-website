@@ -82,9 +82,7 @@ export function CartView() {
       <div className="mx-auto min-h-[60vh] max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <div className="glass mx-auto max-w-md rounded-3xl p-12">
           <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-ink border-t-transparent" />
-          <p className="mt-4 font-mono text-xs tracking-widest text-ink-soft uppercase">
-            Loading Bag...
-          </p>
+          <p className="mt-4 text-xs text-ink-soft tabular-nums">Loading Bag...</p>
         </div>
       </div>
     )
@@ -100,11 +98,11 @@ export function CartView() {
   if (!hasItems) {
     return (
       <div className="mx-auto min-h-[60vh] max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
-        <div className="glass glass-strong mx-auto max-w-xl rounded-3xl p-12 shadow-2xl">
-          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-white/80 bg-white/40 shadow-inner">
+        <div className="glass glass-strong mx-auto max-w-xl rounded-3xl p-12">
+          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-md border border-white/80 bg-white/40">
             <ShoppingBag size={36} className="text-ink" />
           </div>
-          <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+          <h1 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
             Your Bag is Empty
           </h1>
           <p className="mt-4 font-text text-sm leading-relaxed text-ink-soft sm:text-base">
@@ -132,16 +130,14 @@ export function CartView() {
       {/* Header */}
       <div className="mb-10 flex flex-col justify-between gap-4 border-b border-white/40 pb-6 sm:flex-row sm:items-end">
         <div>
-          <span className="font-mono text-xs tracking-widest text-ink-faint uppercase">
-            PRYSM ARCHIVE
-          </span>
-          <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+          <span className="text-xs text-ink-faint tabular-nums">PRYSM archive</span>
+          <h1 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
             Shopping Bag ({itemCount})
           </h1>
         </div>
         <Link
           href={routes.shop}
-          className="inline-flex items-center font-mono text-xs tracking-wider text-ink uppercase transition-colors hover:text-ink-soft"
+          className="inline-flex items-center text-xs text-ink tabular-nums transition-colors hover:text-ink-soft"
         >
           Continue Shopping &rarr;
         </Link>
@@ -151,9 +147,9 @@ export function CartView() {
         {/* Lines Column */}
         <div className="space-y-6 lg:col-span-7 xl:col-span-8">
           {/* Free Shipping Spectral Meter */}
-          <div className="glass glass-strong overflow-hidden rounded-2xl border border-white/80 p-5 shadow-lg">
+          <div className="glass glass-strong overflow-hidden rounded-2xl border border-white/80 p-5">
             <div className="mb-2 flex items-center justify-between text-xs">
-              <span className="font-mono font-medium text-ink">
+              <span className="font-medium text-ink tabular-nums">
                 {freeRemaining === 0 ? (
                   <span className="flex items-center gap-1.5 font-semibold text-ink">
                     <Sparkle size={14} />
@@ -163,11 +159,11 @@ export function CartView() {
                   <>Add {formatMoney(freeRemaining, MONEY)} more for Complimentary Shipping</>
                 )}
               </span>
-              <span className="font-mono text-ink-faint">{freeProgress}%</span>
+              <span className="text-ink-faint tabular-nums">{freeProgress}%</span>
             </div>
-            <div className="relative h-2 w-full overflow-hidden rounded-full bg-ink/10">
+            <div className="relative h-2 w-full overflow-hidden rounded-md bg-ink/10">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-500 transition-all duration-500 ease-out"
+                className="h-full rounded-sm bg-ink transition-all duration-500 ease-out"
                 style={{ width: `${freeProgress}%` }}
               />
             </div>
@@ -221,15 +217,12 @@ export function CartView() {
 
         {/* Summary Sidebar Column */}
         <div className="lg:col-span-5 xl:col-span-4">
-          <div className="glass glass-strong sticky top-28 rounded-3xl border border-white/80 p-6 shadow-2xl">
-            <h2 className="font-display text-xl font-bold text-ink">Order Summary</h2>
+          <div className="glass glass-strong sticky top-28 rounded-3xl border border-white/80 p-6">
+            <h2 className="font-display text-xl font-medium text-ink">Order Summary</h2>
 
             {/* Promo code drawer */}
             <form onSubmit={handleApplyPromo} className="mt-6 border-b border-white/40 pb-6">
-              <label
-                htmlFor="promo"
-                className="mb-2 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-              >
+              <label htmlFor="promo" className="mb-2 block text-xs text-ink-soft tabular-nums">
                 Promotional Code
               </label>
               <div className="flex gap-2">
@@ -245,7 +238,7 @@ export function CartView() {
                     onChange={(e) => setPromoInput(e.target.value)}
                     placeholder="e.g. WELCOME10"
                     disabled={Boolean(appliedPromo)}
-                    className="glass w-full rounded-xl border border-white/60 py-2 pr-3 pl-9 font-mono text-xs text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
+                    className="glass w-full rounded-xl border border-white/60 py-2 pr-3 pl-9 text-xs text-ink tabular-nums placeholder:text-ink-faint focus:border-ink focus:outline-none"
                   />
                 </div>
                 {appliedPromo ? (
@@ -276,7 +269,7 @@ export function CartView() {
 
             {/* Shipping selection */}
             <div className="mt-6 border-b border-white/40 pb-6">
-              <label className="mb-2 block font-mono text-xs tracking-wider text-ink-soft uppercase">
+              <label className="mb-2 block text-xs text-ink-soft tabular-nums">
                 Delivery Option
               </label>
               <div className="space-y-2">
@@ -293,7 +286,7 @@ export function CartView() {
                       Standard (3–5 days)
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-ink">
+                  <span className="text-xs text-ink tabular-nums">
                     {freeRemaining === 0 ? 'FREE' : formatMoney(800, MONEY)}
                   </span>
                 </label>
@@ -310,7 +303,7 @@ export function CartView() {
                       Express (1–2 days)
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-ink">{formatMoney(1800, MONEY)}</span>
+                  <span className="text-xs text-ink tabular-nums">{formatMoney(1800, MONEY)}</span>
                 </label>
               </div>
             </div>
@@ -319,17 +312,17 @@ export function CartView() {
             <dl className="mt-6 space-y-3 font-text text-sm">
               <div className="flex justify-between text-ink-soft">
                 <dt>Subtotal</dt>
-                <dd className="font-mono text-ink">{formatMoney(subtotal, MONEY)}</dd>
+                <dd className="text-ink tabular-nums">{formatMoney(subtotal, MONEY)}</dd>
               </div>
               {quote && quote.totals.discount > 0 ? (
                 <div className="flex justify-between text-emerald-600">
                   <dt>Promotional Savings</dt>
-                  <dd className="font-mono">-{formatMoney(quote.totals.discount, MONEY)}</dd>
+                  <dd className="tabular-nums">-{formatMoney(quote.totals.discount, MONEY)}</dd>
                 </div>
               ) : null}
               <div className="flex justify-between text-ink-soft">
                 <dt>Estimated Shipping</dt>
-                <dd className="font-mono text-ink">
+                <dd className="text-ink tabular-nums">
                   {quote?.totals.shipping === 0
                     ? 'Complimentary'
                     : formatMoney(quote?.totals.shipping ?? 0, MONEY)}
@@ -337,17 +330,21 @@ export function CartView() {
               </div>
               <div className="flex justify-between text-ink-soft">
                 <dt>Estimated Tax (8%)</dt>
-                <dd className="font-mono text-ink">{formatMoney(quote?.totals.tax ?? 0, MONEY)}</dd>
+                <dd className="text-ink tabular-nums">
+                  {formatMoney(quote?.totals.tax ?? 0, MONEY)}
+                </dd>
               </div>
-              <div className="flex justify-between border-t border-white/60 pt-4 font-display text-lg font-bold text-ink">
+              <div className="flex justify-between border-t border-white/60 pt-4 font-display text-lg font-medium text-ink">
                 <dt>Total</dt>
-                <dd className="font-mono">{formatMoney(quote?.totals.total ?? subtotal, MONEY)}</dd>
+                <dd className="tabular-nums">
+                  {formatMoney(quote?.totals.total ?? subtotal, MONEY)}
+                </dd>
               </div>
             </dl>
 
             {/* Checkout Action */}
             <div className="mt-8">
-              <Button asChild size="lg" className="w-full shadow-xl">
+              <Button asChild size="lg" className="w-full">
                 <Link href={routes.checkout}>
                   Proceed to Checkout
                   <ArrowRight size={16} className="ml-2" />
@@ -356,7 +353,7 @@ export function CartView() {
             </div>
 
             {/* Trust badge */}
-            <div className="mt-6 flex items-center justify-center gap-2 font-mono text-[11px] text-ink-faint">
+            <div className="mt-6 flex items-center justify-center gap-2 text-[11px] text-ink-faint tabular-nums">
               <Sparkle size={14} />
               <span>Complimentary Returns • Insured Courier Transit</span>
             </div>

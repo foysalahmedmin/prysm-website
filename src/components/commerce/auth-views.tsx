@@ -31,12 +31,10 @@ export function LoginView() {
   }
 
   return (
-    <div className="glass glass-strong rounded-3xl border border-white/80 p-8 shadow-2xl">
+    <div className="glass glass-strong rounded-3xl border border-white/80 p-8">
       <div className="text-center">
-        <span className="font-mono text-xs tracking-widest text-ink-faint uppercase">
-          PRYSM ARCHIVE ACCESS
-        </span>
-        <h1 className="mt-2 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+        <span className="text-xs text-ink-faint tabular-nums">PRYSM archive access</span>
+        <h1 className="mt-2 font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
           Sign In
         </h1>
         <p className="mt-2 font-text text-xs text-ink-soft sm:text-sm">
@@ -52,7 +50,7 @@ export function LoginView() {
 
       {/* 1-Click Demo Entry */}
       <div className="border-accent-cyan/30 bg-accent-cyan/10 mt-6 rounded-2xl border p-4 text-center">
-        <p className="flex items-center justify-center gap-1.5 font-mono text-xs font-semibold text-ink">
+        <p className="flex items-center justify-center gap-1.5 text-xs font-semibold text-ink tabular-nums">
           <Sparkle size={14} className="text-ink" />
           Rapid Evaluation Demo
         </p>
@@ -71,16 +69,13 @@ export function LoginView() {
 
       <div className="my-6 flex items-center gap-3">
         <div className="h-px flex-1 bg-white/40" />
-        <span className="font-mono text-[10px] text-ink-faint uppercase">Or Credentials</span>
+        <span className="text-[10px] text-ink-faint tabular-nums">Or Credentials</span>
         <div className="h-px flex-1 bg-white/40" />
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label
-            htmlFor="login-email"
-            className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-          >
+          <label htmlFor="login-email" className="mb-1 block text-xs text-ink-soft tabular-nums">
             Email Address
           </label>
           <input
@@ -96,15 +91,12 @@ export function LoginView() {
 
         <div>
           <div className="mb-1 flex items-center justify-between">
-            <label
-              htmlFor="login-pwd"
-              className="block font-mono text-xs tracking-wider text-ink-soft uppercase"
-            >
+            <label htmlFor="login-pwd" className="block text-xs text-ink-soft tabular-nums">
               Password
             </label>
             <Link
               href={routes.forgotPassword}
-              className="font-mono text-[11px] text-ink-soft hover:text-ink"
+              className="text-[11px] text-ink-soft tabular-nums hover:text-ink"
             >
               Forgot Password?
             </Link>
@@ -157,12 +149,10 @@ export function RegisterView() {
   }
 
   return (
-    <div className="glass glass-strong rounded-3xl border border-white/80 p-8 shadow-2xl">
+    <div className="glass glass-strong rounded-3xl border border-white/80 p-8">
       <div className="text-center">
-        <span className="font-mono text-xs tracking-widest text-ink-faint uppercase">
-          PRYSM ARCHIVE
-        </span>
-        <h1 className="mt-2 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+        <span className="text-xs text-ink-faint tabular-nums">PRYSM archive</span>
+        <h1 className="mt-2 font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
           Register
         </h1>
         <p className="mt-2 font-text text-xs text-ink-soft sm:text-sm">
@@ -178,10 +168,7 @@ export function RegisterView() {
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <div>
-          <label
-            htmlFor="reg-name"
-            className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-          >
+          <label htmlFor="reg-name" className="mb-1 block text-xs text-ink-soft tabular-nums">
             Full Name
           </label>
           <input
@@ -196,10 +183,7 @@ export function RegisterView() {
         </div>
 
         <div>
-          <label
-            htmlFor="reg-email"
-            className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-          >
+          <label htmlFor="reg-email" className="mb-1 block text-xs text-ink-soft tabular-nums">
             Email Address
           </label>
           <input
@@ -214,10 +198,7 @@ export function RegisterView() {
         </div>
 
         <div>
-          <label
-            htmlFor="reg-pwd"
-            className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-          >
+          <label htmlFor="reg-pwd" className="mb-1 block text-xs text-ink-soft tabular-nums">
             Password
           </label>
           <input
@@ -261,12 +242,10 @@ export function ForgotPasswordView() {
   }
 
   return (
-    <div className="glass glass-strong rounded-3xl border border-white/80 p-8 shadow-2xl">
+    <div className="glass glass-strong rounded-3xl border border-white/80 p-8">
       <div className="text-center">
-        <span className="font-mono text-xs tracking-widest text-ink-faint uppercase">
-          AUTHENTICATION RECOVERY
-        </span>
-        <h1 className="mt-2 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+        <span className="text-xs text-ink-faint tabular-nums">Authentication recovery</span>
+        <h1 className="mt-2 font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
           Reset Password
         </h1>
         <p className="mt-2 font-text text-xs text-ink-soft sm:text-sm">
@@ -294,10 +273,7 @@ export function ForgotPasswordView() {
       ) : (
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <label
-              htmlFor="forgot-email"
-              className="mb-1 block font-mono text-xs tracking-wider text-ink-soft uppercase"
-            >
+            <label htmlFor="forgot-email" className="mb-1 block text-xs text-ink-soft tabular-nums">
               Email Address
             </label>
             <input

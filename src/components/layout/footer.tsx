@@ -22,26 +22,26 @@ export function Footer() {
   }
 
   return (
-    <footer aria-label="Site footer" className="mt-24 w-full border-t border-ink/5 bg-surface">
+    <footer aria-label="Site footer" className="mt-0 w-full border-t border-ink/10 bg-surface">
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand Column */}
           <div className="space-y-4 lg:col-span-2">
-            <Link href="/" className="font-display text-2xl font-black tracking-widest text-ink">
+            <Link href="/" className="font-display text-2xl font-medium text-ink">
               PRYSM
             </Link>
             <p className="max-w-sm font-text text-sm text-ink-soft">
               Dress for the light. Prismatic optics, structural tailoring, and engineered modern
               luxury.
             </p>
-            <div className="pt-4 font-mono text-xs text-ink-faint">
+            <div className="pt-4 text-xs text-ink-faint tabular-nums">
               Currency: USD ($) · Worldwide Express Available
             </div>
           </div>
 
           {/* Shop Column */}
           <div>
-            <h3 className="mb-4 font-mono text-xs tracking-wider text-ink-faint uppercase">Shop</h3>
+            <h3 className="mb-4 text-xs text-ink-faint tabular-nums">Shop</h3>
             <ul className="space-y-2.5 font-text text-sm">
               <li>
                 <Link
@@ -90,9 +90,7 @@ export function Footer() {
 
           {/* Help Column */}
           <div>
-            <h3 className="mb-4 font-mono text-xs tracking-wider text-ink-faint uppercase">
-              Client Care
-            </h3>
+            <h3 className="mb-4 text-xs text-ink-faint tabular-nums">Client Care</h3>
             <ul className="space-y-2.5 font-text text-sm">
               <li>
                 <Link
@@ -130,9 +128,7 @@ export function Footer() {
 
           {/* Newsletter Column */}
           <div>
-            <h3 className="mb-4 font-mono text-xs tracking-wider text-ink-faint uppercase">
-              Newsletter
-            </h3>
+            <h3 className="mb-4 text-xs text-ink-faint tabular-nums">Newsletter</h3>
             <p className="mb-3 font-text text-xs text-ink-soft">
               Receive private invitations and seasonal collection releases.
             </p>
@@ -145,7 +141,7 @@ export function Footer() {
                   placeholder="Enter your email"
                   aria-label="Email for newsletter"
                   required
-                  className="glass-strong w-full rounded-full border border-ink/10 px-4 py-2.5 pr-10 text-xs text-ink placeholder:text-ink-faint focus:ring-2 focus:ring-focus focus:outline-none"
+                  className="glass-strong w-full rounded-md border border-ink/10 px-4 py-2.5 pr-10 text-xs text-ink placeholder:text-ink-faint focus:ring-2 focus:ring-focus focus:outline-none"
                 />
                 <button
                   type="submit"
@@ -156,14 +152,14 @@ export function Footer() {
                 </button>
               </div>
               {submitted && (
-                <p className="font-mono text-xs text-success">Subscribed to PRYSM updates.</p>
+                <p className="text-xs text-success tabular-nums">Subscribed to PRYSM updates.</p>
               )}
             </form>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-ink/10 pt-8 font-mono text-xs text-ink-faint sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-ink/10 pt-8 text-xs text-ink-faint tabular-nums sm:flex-row">
           <div>© 2026 PRYSM Eyewear & Ready-to-Wear. All rights reserved.</div>
           <div className="flex gap-6">
             <Link href="/privacy" className="transition-colors hover:text-ink">

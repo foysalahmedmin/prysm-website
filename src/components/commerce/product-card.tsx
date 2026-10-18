@@ -7,6 +7,10 @@ import { Price } from '@/components/ui'
 import { cn } from '@/lib/cn'
 import type { ProductCardProps } from './contract'
 
+/**
+ * A flat card: the picture runs edge to edge, the details sit below it with their own padding.
+ * The second picture fades in on hover; glass is used only for the small controls on the photo.
+ */
 export function ProductCard({
   product,
   href,
@@ -19,15 +23,16 @@ export function ProductCard({
   className,
 }: ProductCardProps & { className?: string }) {
   const image = product.media[0]!
+  const hover = product.media[1]
   return (
     <article
       className={cn(
-        'glass edge group relative flex flex-col overflow-hidden rounded-[24px] p-3.5 transition-all duration-300 hover:-translate-y-1',
+        'group @container relative flex flex-col overflow-hidden rounded-md border border-ink/10 bg-surface',
         className,
       )}
     >
-      <Link href={href} className="group-hover:text-ink/80 focus-visible:outline-none">
-        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[20px] bg-surface">
+      <Link href={href} className="flex flex-1 flex-col focus-visible:outline-offset-[-3px]">
+        <div className="relative aspect-[3/4] w-full overflow-hidden bg-canvas">
           <Image
             src={image.src}
             alt={image.alt}
@@ -35,18 +40,26 @@ export function ProductCard({
             height={image.height}
             priority={priority}
             sizes="(min-width: 1024px) 25vw, 50vw"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           />
+          {hover ? (
+            <Image
+              src={hover.src}
+              alt=""
+              width={hover.width}
+              height={hover.height}
+              sizes="(min-width: 1024px) 25vw, 50vw"
+              className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            />
+          ) : null}
           {product.badges.length > 0 ? (
             <ul className="pointer-events-none absolute top-3 left-3 z-10 flex flex-wrap gap-1.5">
               {product.badges.map((badge) => (
                 <li
                   key={badge}
                   className={cn(
-                    'rounded-full px-2.5 py-0.5 font-mono text-[11px] font-semibold tracking-wider uppercase',
-                    badge === 'sale'
-                      ? 'bg-danger text-on-danger'
-                      : 'glass glass-strong text-ink shadow-sm',
+                    'rounded-sm px-2 py-1 text-[11px] leading-none font-medium',
+                    badge === 'sale' ? 'bg-danger text-on-danger' : 'bg-surface text-ink',
                   )}
                 >
                   {labels.badges[badge]}
@@ -55,8 +68,16 @@ export function ProductCard({
             </ul>
           ) : null}
         </div>
-        <div className="mt-3.5 px-1">
-          <h3 className="line-clamp-1 font-text text-sm font-semibold text-ink">{product.name}</h3>
+        <div className="flex items-start justify-between gap-3 px-3.5 pt-3 pb-4">
+          <h3 className="line-clamp-2 text-sm leading-snug font-medium text-ink">{product.name}</h3>
+          <Price
+            amount={product.price}
+            compareAt={product.compareAtPrice}
+            currency={money.currency}
+            locale={money.locale}
+            labels={{ sale: labels.sale, original: labels.original }}
+            className="shrink-0 flex-col items-end gap-0 text-sm leading-snug"
+          />
         </div>
       </Link>
 
@@ -65,28 +86,19 @@ export function ProductCard({
         aria-pressed={saved}
         onClick={() => onToggleSaved(product.id)}
         className={cn(
-          'glass absolute top-6 right-6 z-10 flex h-9 w-9 items-center justify-center rounded-full text-ink transition-transform duration-200 hover:scale-110 focus-visible:outline-2 focus-visible:outline-focus',
+          'glass absolute top-3 right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full text-ink transition-transform duration-200 hover:scale-105 focus-visible:outline-2 focus-visible:outline-focus',
           saved && 'text-danger',
         )}
       >
-        <Heart weight={saved ? 'fill' : 'light'} size={18} />
+        <Heart weight={saved ? 'fill' : 'light'} size={17} />
         <span className="sr-only">{labels.save}</span>
       </button>
 
       {tryOnSlot ? (
-        <div className="absolute top-[calc(75%-2.5rem)] left-6 z-10">{tryOnSlot}</div>
+        <div className="absolute top-[calc(133.333cqw-3.25rem)] left-3 z-10 md:translate-y-2 md:opacity-0 md:transition-all md:duration-300 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100 md:group-hover:translate-y-0 md:group-hover:opacity-100">
+          {tryOnSlot}
+        </div>
       ) : null}
-
-      <div className="mt-1.5 flex items-center justify-between px-1 pb-1">
-        <Price
-          amount={product.price}
-          compareAt={product.compareAtPrice}
-          currency={money.currency}
-          locale={money.locale}
-          labels={{ sale: labels.sale, original: labels.original }}
-          className="text-sm font-semibold"
-        />
-      </div>
     </article>
   )
 }

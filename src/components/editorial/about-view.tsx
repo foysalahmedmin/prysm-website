@@ -54,13 +54,13 @@ export function AboutView() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
       {/* Hero Section */}
-      <div className="shadow-glass-strong relative mb-16 overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-br from-white/90 via-white/70 to-indigo-50/50 p-8 backdrop-blur-xl md:p-14">
+      <div className="relative mb-16 overflow-hidden rounded-3xl border border-ink/10 bg-surface p-8 md:p-14">
         <div className="max-w-2xl">
-          <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-brand uppercase">
+          <span className="mb-3 inline-flex items-center gap-1.5 rounded-md bg-brand/10 px-3 py-1 text-xs font-semibold text-brand tabular-nums">
             <Sparkle size={12} />
             Our Atelier & Manifesto
           </span>
-          <h1 className="font-display text-3xl font-bold tracking-tight text-ink md:text-5xl">
+          <h1 className="font-display text-3xl font-medium tracking-tight text-ink md:text-5xl">
             Tailoring Cut to Catch the Light.
           </h1>
           <p className="mt-4 font-text text-base leading-relaxed text-ink-soft md:text-lg">
@@ -86,7 +86,7 @@ export function AboutView() {
       {/* Pillars Grid */}
       <section className="mb-16">
         <div className="mb-8 text-center">
-          <h2 className="font-display text-2xl font-bold text-ink md:text-3xl">
+          <h2 className="font-display text-2xl font-medium text-ink md:text-3xl">
             Foundations of Optical Design
           </h2>
           <p className="mt-2 font-text text-sm text-ink-soft md:text-base">
@@ -98,9 +98,9 @@ export function AboutView() {
           {PILLARS.map((pillar) => (
             <div
               key={pillar.title}
-              className="shadow-glass hover:shadow-glass-strong rounded-2xl border border-white/70 bg-white/60 p-6 backdrop-blur-md transition hover:-translate-y-1"
+              className="rounded-2xl border border-ink/10 bg-white/60 p-6 backdrop-blur-md transition hover:-translate-y-1"
             >
-              <h3 className="font-display text-lg font-bold text-ink">{pillar.title}</h3>
+              <h3 className="font-display text-lg font-medium text-ink">{pillar.title}</h3>
               <p className="mt-3 font-text text-sm leading-relaxed text-ink-soft">
                 {pillar.description}
               </p>
@@ -110,8 +110,8 @@ export function AboutView() {
       </section>
 
       {/* Atelier Timeline */}
-      <section className="shadow-glass mb-16 rounded-3xl border border-white/80 bg-white/70 p-8 backdrop-blur-xl md:p-12">
-        <h2 className="mb-8 text-center font-display text-2xl font-bold text-ink">
+      <section className="mb-16 rounded-3xl border border-ink/10 bg-white/70 p-8 md:p-12">
+        <h2 className="mb-8 text-center font-display text-2xl font-medium text-ink">
           Atelier Chronicle
         </h2>
         <div className="grid gap-8 md:grid-cols-4">
@@ -120,8 +120,8 @@ export function AboutView() {
               key={step.year}
               className="relative border-l-2 border-brand/30 pl-4 md:border-t-2 md:border-l-0 md:pt-4"
             >
-              <span className="font-mono text-xs font-bold text-brand uppercase">{step.year}</span>
-              <h4 className="mt-1 font-display text-base font-bold text-ink">{step.title}</h4>
+              <span className="text-xs font-semibold text-brand tabular-nums">{step.year}</span>
+              <h4 className="mt-1 font-display text-base font-medium text-ink">{step.title}</h4>
               <p className="mt-2 font-text text-xs leading-relaxed text-ink-soft">
                 {step.description}
               </p>
@@ -131,12 +131,12 @@ export function AboutView() {
       </section>
 
       {/* Sustainability & Ethics */}
-      <section className="rounded-3xl border border-white/70 bg-gradient-to-r from-slate-900 to-indigo-950 p-8 text-white shadow-xl md:p-12">
+      <section className="rounded-3xl border border-ink/10 bg-ink p-8 text-white md:p-12">
         <div className="max-w-3xl">
-          <span className="font-mono text-xs font-semibold tracking-wider text-indigo-300 uppercase">
+          <span className="text-xs font-semibold text-indigo-300 tabular-nums">
             Conscious Creation
           </span>
-          <h2 className="mt-2 font-display text-2xl font-bold md:text-3xl">
+          <h2 className="mt-2 font-display text-2xl font-medium md:text-3xl">
             Zero-Waste Cutting & Ethical Sourcing
           </h2>
           <p className="mt-4 font-text text-sm leading-relaxed text-slate-300 md:text-base">

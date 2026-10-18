@@ -18,7 +18,7 @@ export function AnnouncementBar({
   return (
     <aside
       aria-label="Announcement"
-      className="w-full bg-ink px-4 py-2 font-mono text-xs tracking-wider text-on-brand transition-all"
+      className="w-full bg-ink px-4 py-2 text-xs text-on-brand tabular-nums transition-all"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
         <div className="flex-1 text-center font-medium">

@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/footer'
 import { GlassBagDrawer } from '@/components/layout/glass-bag-drawer'
 import { GlassNav } from '@/components/layout/glass-nav'
 import { GlassSearchOverlay } from '@/components/layout/glass-search-overlay'
-import { LightField, PageTransition } from '@/lib/motion'
+import { PageTransition } from '@/lib/motion'
 import { useCartStore } from '@/stores/cart-store'
 
 export default function StorefrontLayout({ children }: { children: React.ReactNode }) {
@@ -13,10 +13,9 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
 
   return (
     <div className="relative flex min-h-screen flex-col bg-canvas text-ink">
-      <LightField />
       <AnnouncementBar />
       <GlassNav cartCount={lineCount} />
-      <main id="main-content" tabIndex={-1} className="flex-1 pt-4 focus:outline-none">
+      <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
         <PageTransition>{children}</PageTransition>
       </main>
       <Footer />

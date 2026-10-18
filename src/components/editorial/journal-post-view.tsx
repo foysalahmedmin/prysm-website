@@ -53,7 +53,7 @@ export function JournalPostView({
 
       {/* Header */}
       <header className="mb-10">
-        <div className="flex items-center gap-3 font-mono text-xs tracking-wider text-ink-faint uppercase">
+        <div className="flex items-center gap-3 text-xs text-ink-faint tabular-nums">
           <span className="inline-flex items-center gap-1 font-semibold text-brand">
             <Sparkle size={12} />
             Editorial Essay
@@ -67,7 +67,7 @@ export function JournalPostView({
           </span>
         </div>
 
-        <h1 className="mt-4 font-display text-3xl leading-tight font-bold tracking-tight text-ink md:text-5xl">
+        <h1 className="mt-4 font-display text-3xl leading-tight font-medium tracking-tight text-ink md:text-5xl">
           {post.title}
         </h1>
 
@@ -77,7 +77,7 @@ export function JournalPostView({
       </header>
 
       {/* Hero Media */}
-      <div className="shadow-glass-strong relative mb-12 overflow-hidden rounded-3xl border border-white/80 bg-white/60">
+      <div className="relative mb-12 overflow-hidden rounded-3xl border border-white/80 bg-white/60">
         <Image
           priority
           src={post.cover.src}
@@ -97,19 +97,19 @@ export function JournalPostView({
         {post.body.map((paragraph, idx) => (
           <p
             key={idx}
-            className="first-letter:font-display first-letter:text-2xl first-letter:font-bold"
+            className="first-letter:font-display first-letter:text-2xl first-letter:font-medium"
           >
             {paragraph}
           </p>
         ))}
 
         {/* Pull Quote */}
-        <blockquote className="shadow-glass my-10 rounded-2xl border-l-4 border-brand bg-white/70 p-6 backdrop-blur-md md:p-8">
-          <p className="font-display text-lg font-semibold text-ink italic md:text-xl">
+        <blockquote className="my-10 rounded-2xl border-l-4 border-brand bg-white/70 p-6 backdrop-blur-md md:p-8">
+          <p className="font-display text-lg font-medium text-ink italic md:text-xl">
             &ldquo;When luxury tailoring is drafted with structural physics, garments cease being
             passive coverings and become dynamic lenses for light and posture.&rdquo;
           </p>
-          <cite className="mt-3 block font-mono text-xs tracking-wider text-ink-faint uppercase not-italic">
+          <cite className="mt-3 block text-xs text-ink-faint not-italic tabular-nums">
             — PRYSM Atelier Research Note
           </cite>
         </blockquote>
@@ -119,7 +119,7 @@ export function JournalPostView({
       {relatedPosts.length > 0 && (
         <section className="mt-20 border-t border-slate-200/80 pt-12">
           <div className="mb-8 flex items-center justify-between">
-            <h2 className="font-display text-2xl font-bold text-ink">Related Essays</h2>
+            <h2 className="font-display text-2xl font-medium text-ink">Related Essays</h2>
             <Link
               href={routes.journal}
               className="font-text text-sm font-semibold text-brand hover:underline"
@@ -133,7 +133,7 @@ export function JournalPostView({
               <Link
                 key={related.slug}
                 href={routes.journalPost(related.slug)}
-                className="group shadow-glass hover:shadow-glass-strong flex flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/60 p-5 backdrop-blur-md transition hover:-translate-y-1"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/60 p-5 backdrop-blur-md transition hover:-translate-y-1"
               >
                 <div className="relative mb-4 aspect-[16/9] overflow-hidden rounded-xl bg-slate-100">
                   <Image
@@ -144,11 +144,11 @@ export function JournalPostView({
                     className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                   />
                 </div>
-                <div className="flex items-center gap-2 font-mono text-xs text-ink-faint">
+                <div className="flex items-center gap-2 text-xs text-ink-faint tabular-nums">
                   <ClockIcon size={12} />
                   <span>{related.readingMinutes} min</span>
                 </div>
-                <h3 className="mt-2 font-display text-base font-bold text-ink transition group-hover:text-brand">
+                <h3 className="mt-2 font-display text-base font-medium text-ink transition group-hover:text-brand">
                   {related.title}
                 </h3>
               </Link>

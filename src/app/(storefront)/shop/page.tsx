@@ -12,7 +12,7 @@ interface ShopPageProps {
 
 export default function ShopPage(props: ShopPageProps) {
   return (
-    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-md bg-surface" />}>
       <ShopContent {...props} />
     </Suspense>
   )
@@ -25,7 +25,7 @@ async function ShopContent({ searchParams }: ShopPageProps) {
   const result = await services.catalog.listProducts(query)
 
   return (
-    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-md bg-surface" />}>
       <ProductListView
         products={result.page.items}
         total={result.page.total}

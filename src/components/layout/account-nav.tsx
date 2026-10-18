@@ -16,7 +16,7 @@ export function AccountNav() {
 
   return (
     <nav aria-label="Account navigation" className="mb-8">
-      <ul className="glass flex max-w-fit flex-wrap gap-2 rounded-full p-1.5">
+      <ul className="glass flex max-w-fit flex-wrap gap-2 rounded-md p-1.5">
         {ACCOUNT_LINKS.map((link) => {
           const isActive = pathname === link.href
           return (
@@ -24,9 +24,9 @@ export function AccountNav() {
               <Link
                 href={link.href}
                 className={cn(
-                  'block rounded-full px-5 py-2 font-text text-sm font-medium transition-all focus-visible:outline-2 focus-visible:outline-focus',
+                  'block rounded-md px-5 py-2 font-text text-sm font-medium transition-all focus-visible:outline-2 focus-visible:outline-focus',
                   isActive
-                    ? 'bg-ink text-on-brand shadow-md'
+                    ? 'bg-ink text-on-brand'
                     : 'text-ink-soft hover:bg-white/50 hover:text-ink',
                 )}
               >

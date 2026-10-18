@@ -24,20 +24,18 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
       <div className="glass mx-auto max-w-md rounded-3xl p-10 text-center">
         <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-ink border-t-transparent" />
         <h1 className="sr-only">Account</h1>
-        <p className="mt-4 font-mono text-xs tracking-widest text-ink-soft uppercase">
-          Loading Account...
-        </p>
+        <p className="mt-4 text-xs text-ink-soft tabular-nums">Loading Account...</p>
       </div>
     )
   }
 
   if (!isAuthenticated) {
     return (
-      <div className="glass glass-strong mx-auto max-w-md rounded-3xl border border-white/80 p-8 text-center shadow-xl">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-ink/10 text-ink">
+      <div className="glass glass-strong mx-auto max-w-md rounded-3xl border border-white/80 p-8 text-center">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-md bg-ink/10 text-ink">
           <User size={28} />
         </div>
-        <h1 className="font-display text-2xl font-bold text-ink">Sign In Required</h1>
+        <h1 className="font-display text-2xl font-medium text-ink">Sign In Required</h1>
         <p className="mt-2 font-text text-sm text-ink-soft">
           Please sign in or use demo access to view your private archive dashboard.
         </p>
@@ -73,15 +71,13 @@ export function AccountDashboardView() {
     <AuthGuard>
       <div className="space-y-8">
         {/* Welcome Header */}
-        <div className="glass glass-strong flex flex-col justify-between gap-4 rounded-3xl border border-white/80 p-8 shadow-xl sm:flex-row sm:items-center">
+        <div className="glass glass-strong flex flex-col justify-between gap-4 rounded-3xl border border-white/80 p-8 sm:flex-row sm:items-center">
           <div>
-            <span className="font-mono text-xs tracking-widest text-ink-faint uppercase">
-              PRYSM CLIENT ARCHIVE
-            </span>
-            <h1 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+            <span className="text-xs text-ink-faint tabular-nums">PRYSM client archive</span>
+            <h1 className="font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
               Welcome, {customer?.name ?? 'Collector'}
             </h1>
-            <p className="mt-1 font-mono text-xs text-ink-soft">{customer?.email}</p>
+            <p className="mt-1 text-xs text-ink-soft tabular-nums">{customer?.email}</p>
           </div>
           <div>
             <Button variant="secondary" size="sm" onClick={logout}>
@@ -92,21 +88,21 @@ export function AccountDashboardView() {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          <div className="glass rounded-2xl border border-white/80 p-6 shadow-md">
-            <span className="font-mono text-xs text-ink-faint uppercase">Total Acquisitions</span>
-            <p className="mt-2 font-display text-3xl font-bold text-ink">{orders.length}</p>
+          <div className="glass rounded-2xl border border-white/80 p-6">
+            <span className="text-xs text-ink-faint tabular-nums">Total Acquisitions</span>
+            <p className="mt-2 font-display text-3xl font-medium text-ink">{orders.length}</p>
             <p className="mt-1 font-text text-xs text-ink-soft">Lifetime verified orders</p>
           </div>
 
-          <div className="glass rounded-2xl border border-white/80 p-6 shadow-md">
-            <span className="font-mono text-xs text-ink-faint uppercase">Client Standing</span>
-            <p className="mt-2 font-display text-3xl font-bold text-ink">Photonic Tier</p>
+          <div className="glass rounded-2xl border border-white/80 p-6">
+            <span className="text-xs text-ink-faint tabular-nums">Client Standing</span>
+            <p className="mt-2 font-display text-3xl font-medium text-ink">Photonic Tier</p>
             <p className="mt-1 font-text text-xs text-ink-soft">Complimentary worldwide transit</p>
           </div>
 
-          <div className="glass rounded-2xl border border-white/80 p-6 shadow-md">
-            <span className="font-mono text-xs text-ink-faint uppercase">Saved Addresses</span>
-            <p className="mt-2 font-display text-3xl font-bold text-ink">{addresses.length}</p>
+          <div className="glass rounded-2xl border border-white/80 p-6">
+            <span className="text-xs text-ink-faint tabular-nums">Saved Addresses</span>
+            <p className="mt-2 font-display text-3xl font-medium text-ink">{addresses.length}</p>
             <p className="mt-1 font-text text-xs text-ink-soft">Active delivery destinations</p>
           </div>
         </div>
@@ -114,13 +110,10 @@ export function AccountDashboardView() {
         {/* Latest Order & Address Section */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Latest Order */}
-          <div className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-xl">
+          <div className="glass glass-strong rounded-3xl border border-white/80 p-6">
             <div className="flex items-center justify-between border-b border-white/40 pb-4">
-              <h2 className="font-display text-lg font-bold text-ink">Recent Acquisition</h2>
-              <Link
-                href={routes.orders}
-                className="font-mono text-xs text-ink uppercase hover:underline"
-              >
+              <h2 className="font-display text-lg font-medium text-ink">Recent Acquisition</h2>
+              <Link href={routes.orders} className="text-xs text-ink tabular-nums hover:underline">
                 View All &rarr;
               </Link>
             </div>
@@ -128,18 +121,18 @@ export function AccountDashboardView() {
             {latestOrder ? (
               <div className="mt-4 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-base font-bold text-ink">
+                  <span className="text-base font-semibold text-ink tabular-nums">
                     {latestOrder.number}
                   </span>
-                  <span className="rounded-full bg-ink px-3 py-1 font-mono text-[11px] font-semibold text-canvas uppercase">
+                  <span className="rounded-md bg-ink px-3 py-1 text-[11px] font-semibold text-canvas tabular-nums">
                     {latestOrder.status}
                   </span>
                 </div>
-                <p className="font-mono text-xs text-ink-faint">
+                <p className="text-xs text-ink-faint tabular-nums">
                   Placed on {new Date(latestOrder.createdAt).toLocaleDateString()} •{' '}
                   {latestOrder.lines.length} items
                 </p>
-                <p className="font-mono text-sm font-semibold text-ink">
+                <p className="text-sm font-semibold text-ink tabular-nums">
                   Total: {formatMoney(latestOrder.totals.total, MONEY)}
                 </p>
                 <div className="pt-2">
@@ -164,12 +157,12 @@ export function AccountDashboardView() {
           </div>
 
           {/* Primary Address */}
-          <div className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-xl">
+          <div className="glass glass-strong rounded-3xl border border-white/80 p-6">
             <div className="flex items-center justify-between border-b border-white/40 pb-4">
-              <h2 className="font-display text-lg font-bold text-ink">Primary Destination</h2>
+              <h2 className="font-display text-lg font-medium text-ink">Primary Destination</h2>
               <Link
                 href={routes.addresses}
-                className="font-mono text-xs text-ink uppercase hover:underline"
+                className="text-xs text-ink tabular-nums hover:underline"
               >
                 Manage &rarr;
               </Link>
@@ -185,7 +178,7 @@ export function AccountDashboardView() {
                 </p>
                 <p>{defaultAddr.country}</p>
                 {defaultAddr.phone ? (
-                  <p className="font-mono text-xs text-ink-faint">{defaultAddr.phone}</p>
+                  <p className="text-xs text-ink-faint tabular-nums">{defaultAddr.phone}</p>
                 ) : null}
               </div>
             ) : (
@@ -207,21 +200,18 @@ export function AccountOrdersView() {
     <AuthGuard>
       <div className="space-y-6">
         <div className="flex items-center justify-between border-b border-white/40 pb-4">
-          <h1 className="font-display text-2xl font-bold text-ink">
+          <h1 className="font-display text-2xl font-medium text-ink">
             Acquisition History ({orders.length})
           </h1>
-          <Link
-            href={routes.trackOrder}
-            className="font-mono text-xs text-ink uppercase hover:underline"
-          >
+          <Link href={routes.trackOrder} className="text-xs text-ink tabular-nums hover:underline">
             Track via Courier Radar &rarr;
           </Link>
         </div>
 
         {orders.length === 0 ? (
-          <div className="glass glass-strong rounded-3xl p-12 text-center shadow-xl">
+          <div className="glass glass-strong rounded-3xl p-12 text-center">
             <ShoppingBag size={40} className="mx-auto text-ink-faint" />
-            <h2 className="mt-4 font-display text-xl font-bold text-ink">No Orders Placed</h2>
+            <h2 className="mt-4 font-display text-xl font-medium text-ink">No Orders Placed</h2>
             <p className="mt-2 text-sm text-ink-soft">
               Explore the archive boutique and acquire your first PRYSM garment.
             </p>
@@ -236,18 +226,18 @@ export function AccountOrdersView() {
             {orders.map((order) => (
               <div
                 key={order.id}
-                className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-xl transition-all hover:bg-white/70"
+                className="glass glass-strong rounded-3xl border border-white/80 p-6 transition-all hover:bg-white/70"
               >
                 <div className="flex flex-col justify-between gap-4 border-b border-white/40 pb-4 sm:flex-row sm:items-center">
                   <div>
-                    <span className="font-mono text-xs text-ink-faint uppercase">Order Number</span>
-                    <p className="font-mono text-lg font-bold text-ink">{order.number}</p>
+                    <span className="text-xs text-ink-faint tabular-nums">Order Number</span>
+                    <p className="text-lg font-semibold text-ink tabular-nums">{order.number}</p>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="rounded-full bg-ink px-3 py-1 font-mono text-xs font-semibold text-canvas uppercase">
+                    <span className="rounded-md bg-ink px-3 py-1 text-xs font-semibold text-canvas tabular-nums">
                       {order.status}
                     </span>
-                    <span className="font-mono text-sm font-bold text-ink">
+                    <span className="text-sm font-semibold text-ink tabular-nums">
                       {formatMoney(order.totals.total, MONEY)}
                     </span>
                   </div>
@@ -272,7 +262,7 @@ export function AccountOrdersView() {
                       </div>
                     ))}
                     {order.lines.length > 3 ? (
-                      <span className="font-mono text-xs text-ink-faint">
+                      <span className="text-xs text-ink-faint tabular-nums">
                         +{order.lines.length - 3} more
                       </span>
                     ) : null}
@@ -302,25 +292,26 @@ export function AccountOrderDetailView({ id }: { id: string }) {
       <div className="space-y-6">
         <div className="flex items-center justify-between border-b border-white/40 pb-4">
           <div>
-            <Link href={routes.orders} className="font-mono text-xs text-ink-soft hover:text-ink">
+            <Link
+              href={routes.orders}
+              className="text-xs text-ink-soft tabular-nums hover:text-ink"
+            >
               &larr; Back to Orders
             </Link>
-            <h1 className="mt-2 font-display text-2xl font-bold text-ink">
+            <h1 className="mt-2 font-display text-2xl font-medium text-ink">
               Acquisition {order?.number ?? id}
             </h1>
           </div>
           {order ? (
-            <span className="rounded-full bg-ink px-3 py-1 font-mono text-xs font-semibold text-canvas uppercase">
+            <span className="rounded-md bg-ink px-3 py-1 text-xs font-semibold text-canvas tabular-nums">
               {order.status}
             </span>
           ) : null}
         </div>
 
         {order ? (
-          <div className="glass glass-strong rounded-3xl border border-white/80 p-8 shadow-2xl">
-            <h2 className="font-mono text-xs tracking-wider text-ink-soft uppercase">
-              Itemized Artifacts
-            </h2>
+          <div className="glass glass-strong rounded-3xl border border-white/80 p-8">
+            <h2 className="text-xs text-ink-soft tabular-nums">Itemized Artifacts</h2>
             <ul className="mt-4 divide-y divide-white/40">
               {order.lines.map((line) => (
                 <li key={line.variantId} className="flex items-center justify-between py-4">
@@ -338,12 +329,12 @@ export function AccountOrderDetailView({ id }: { id: string }) {
                     ) : null}
                     <div>
                       <p className="font-text text-sm font-semibold text-ink">{line.title}</p>
-                      <p className="font-mono text-xs text-ink-faint">
+                      <p className="text-xs text-ink-faint tabular-nums">
                         Qty {line.quantity} • {Object.values(line.options).join(' / ')}
                       </p>
                     </div>
                   </div>
-                  <span className="font-mono text-sm font-semibold text-ink">
+                  <span className="text-sm font-semibold text-ink tabular-nums">
                     {formatMoney(line.unitPrice * line.quantity, MONEY)}
                   </span>
                 </li>
@@ -352,9 +343,7 @@ export function AccountOrderDetailView({ id }: { id: string }) {
 
             <div className="mt-8 grid grid-cols-1 gap-6 border-t border-white/40 pt-6 sm:grid-cols-2">
               <div>
-                <h3 className="font-mono text-xs tracking-wider text-ink-soft uppercase">
-                  Destination
-                </h3>
+                <h3 className="text-xs text-ink-soft tabular-nums">Destination</h3>
                 <div className="mt-2 font-text text-sm text-ink">
                   <p className="font-semibold">{order.address.name}</p>
                   <p>{order.address.line1}</p>
@@ -367,14 +356,12 @@ export function AccountOrderDetailView({ id }: { id: string }) {
               </div>
 
               <div>
-                <h3 className="font-mono text-xs tracking-wider text-ink-soft uppercase">
-                  Payment & Transit
-                </h3>
+                <h3 className="text-xs text-ink-soft tabular-nums">Payment & Transit</h3>
                 <div className="mt-2 font-text text-sm text-ink">
                   <p className="font-semibold">
                     {order.payment.brand} ending in •••• {order.payment.last4}
                   </p>
-                  <p className="mt-1 font-mono text-xs text-ink-soft">
+                  <p className="mt-1 text-xs text-ink-soft tabular-nums">
                     Courier: {order.shippingMethod.name}
                   </p>
                 </div>
@@ -385,19 +372,19 @@ export function AccountOrderDetailView({ id }: { id: string }) {
               <dl className="space-y-2 font-text text-sm">
                 <div className="flex justify-between text-ink-soft">
                   <dt>Subtotal</dt>
-                  <dd className="font-mono text-ink">
+                  <dd className="text-ink tabular-nums">
                     {formatMoney(order.totals.subtotal, MONEY)}
                   </dd>
                 </div>
                 {order.totals.discount > 0 ? (
                   <div className="flex justify-between text-emerald-600">
                     <dt>Promotional Savings</dt>
-                    <dd className="font-mono">-{formatMoney(order.totals.discount, MONEY)}</dd>
+                    <dd className="tabular-nums">-{formatMoney(order.totals.discount, MONEY)}</dd>
                   </div>
                 ) : null}
                 <div className="flex justify-between text-ink-soft">
                   <dt>Delivery</dt>
-                  <dd className="font-mono text-ink">
+                  <dd className="text-ink tabular-nums">
                     {order.totals.shipping === 0
                       ? 'Complimentary'
                       : formatMoney(order.totals.shipping, MONEY)}
@@ -405,11 +392,11 @@ export function AccountOrderDetailView({ id }: { id: string }) {
                 </div>
                 <div className="flex justify-between text-ink-soft">
                   <dt>Estimated Tax (8%)</dt>
-                  <dd className="font-mono text-ink">{formatMoney(order.totals.tax, MONEY)}</dd>
+                  <dd className="text-ink tabular-nums">{formatMoney(order.totals.tax, MONEY)}</dd>
                 </div>
-                <div className="flex justify-between border-t border-white/60 pt-3 font-display text-lg font-bold text-ink">
+                <div className="flex justify-between border-t border-white/60 pt-3 font-display text-lg font-medium text-ink">
                   <dt>Total</dt>
-                  <dd className="font-mono">{formatMoney(order.totals.total, MONEY)}</dd>
+                  <dd className="tabular-nums">{formatMoney(order.totals.total, MONEY)}</dd>
                 </div>
               </dl>
             </div>
@@ -465,7 +452,7 @@ export function AccountAddressesView() {
     <AuthGuard>
       <div className="space-y-6">
         <div className="flex items-center justify-between border-b border-white/40 pb-4">
-          <h1 className="font-display text-2xl font-bold text-ink">
+          <h1 className="font-display text-2xl font-medium text-ink">
             Delivery Addresses ({addresses.length})
           </h1>
           <Button size="sm" onClick={() => setIsAdding(!isAdding)}>
@@ -477,14 +464,14 @@ export function AccountAddressesView() {
         {isAdding ? (
           <form
             onSubmit={handleAdd}
-            className="glass glass-strong rounded-3xl border border-white/80 p-6 shadow-xl"
+            className="glass glass-strong rounded-3xl border border-white/80 p-6"
           >
-            <h2 className="mb-4 font-display text-lg font-bold text-ink">New Address</h2>
+            <h2 className="mb-4 font-display text-lg font-medium text-ink">New Address</h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <label
                   htmlFor="account-full-name"
-                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                  className="mb-1 block text-xs text-ink-soft tabular-nums"
                 >
                   Full Name
                 </label>
@@ -502,7 +489,7 @@ export function AccountAddressesView() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="account-address-line-1"
-                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                  className="mb-1 block text-xs text-ink-soft tabular-nums"
                 >
                   Address Line 1
                 </label>
@@ -520,7 +507,7 @@ export function AccountAddressesView() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="account-address-line-2"
-                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                  className="mb-1 block text-xs text-ink-soft tabular-nums"
                 >
                   Address Line 2
                 </label>
@@ -537,7 +524,7 @@ export function AccountAddressesView() {
               <div>
                 <label
                   htmlFor="account-city"
-                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                  className="mb-1 block text-xs text-ink-soft tabular-nums"
                 >
                   City
                 </label>
@@ -555,7 +542,7 @@ export function AccountAddressesView() {
               <div>
                 <label
                   htmlFor="account-region"
-                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                  className="mb-1 block text-xs text-ink-soft tabular-nums"
                 >
                   Region
                 </label>
@@ -573,7 +560,7 @@ export function AccountAddressesView() {
               <div>
                 <label
                   htmlFor="account-postal-code"
-                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                  className="mb-1 block text-xs text-ink-soft tabular-nums"
                 >
                   Postal Code
                 </label>
@@ -591,7 +578,7 @@ export function AccountAddressesView() {
               <div>
                 <label
                   htmlFor="account-country"
-                  className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+                  className="mb-1 block text-xs text-ink-soft tabular-nums"
                 >
                   Country
                 </label>
@@ -627,13 +614,13 @@ export function AccountAddressesView() {
           {addresses.map((addr) => (
             <div
               key={addr.id}
-              className="glass glass-strong flex flex-col justify-between rounded-3xl border border-white/80 p-6 shadow-lg"
+              className="glass glass-strong flex flex-col justify-between rounded-3xl border border-white/80 p-6"
             >
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="font-text font-bold text-ink">{addr.name}</span>
+                  <span className="font-text font-semibold text-ink">{addr.name}</span>
                   {addr.isDefault ? (
-                    <span className="bg-accent-cyan/20 rounded-full px-2.5 py-0.5 font-mono text-[10px] font-semibold text-ink uppercase">
+                    <span className="bg-accent-cyan/20 rounded-md px-2.5 py-0.5 text-[10px] font-semibold text-ink tabular-nums">
                       Primary
                     </span>
                   ) : null}
@@ -653,7 +640,7 @@ export function AccountAddressesView() {
                   <button
                     type="button"
                     onClick={() => setDefaultAddress(addr.id!)}
-                    className="font-mono text-xs text-ink hover:underline"
+                    className="text-xs text-ink tabular-nums hover:underline"
                   >
                     Set as Primary
                   </button>
@@ -699,7 +686,7 @@ export function AccountProfileView() {
     <AuthGuard>
       <div className="mx-auto max-w-2xl space-y-6">
         <div className="border-b border-white/40 pb-4">
-          <h1 className="font-display text-2xl font-bold text-ink">Personal Profile</h1>
+          <h1 className="font-display text-2xl font-medium text-ink">Personal Profile</h1>
           <p className="mt-1 font-text text-sm text-ink-soft">
             Manage credentials and confidential showroom communications.
           </p>
@@ -713,12 +700,12 @@ export function AccountProfileView() {
 
         <form
           onSubmit={handleSave}
-          className="glass glass-strong space-y-5 rounded-3xl border border-white/80 p-8 shadow-xl"
+          className="glass glass-strong space-y-5 rounded-3xl border border-white/80 p-8"
         >
           <div>
             <label
               htmlFor="account-full-name-2"
-              className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+              className="mb-1 block text-xs text-ink-soft tabular-nums"
             >
               Full Name
             </label>
@@ -735,7 +722,7 @@ export function AccountProfileView() {
           <div>
             <label
               htmlFor="account-email-address"
-              className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+              className="mb-1 block text-xs text-ink-soft tabular-nums"
             >
               Email Address
             </label>
@@ -752,7 +739,7 @@ export function AccountProfileView() {
           <div>
             <label
               htmlFor="account-phone-number"
-              className="mb-1 block font-mono text-xs text-ink-soft uppercase"
+              className="mb-1 block text-xs text-ink-soft tabular-nums"
             >
               Phone Number
             </label>

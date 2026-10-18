@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: CategoryPageProps) {
 
 export default function CategoryPage(props: CategoryPageProps) {
   return (
-    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-md bg-surface" />}>
       <CategoryContent {...props} />
     </Suspense>
   )
@@ -42,7 +42,7 @@ async function CategoryContent({ params, searchParams }: CategoryPageProps) {
   const result = await services.catalog.listProducts(query)
 
   return (
-    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-md bg-surface" />}>
       <ProductListView
         products={result.page.items}
         total={result.page.total}

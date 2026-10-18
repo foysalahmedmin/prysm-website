@@ -1,36 +1,37 @@
 'use client'
 
-import { useTransition } from 'react'
 import { useRouter } from 'next/navigation'
+import { useState, useTransition } from 'react'
 import { ConnectedProductCard } from '@/components/commerce/connected-product-card'
+import type { FilterPanelProps } from '@/components/commerce/contract'
 import { FilterChips, type FilterChip } from '@/components/commerce/filter-chips'
 import { FilterPanel } from '@/components/commerce/filter-panel'
-import type { FilterPanelProps } from '@/components/commerce/contract'
-import { ArrowLeft, ArrowRight } from '@/components/icons'
-import { Button } from '@/components/ui'
+import { ArrowLeft, ArrowRight, CaretDown, Faders } from '@/components/icons'
+import { Button, Dialog } from '@/components/ui'
 import type { Facets, Product, ProductQuery, SortKey } from '@/domain'
 import { serializeProductQuery } from '@/features/catalog/query-params'
 import { cn } from '@/lib/cn'
+import { Reveal } from '@/lib/motion'
 
 const defaultFilterLabels: FilterPanelProps['labels'] = {
   title: 'Filters',
-  subcategory: 'Category Type',
+  subcategory: 'Category',
   size: 'Size',
-  colour: 'Color & Tone',
-  price: 'Price Range',
-  onSale: 'On Sale Only',
-  minPrice: 'Min Price',
-  maxPrice: 'Max Price',
+  colour: 'Colour',
+  price: 'Price',
+  onSale: 'On sale only',
+  minPrice: 'Min price',
+  maxPrice: 'Max price',
   clear: 'Clear all',
 }
 
 const defaultMoney = { currency: 'USD', locale: 'en-US' } as const
 
 const SORT_OPTIONS: { value: SortKey; label: string }[] = [
-  { value: 'featured', label: 'Featured Archetypes' },
-  { value: 'newest', label: 'Newest Arrivals' },
-  { value: 'price-asc', label: 'Price: Low to High' },
-  { value: 'price-desc', label: 'Price: High to Low' },
+  { value: 'featured', label: 'Featured' },
+  { value: 'newest', label: 'Newest' },
+  { value: 'price-asc', label: 'Price: low to high' },
+  { value: 'price-desc', label: 'Price: high to low' },
 ]
 
 interface ProductListViewProps {
@@ -54,6 +55,8 @@ export function ProductListView({
 }: ProductListViewProps) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
+  const [layout, setLayout] = useState<'sidebar' | 'drawer'>('sidebar')
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
   const navigateWith = (partial: Partial<ProductQuery>) => {
     const next: ProductQuery = {
@@ -64,30 +67,24 @@ export function ProductListView({
     }
     const queryString = serializeProductQuery(next)
     startTransition(() => {
-      router.push(queryString ? `${basePath}?${queryString}` : basePath)
+      router.push(queryString ? `${basePath}?${queryString}` : basePath, { scroll: false })
     })
   }
 
   // Build active filter chips
   const chips: FilterChip[] = []
   if (query.subcategory) {
-    chips.push({ key: 'subcategory', label: `Type: ${query.subcategory}` })
+    chips.push({ key: 'subcategory', label: query.subcategory.replace(/-/g, ' ') })
   }
-  if (query.sizes?.length) {
-    query.sizes.forEach((s) => chips.push({ key: `size:${s}`, label: `Size: ${s}` }))
-  }
-  if (query.colors?.length) {
-    query.colors.forEach((c) => chips.push({ key: `color:${c}`, label: `Color: ${c}` }))
-  }
+  query.sizes?.forEach((s) => chips.push({ key: `size:${s}`, label: `Size ${s}` }))
+  query.colors?.forEach((c) => chips.push({ key: `color:${c}`, label: c }))
   if (query.minPrice !== undefined) {
-    chips.push({ key: 'minPrice', label: `Min: $${query.minPrice / 100}` })
+    chips.push({ key: 'minPrice', label: `From $${query.minPrice / 100}` })
   }
   if (query.maxPrice !== undefined) {
-    chips.push({ key: 'maxPrice', label: `Max: $${query.maxPrice / 100}` })
+    chips.push({ key: 'maxPrice', label: `Up to $${query.maxPrice / 100}` })
   }
-  if (query.onSale) {
-    chips.push({ key: 'onSale', label: 'On Sale' })
-  }
+  if (query.onSale) chips.push({ key: 'onSale', label: 'On sale' })
 
   const handleRemoveChip = (key: string) => {
     if (key === 'subcategory') navigateWith({ subcategory: undefined })
@@ -114,57 +111,180 @@ export function ProductListView({
   }
 
   const totalPages = Math.ceil(total / query.pageSize)
+  const sidebar = layout === 'sidebar'
 
   return (
-    <div className="page-container space-y-8 pb-16">
-      {/* Header */}
-      <div className="space-y-2 border-b border-white/20 pb-6">
-        <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
-          {title}
-        </h1>
-        {description ? (
-          <p className="max-w-2xl font-text text-sm text-ink-soft md:text-base">{description}</p>
-        ) : null}
-        <div className="flex items-center justify-between pt-2">
-          <span className="font-mono text-xs font-semibold tracking-wider text-ink-soft uppercase">
-            {total} {total === 1 ? 'Piece' : 'Pieces'}
-          </span>
-          {/* Sort Selector */}
-          <div className="flex items-center gap-2">
-            <label htmlFor="sort-select" className="sr-only">
-              Sort by
-            </label>
-            <select
-              id="sort-select"
-              value={query.sort}
-              onChange={(e) => navigateWith({ sort: e.target.value as SortKey })}
-              className="glass glass-strong h-9 cursor-pointer rounded-full px-4 font-mono text-xs font-semibold text-ink focus-visible:outline-2 focus-visible:outline-focus"
-            >
-              {SORT_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value} className="bg-canvas text-ink">
-                  {opt.label}
-                </option>
-              ))}
-            </select>
+    <div className="page-container pt-10 pb-20 md:pt-14">
+      <header className="flex flex-col gap-3 pb-8 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h1 className="font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
+            {title}
+          </h1>
+          {description ? (
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-soft md:text-base">
+              {description}
+            </p>
+          ) : null}
+        </div>
+        <p className="text-sm text-ink-soft tabular-nums">
+          {total} {total === 1 ? 'piece' : 'pieces'}
+        </p>
+      </header>
+
+      {/* Toolbar */}
+      <div className="sticky top-16 z-30 -mx-4 flex items-center justify-between gap-3 border-y border-ink/10 bg-canvas/90 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6 lg:-mx-10 lg:px-10">
+        <div className="flex items-center gap-2">
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setDrawerOpen(true)}
+            className={cn('h-10 gap-2 px-4', sidebar && 'lg:hidden')}
+          >
+            <Faders size={16} aria-hidden="true" />
+            Filters{chips.length > 0 ? ` (${chips.length})` : ''}
+          </Button>
+          <div
+            role="group"
+            aria-label="Filter layout"
+            className="hidden items-center rounded-md border border-ink/15 p-0.5 text-sm lg:flex"
+          >
+            {(['sidebar', 'drawer'] as const).map((mode) => (
+              <button
+                key={mode}
+                type="button"
+                aria-pressed={layout === mode}
+                onClick={() => setLayout(mode)}
+                className={cn(
+                  'h-9 rounded-sm px-3.5 capitalize transition-colors focus-visible:outline-2 focus-visible:outline-focus',
+                  layout === mode ? 'bg-ink text-on-brand' : 'text-ink-soft hover:text-ink',
+                )}
+              >
+                {mode}
+              </button>
+            ))}
           </div>
+        </div>
+
+        <div className="relative">
+          <label htmlFor="sort-select" className="sr-only">
+            Sort by
+          </label>
+          <select
+            id="sort-select"
+            value={query.sort}
+            onChange={(e) => navigateWith({ sort: e.target.value as SortKey })}
+            className="h-10 cursor-pointer appearance-none rounded-md border border-ink/15 bg-surface pr-9 pl-4 text-sm text-ink focus-visible:outline-2 focus-visible:outline-focus"
+          >
+            {SORT_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          <CaretDown
+            size={14}
+            aria-hidden="true"
+            className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 text-ink-soft"
+          />
         </div>
       </div>
 
-      {/* Active filter chips */}
       {chips.length > 0 ? (
         <FilterChips
           chips={chips}
           onRemove={handleRemoveChip}
           onClear={handleClearAll}
           clearLabel="Clear all filters"
+          className="pt-5"
         />
       ) : null}
 
-      {/* Main Grid & Filters Layout */}
-      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-4">
-        {/* Desktop Filters Sidebar */}
-        <aside className="sticky top-24 hidden lg:col-span-1 lg:block">
+      <div
+        className={cn(
+          'grid grid-cols-1 items-start gap-x-10 gap-y-8 pt-8',
+          sidebar && 'lg:grid-cols-[17rem_1fr]',
+        )}
+      >
+        {sidebar ? (
+          <aside className="sticky top-36 hidden max-h-[calc(100vh-10rem)] overflow-y-auto pr-1 lg:block">
+            <FilterPanel
+              facets={facets}
+              query={query}
+              money={defaultMoney}
+              onChange={(next) => navigateWith(next)}
+              onClear={handleClearAll}
+              labels={defaultFilterLabels}
+            />
+          </aside>
+        ) : null}
+
+        <div className={cn('transition-opacity duration-200', isPending && 'opacity-60')}>
+          {products.length === 0 ? (
+            <div className="rounded-md border border-ink/10 bg-surface px-6 py-16 text-center">
+              <h2 className="font-display text-xl font-medium text-ink">
+                Nothing matches those filters
+              </h2>
+              <p className="mx-auto mt-2 max-w-md text-sm text-ink-soft">
+                Widen the price range or remove a size or colour to see more pieces.
+              </p>
+              <Button variant="secondary" size="md" onClick={handleClearAll} className="mt-6">
+                Clear all filters
+              </Button>
+            </div>
+          ) : (
+            <ul
+              className={cn(
+                'grid grid-cols-2 gap-x-3 gap-y-6 md:gap-x-5 md:gap-y-8',
+                sidebar ? 'md:grid-cols-3' : 'md:grid-cols-3 xl:grid-cols-4',
+              )}
+            >
+              {products.map((product, idx) => (
+                <Reveal as="li" key={product.id} delay={(idx % 4) * 70} className="flex">
+                  <ConnectedProductCard product={product} priority={idx < 4} className="w-full" />
+                </Reveal>
+              ))}
+            </ul>
+          )}
+
+          {totalPages > 1 ? (
+            <nav aria-label="Pagination" className="flex items-center justify-center gap-5 pt-14">
+              <Button
+                variant="secondary"
+                size="sm"
+                disabled={query.page <= 1}
+                onClick={() => navigateWith({ page: query.page - 1 })}
+              >
+                <ArrowLeft size={14} aria-hidden="true" />
+                <span>Previous</span>
+              </Button>
+              <span className="text-sm text-ink-soft tabular-nums">
+                Page {query.page} of {totalPages}
+              </span>
+              <Button
+                variant="secondary"
+                size="sm"
+                disabled={query.page >= totalPages}
+                onClick={() => navigateWith({ page: query.page + 1 })}
+              >
+                <span>Next</span>
+                <ArrowRight size={14} aria-hidden="true" />
+              </Button>
+            </nav>
+          ) : null}
+        </div>
+      </div>
+
+      <Dialog
+        open={drawerOpen}
+        onOpenChange={setDrawerOpen}
+        title="Filters"
+        closeLabel="Close filters"
+        side="right"
+        className="flex flex-col overflow-hidden"
+      >
+        <div className="-mx-1 flex-1 overflow-y-auto px-1 pb-4">
           <FilterPanel
+            embedded
             facets={facets}
             query={query}
             money={defaultMoney}
@@ -172,73 +292,13 @@ export function ProductListView({
             onClear={handleClearAll}
             labels={defaultFilterLabels}
           />
-        </aside>
-
-        {/* Product Grid Area */}
-        <div
-          className={cn(
-            'space-y-8 transition-opacity duration-200 lg:col-span-3',
-            isPending && 'opacity-60',
-          )}
-        >
-          {products.length === 0 ? (
-            <div className="glass edge space-y-4 rounded-[32px] p-12 text-center">
-              <h2 className="font-display text-xl font-bold text-ink">
-                No pieces match your selection
-              </h2>
-              <p className="mx-auto max-w-md font-text text-sm text-ink-soft">
-                Try widening your price range, clearing specific size or color filters, or browsing
-                our full collection.
-              </p>
-              <Button
-                variant="secondary"
-                size="md"
-                onClick={handleClearAll}
-                className="rounded-full px-6"
-              >
-                Clear all filters
-              </Button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
-              {products.map((product, idx) => (
-                <ConnectedProductCard key={product.id} product={product} priority={idx < 4} />
-              ))}
-            </div>
-          )}
-
-          {/* Pagination */}
-          {totalPages > 1 ? (
-            <nav aria-label="Pagination" className="flex items-center justify-center gap-4 pt-8">
-              <Button
-                variant="secondary"
-                size="sm"
-                disabled={query.page <= 1}
-                onClick={() => navigateWith({ page: query.page - 1 })}
-                className="rounded-full px-4"
-              >
-                <ArrowLeft size={14} className="mr-1" />
-                <span>Previous</span>
-              </Button>
-
-              <span className="font-mono text-xs font-semibold text-ink-soft">
-                Page {query.page} of {totalPages}
-              </span>
-
-              <Button
-                variant="secondary"
-                size="sm"
-                disabled={query.page >= totalPages}
-                onClick={() => navigateWith({ page: query.page + 1 })}
-                className="rounded-full px-4"
-              >
-                <span>Next</span>
-                <ArrowRight size={14} className="ml-1" />
-              </Button>
-            </nav>
-          ) : null}
         </div>
-      </div>
+        <div className="border-t border-ink/10 pt-4">
+          <Button className="w-full" onClick={() => setDrawerOpen(false)}>
+            Show {total} {total === 1 ? 'piece' : 'pieces'}
+          </Button>
+        </div>
+      </Dialog>
     </div>
   )
 }

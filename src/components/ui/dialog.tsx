@@ -31,9 +31,9 @@ export function Dialog({
 }: DialogProps) {
   const sideClasses = {
     center:
-      'fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-lg w-[calc(100%-2rem)] rounded-[28px]',
-    right: 'fixed inset-y-0 right-0 w-full max-w-md h-full rounded-l-[28px]',
-    bottom: 'fixed inset-x-0 bottom-0 w-full max-h-[85vh] rounded-t-[28px]',
+      'fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-lg w-[calc(100%-2rem)] rounded-md',
+    right: 'fixed inset-y-0 right-0 w-full max-w-md h-full rounded-l-md',
+    bottom: 'fixed inset-x-0 bottom-0 w-full max-h-[85vh] rounded-t-md',
   }[side]
 
   return (
@@ -46,15 +46,11 @@ export function Dialog({
         />
         <RadixDialog.Content
           data-side={side}
-          className={cn(
-            'glass glass-strong z-50 p-6 shadow-2xl focus:outline-none',
-            sideClasses,
-            className,
-          )}
+          className={cn('glass glass-strong z-50 p-6 focus:outline-none', sideClasses, className)}
           {...(description ? {} : { 'aria-describedby': undefined })}
         >
           <div className="flex items-center justify-between pb-4">
-            <RadixDialog.Title className="font-display text-xl font-bold text-ink">
+            <RadixDialog.Title className="font-display text-xl font-medium text-ink">
               {title}
             </RadixDialog.Title>
             <RadixDialog.Close

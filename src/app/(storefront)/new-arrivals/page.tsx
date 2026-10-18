@@ -12,7 +12,7 @@ interface NewArrivalsPageProps {
 
 export default function NewArrivalsPage(props: NewArrivalsPageProps) {
   return (
-    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-md bg-surface" />}>
       <NewArrivalsContent {...props} />
     </Suspense>
   )
@@ -28,7 +28,7 @@ async function NewArrivalsContent({ searchParams }: NewArrivalsPageProps) {
   const result = await services.catalog.listProducts(query)
 
   return (
-    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-md bg-surface" />}>
       <ProductListView
         products={result.page.items}
         total={result.page.total}

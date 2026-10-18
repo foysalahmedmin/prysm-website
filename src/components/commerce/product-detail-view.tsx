@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { ConnectedProductCard } from '@/components/commerce/connected-product-card'
 import { Gallery } from '@/components/commerce/gallery'
 import { ReviewSummary } from '@/components/commerce/review-summary'
-import { Check, Heart, Sparkle } from '@/components/icons'
+import { Check, Heart, Star } from '@/components/icons'
 import { Button, Price } from '@/components/ui'
 import type { Product, Review } from '@/domain'
 import { TryOnTrigger } from '@/integration/mirror-try'
@@ -132,9 +132,9 @@ export function ProductDetailView({
     : []
 
   return (
-    <div className="page-container space-y-16 pb-16 md:space-y-24">
+    <div className="page-container space-y-20 pt-6 pb-20 md:space-y-28 md:pt-8">
       {/* Breadcrumb Navigation */}
-      <nav aria-label="Breadcrumb" className="font-mono text-xs text-ink-soft">
+      <nav aria-label="Breadcrumb" className="text-xs text-ink-soft tabular-nums">
         <ol className="flex items-center gap-2">
           <li>
             <Link href="/" className="hover:text-ink">
@@ -159,29 +159,25 @@ export function ProductDetailView({
       </nav>
 
       {/* Main Two-Column PDP Section */}
-      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-14">
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-16">
         {/* Left Column: Gallery */}
-        <div className="sticky top-24 lg:col-span-7">
-          <div className="glass edge rounded-[32px] p-3 shadow-lg md:p-5">
-            <Gallery media={product.media} labels={galleryLabels} />
-          </div>
+        <div className="lg:sticky lg:top-24 lg:col-span-7">
+          <Gallery media={product.media} labels={galleryLabels} />
         </div>
 
         {/* Right Column: Product Info & Actions */}
-        <div className="space-y-6 lg:col-span-5">
+        <div className="space-y-7 lg:col-span-5">
           {/* Badges & Category */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="font-mono text-xs font-semibold tracking-wider text-brand uppercase">
-              {product.subcategory}
+            <span className="text-sm text-ink-soft capitalize">
+              {product.subcategory.replace(/-/g, ' ')}
             </span>
             {product.badges.map((badge) => (
               <span
                 key={badge}
                 className={cn(
-                  'rounded-full px-2.5 py-0.5 font-mono text-[11px] font-semibold tracking-wider uppercase',
-                  badge === 'sale'
-                    ? 'bg-danger text-on-danger'
-                    : 'glass glass-strong text-ink shadow-sm',
+                  'rounded-md px-2.5 py-0.5 text-[11px] font-semibold tabular-nums',
+                  badge === 'sale' ? 'bg-danger text-on-danger' : 'bg-canvas text-ink',
                 )}
               >
                 {badge}
@@ -190,28 +186,28 @@ export function ProductDetailView({
           </div>
 
           {/* Title */}
-          <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
+          <h1 className="font-display text-3xl leading-tight font-medium tracking-tight text-balance text-ink md:text-5xl">
             {product.name}
           </h1>
 
           {/* Price & Reviews Anchor */}
-          <div className="flex items-center justify-between border-b border-white/20 pb-4">
+          <div className="flex items-center justify-between border-b border-ink/10 pb-4">
             <Price
               amount={effectivePrice}
               compareAt={product.compareAtPrice}
               currency={defaultMoney.currency}
               locale={defaultMoney.locale}
               labels={priceLabels}
-              className="text-2xl font-bold"
+              className="text-xl font-medium"
             />
 
             {product.rating ? (
               <a
                 href="#reviews"
-                className="flex items-center gap-1.5 font-mono text-xs text-ink-soft transition hover:text-ink"
+                className="flex items-center gap-1.5 text-xs text-ink-soft tabular-nums transition hover:text-ink"
               >
                 <div className="flex text-brand">
-                  <Sparkle size={14} className="fill-brand text-brand" />
+                  <Star size={14} weight="fill" className="text-ink" />
                 </div>
                 <span className="font-semibold text-ink">{product.rating.average.toFixed(1)}</span>
                 <span>({product.rating.count})</span>
@@ -232,8 +228,8 @@ export function ProductDetailView({
 
               return (
                 <div key={optGroup.key} className="space-y-2">
-                  <div className="flex items-center justify-between font-mono text-xs">
-                    <span className="font-semibold tracking-wider text-ink uppercase">
+                  <div className="flex items-center justify-between text-xs tabular-nums">
+                    <span className="text-sm font-medium text-ink">
                       {optGroup.label}:{' '}
                       <span className="font-normal text-ink-soft">{currentValue}</span>
                     </span>
@@ -247,17 +243,41 @@ export function ProductDetailView({
                   <div className="flex flex-wrap gap-2">
                     {optGroup.values.map((val) => {
                       const isSelected = currentValue === val.value
-
+                      if (optGroup.kind === 'color' && val.swatch) {
+                        return (
+                          <button
+                            key={val.value}
+                            type="button"
+                            aria-label={val.value}
+                            aria-pressed={isSelected}
+                            title={val.value}
+                            onClick={() => handleOptionChange(optGroup.key, val.value)}
+                            className={cn(
+                              'flex h-9 w-9 items-center justify-center rounded-[50%] border transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
+                              isSelected
+                                ? 'border-ink ring-1 ring-ink ring-offset-2'
+                                : 'border-ink/20',
+                            )}
+                          >
+                            <span
+                              aria-hidden="true"
+                              className="h-full w-full rounded-[50%]"
+                              style={{ backgroundColor: val.swatch }}
+                            />
+                          </button>
+                        )
+                      }
                       return (
                         <button
                           key={val.value}
                           type="button"
+                          aria-pressed={isSelected}
                           onClick={() => handleOptionChange(optGroup.key, val.value)}
                           className={cn(
-                            'glass glass-strong h-10 min-w-10 rounded-full px-4 font-mono text-xs font-semibold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-focus',
+                            'h-11 min-w-12 rounded-sm border px-4 text-sm tabular-nums transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
                             isSelected
-                              ? 'scale-105 bg-brand text-on-brand shadow-md'
-                              : 'text-ink hover:scale-102 hover:text-brand',
+                              ? 'border-ink bg-ink text-on-brand'
+                              : 'border-ink/20 text-ink hover:border-ink',
                           )}
                         >
                           {val.value}
@@ -271,31 +291,28 @@ export function ProductDetailView({
           </div>
 
           {/* Quantity & Actions */}
-          <div className="space-y-4 border-t border-white/20 pt-4">
+          <div className="space-y-4 border-t border-ink/10 pt-4">
             <div className="flex items-center gap-3">
-              <label
-                htmlFor="pdp-quantity"
-                className="font-mono text-xs font-semibold tracking-wider text-ink uppercase"
-              >
+              <label htmlFor="pdp-quantity" className="text-xs font-semibold text-ink tabular-nums">
                 Quantity:
               </label>
-              <div className="glass glass-strong flex items-center rounded-full p-1">
+              <div className="flex items-center rounded-sm border border-ink/20 p-1">
                 <button
                   type="button"
                   disabled={quantity <= 1}
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="flex h-7 w-7 items-center justify-center rounded-full text-ink hover:bg-ink/10 disabled:opacity-30"
+                  className="flex h-8 w-8 items-center justify-center rounded-sm text-ink hover:bg-ink/5 disabled:opacity-30"
                 >
                   -
                 </button>
-                <span className="w-8 text-center font-mono text-xs font-bold text-ink">
+                <span className="w-8 text-center text-xs font-semibold text-ink tabular-nums">
                   {quantity}
                 </span>
                 <button
                   type="button"
                   disabled={quantity >= 10}
                   onClick={() => setQuantity((q) => Math.min(10, q + 1))}
-                  className="flex h-7 w-7 items-center justify-center rounded-full text-ink hover:bg-ink/10 disabled:opacity-30"
+                  className="flex h-8 w-8 items-center justify-center rounded-sm text-ink hover:bg-ink/5 disabled:opacity-30"
                 >
                   +
                 </button>
@@ -303,13 +320,13 @@ export function ProductDetailView({
             </div>
 
             {/* Action Buttons Row */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-2 [&>:first-child]:basis-full">
               <Button
                 variant="primary"
                 size="lg"
                 disabled={isOutOfStock}
                 onClick={handleAddToBag}
-                className="flex-1 rounded-full text-sm font-semibold shadow-md"
+                className="w-full text-sm font-medium"
               >
                 {justAdded ? (
                   <span className="flex items-center justify-center gap-2">
@@ -327,7 +344,7 @@ export function ProductDetailView({
                 product={product}
                 variantId={selectedVariant.id}
                 source="pdp"
-                className="glass rounded-full px-5 py-3 text-sm font-semibold shadow-sm transition hover:scale-105"
+                className="flex h-14 items-center rounded-md border border-ink/20 px-5 text-sm font-medium text-ink transition-colors hover:border-ink"
               />
 
               {/* Wishlist Button */}
@@ -336,7 +353,7 @@ export function ProductDetailView({
                 aria-label={saved ? 'Remove from wishlist' : 'Save to wishlist'}
                 onClick={() => toggleWishlist(product.id)}
                 className={cn(
-                  'glass flex h-12 w-12 items-center justify-center rounded-full text-ink transition hover:scale-105 focus-visible:outline-2 focus-visible:outline-focus',
+                  'flex h-14 w-14 items-center justify-center rounded-md border border-ink/20 text-ink transition-colors hover:border-ink focus-visible:outline-2 focus-visible:outline-focus',
                   isHydrated && saved && 'text-danger',
                 )}
               >
@@ -346,7 +363,7 @@ export function ProductDetailView({
           </div>
 
           {/* Service assurances */}
-          <div className="grid grid-cols-2 gap-3 pt-4 font-mono text-xs text-ink-soft">
+          <div className="grid grid-cols-2 gap-3 pt-4 text-xs text-ink-soft tabular-nums">
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-brand" />
               <span>Complimentary shipping $150+</span>
@@ -358,15 +375,15 @@ export function ProductDetailView({
           </div>
 
           {/* Tabs Section */}
-          <div className="space-y-4 border-t border-white/20 pt-6">
-            <div className="flex gap-4 border-b border-white/20 pb-2">
+          <div className="space-y-4 border-t border-ink/10 pt-6">
+            <div className="flex gap-4 border-b border-ink/10 pb-2">
               {(['details', 'materials', 'shipping'] as const).map((tab) => (
                 <button
                   key={tab}
                   type="button"
                   onClick={() => setActiveTab(tab)}
                   className={cn(
-                    'pb-1 font-mono text-xs font-semibold tracking-wider uppercase transition',
+                    'pb-1 text-xs font-semibold tabular-nums transition',
                     activeTab === tab
                       ? 'border-b-2 border-brand text-ink'
                       : 'text-ink-soft hover:text-ink',
@@ -419,17 +436,17 @@ export function ProductDetailView({
       <section
         id="reviews"
         aria-labelledby="reviews-heading"
-        className="space-y-8 border-t border-white/20 pt-8"
+        className="space-y-8 border-t border-ink/10 pt-8"
       >
         <h2
           id="reviews-heading"
-          className="font-display text-2xl font-bold tracking-tight text-ink md:text-3xl"
+          className="font-display text-2xl font-medium tracking-tight text-ink md:text-3xl"
         >
           Verified Client Reviews
         </h2>
 
         <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
-          <div className="glass edge sticky top-24 rounded-[28px] p-6 lg:col-span-5">
+          <div className="lg:sticky lg:top-24 lg:col-span-5">
             <ReviewSummary
               rating={product.rating ?? { average: 5, count: reviews.length }}
               distribution={distribution}
@@ -444,17 +461,19 @@ export function ProductDetailView({
 
           <div className="space-y-4 lg:col-span-7">
             {reviews.map((rev) => (
-              <div key={rev.id} className="glass glass-strong space-y-2.5 rounded-[24px] p-5">
+              <div key={rev.id} className="space-y-2.5 border-b border-ink/10 pb-6 last:border-b-0">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs font-bold text-ink">{rev.author}</span>
+                    <span className="text-xs font-semibold text-ink tabular-nums">
+                      {rev.author}
+                    </span>
                     {rev.verified ? (
-                      <span className="inline-flex items-center gap-1 font-mono text-[10px] text-brand">
-                        <Sparkle size={10} /> Verified
+                      <span className="inline-flex items-center gap-1 text-[10px] text-brand tabular-nums">
+                        <Check size={10} aria-hidden="true" /> Verified
                       </span>
                     ) : null}
                   </div>
-                  <span className="font-mono text-[11px] text-ink-faint">
+                  <span className="text-[11px] text-ink-faint tabular-nums">
                     {new Date(rev.createdAt).toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',
@@ -465,15 +484,16 @@ export function ProductDetailView({
 
                 <div className="flex text-brand">
                   {Array.from({ length: 5 }).map((_, idx) => (
-                    <Sparkle
+                    <Star
                       key={idx}
                       size={12}
-                      className={idx < rev.rating ? 'fill-brand text-brand' : 'text-ink/20'}
+                      weight={idx < rev.rating ? 'fill' : 'light'}
+                      className={idx < rev.rating ? 'text-ink' : 'text-ink/25'}
                     />
                   ))}
                 </div>
 
-                <h3 className="font-display text-sm font-bold text-ink">{rev.title}</h3>
+                <h3 className="font-display text-sm font-medium text-ink">{rev.title}</h3>
                 <p className="font-text text-xs leading-relaxed text-ink-soft">{rev.body}</p>
               </div>
             ))}
@@ -485,13 +505,13 @@ export function ProductDetailView({
       {relatedProducts.length > 0 ? (
         <section
           aria-labelledby="related-heading"
-          className="space-y-8 border-t border-white/20 pt-8"
+          className="space-y-8 border-t border-ink/10 pt-8"
         >
           <div className="flex items-center justify-between">
             <div>
               <h2
                 id="related-heading"
-                className="font-display text-2xl font-bold tracking-tight text-ink md:text-3xl"
+                className="font-display text-2xl font-medium tracking-tight text-ink md:text-3xl"
               >
                 Related Archetypes
               </h2>
@@ -501,7 +521,7 @@ export function ProductDetailView({
             </div>
             <Link
               href={`/shop/${product.category}`}
-              className="font-mono text-xs font-semibold tracking-wider text-brand uppercase hover:underline"
+              className="text-xs font-semibold text-brand tabular-nums hover:underline"
             >
               View More
             </Link>
@@ -517,13 +537,10 @@ export function ProductDetailView({
 
       {/* Recently Viewed Rail */}
       {recentlyViewedProducts.length > 0 ? (
-        <section
-          aria-labelledby="recent-heading"
-          className="space-y-8 border-t border-white/20 pt-8"
-        >
+        <section aria-labelledby="recent-heading" className="space-y-8 border-t border-ink/10 pt-8">
           <h2
             id="recent-heading"
-            className="font-display text-2xl font-bold tracking-tight text-ink md:text-3xl"
+            className="font-display text-2xl font-medium tracking-tight text-ink md:text-3xl"
           >
             Recently Viewed
           </h2>

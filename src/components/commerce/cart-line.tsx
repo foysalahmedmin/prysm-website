@@ -22,12 +22,12 @@ export function CartLine({
   return (
     <li
       className={cn(
-        'glass glass-strong flex flex-col gap-4 rounded-[20px] p-4 transition-all duration-200 sm:flex-row sm:items-center sm:justify-between',
+        'glass glass-strong flex flex-col gap-4 rounded-md p-4 transition-all duration-200 sm:flex-row sm:items-center sm:justify-between',
         className,
       )}
     >
       <div className="flex items-center gap-4">
-        <div className="relative h-20 w-16 shrink-0 overflow-hidden rounded-[14px] bg-surface">
+        <div className="relative h-20 w-16 shrink-0 overflow-hidden rounded-md bg-surface">
           <Image
             src={line.image.src}
             alt={line.image.alt}
@@ -43,7 +43,7 @@ export function CartLine({
           >
             {line.name}
           </Link>
-          <p className="font-mono text-xs text-ink-faint">
+          <p className="text-xs text-ink-faint tabular-nums">
             {Object.values(line.options).join(' / ')}
           </p>
           {unavailable ? (
@@ -63,7 +63,7 @@ export function CartLine({
             labels={labels.quantity}
           />
         )}
-        <p className="min-w-20 text-right font-mono text-sm font-semibold text-ink">
+        <p className="min-w-20 text-right text-sm font-semibold text-ink tabular-nums">
           {formatMoney(line.lineTotal, money)}
         </p>
         <button

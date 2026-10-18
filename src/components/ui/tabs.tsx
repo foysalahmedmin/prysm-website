@@ -28,13 +28,13 @@ export function Tabs({
     >
       <RadixTabs.List
         aria-label={label}
-        className="glass inline-flex items-center gap-1 rounded-full p-1"
+        className="glass inline-flex items-center gap-1 rounded-md p-1"
       >
         {items.map((item) => (
           <RadixTabs.Trigger
             key={item.value}
             value={item.value}
-            className="rounded-full px-5 py-2 font-text text-sm font-medium text-ink-soft transition-all duration-200 focus-visible:outline-2 focus-visible:outline-focus data-[state=active]:bg-brand data-[state=active]:text-on-brand data-[state=active]:shadow-sm"
+            className="rounded-md px-5 py-2 font-text text-sm font-medium text-ink-soft transition-all duration-200 focus-visible:outline-2 focus-visible:outline-focus data-[state=active]:bg-brand data-[state=active]:text-on-brand"
           >
             {item.label}
           </RadixTabs.Trigger>

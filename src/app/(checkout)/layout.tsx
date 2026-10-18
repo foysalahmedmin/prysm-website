@@ -7,11 +7,11 @@ export default function CheckoutLayout({ children }: { children: React.ReactNode
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link
             href="/"
-            className="font-display text-xl font-black tracking-widest text-ink focus-visible:outline-2 focus-visible:outline-focus"
+            className="font-display text-xl font-medium text-ink focus-visible:outline-2 focus-visible:outline-focus"
           >
             PRYSM
           </Link>
-          <div className="flex items-center gap-4 font-mono text-xs text-ink-faint">
+          <div className="flex items-center gap-4 text-xs text-ink-faint tabular-nums">
             <span className="flex items-center gap-1.5">
               <span className="h-2 w-2 rounded-full bg-success" aria-hidden="true" />
               Secure Checkout
@@ -28,7 +28,7 @@ export default function CheckoutLayout({ children }: { children: React.ReactNode
         {children}
       </main>
 
-      <footer className="border-t border-ink/5 py-6 text-center font-mono text-xs text-ink-faint">
+      <footer className="border-t border-ink/5 py-6 text-center text-xs text-ink-faint tabular-nums">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 sm:flex-row">
           <span>© 2026 PRYSM. All transactions encrypted.</span>
           <div className="flex gap-4">

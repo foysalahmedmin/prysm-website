@@ -6,6 +6,7 @@
  */
 
 .prysm-light-field {
+  display: none;
   z-index: -10;
   pointer-events: none;
   overflow: hidden;
@@ -125,11 +126,11 @@
 @keyframes prysm-fade-blur {
   from {
     opacity: 0;
-    filter: blur(8px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    filter: blur(0);
+    transform: none;
   }
 }
 
@@ -151,5 +152,66 @@
   .prysm-page-transition {
     animation: none !important;
     filter: none !important;
+  }
+}
+
+/* Entrance sequences. Opacity and transform only. */
+.prysm-rise {
+  animation: prysm-rise 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+@keyframes prysm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.prysm-settle {
+  animation: prysm-settle 2200ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes prysm-settle {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.prysm-marquee {
+  display: flex;
+  width: max-content;
+  animation: prysm-marquee 38s linear infinite;
+}
+@keyframes prysm-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prysm-rise,
+  .prysm-settle,
+  .prysm-marquee {
+    animation: none !important;
+  }
+}
+
+.prysm-fade {
+  animation: prysm-fade-in 500ms ease both;
+}
+@keyframes prysm-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prysm-fade {
+    animation: none !important;
   }
 }

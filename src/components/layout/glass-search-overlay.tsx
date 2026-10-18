@@ -91,7 +91,7 @@ export function GlassSearchOverlay() {
         if (e.target === e.currentTarget) handleClose()
       }}
     >
-      <div className="glass-strong animate-in zoom-in-95 w-full max-w-2xl rounded-3xl border border-white/80 p-6 shadow-2xl duration-150">
+      <div className="glass-strong animate-in zoom-in-95 w-full max-w-2xl rounded-3xl border border-white/80 p-6 duration-150">
         <div className="flex items-center gap-3 border-b border-white/40 pb-4">
           <MagnifyingGlass size={22} className="shrink-0 text-ink-soft" aria-hidden="true" />
           <input
@@ -108,7 +108,7 @@ export function GlassSearchOverlay() {
               type="button"
               onClick={() => setQuery('')}
               aria-label="Clear search text"
-              className="rounded-full p-1 text-ink-faint transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-focus"
+              className="rounded-md p-1 text-ink-faint transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-focus"
             >
               <X size={18} />
             </button>
@@ -117,7 +117,7 @@ export function GlassSearchOverlay() {
             type="button"
             onClick={handleClose}
             aria-label="Close search"
-            className="glass rounded-full p-1.5 text-ink transition-colors hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus"
+            className="glass rounded-md p-1.5 text-ink transition-colors hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus"
           >
             <X size={18} />
           </button>
@@ -130,13 +130,11 @@ export function GlassSearchOverlay() {
               {recentSearches.length > 0 && (
                 <div className="py-2">
                   <div className="mb-2 flex items-center justify-between">
-                    <span className="font-mono text-xs tracking-wider text-ink-faint uppercase">
-                      Recent Searches
-                    </span>
+                    <span className="text-xs text-ink-faint tabular-nums">Recent Searches</span>
                     <button
                       type="button"
                       onClick={clearRecentSearches}
-                      className="font-mono text-xs text-ink-faint transition-colors hover:text-ink"
+                      className="text-xs text-ink-faint tabular-nums transition-colors hover:text-ink"
                     >
                       Clear
                     </button>
@@ -147,7 +145,7 @@ export function GlassSearchOverlay() {
                         key={term}
                         type="button"
                         onClick={() => handleSelectRecent(term)}
-                        className="glass rounded-full px-3.5 py-1.5 text-xs font-medium text-ink transition-all hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-focus"
+                        className="glass rounded-md px-3.5 py-1.5 text-xs font-medium text-ink transition-all hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-focus"
                       >
                         {term}
                       </button>
@@ -157,7 +155,7 @@ export function GlassSearchOverlay() {
               )}
             </div>
           ) : isSearching ? (
-            <div className="animate-pulse py-12 text-center font-mono text-xs text-ink-faint">
+            <div className="animate-pulse py-12 text-center text-xs text-ink-faint tabular-nums">
               Searching the light spectrum...
             </div>
           ) : displayedResults.length === 0 ? (
@@ -165,7 +163,7 @@ export function GlassSearchOverlay() {
               <p className="font-text text-sm text-ink-soft">
                 No products found matching &ldquo;{query}&rdquo;
               </p>
-              <p className="mt-1 font-mono text-xs text-ink-faint">
+              <p className="mt-1 text-xs text-ink-faint tabular-nums">
                 Try another term or browse our collections
               </p>
             </div>
@@ -190,14 +188,14 @@ export function GlassSearchOverlay() {
                     )}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="truncate font-text text-sm font-semibold text-ink">
+                    <div className="truncate font-text text-sm font-medium text-ink">
                       {product.name}
                     </div>
-                    <div className="font-mono text-xs text-ink-faint capitalize">
+                    <div className="text-xs text-ink-faint capitalize tabular-nums">
                       {product.category} · {product.subcategory}
                     </div>
                   </div>
-                  <div className="shrink-0 font-mono text-xs font-bold text-ink">
+                  <div className="shrink-0 text-xs font-medium text-ink tabular-nums">
                     ${(product.price / 100).toFixed(2)}
                   </div>
                 </Link>

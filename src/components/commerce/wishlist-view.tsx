@@ -82,9 +82,7 @@ export function WishlistView() {
       <div className="mx-auto min-h-[50vh] max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <div className="glass mx-auto max-w-sm rounded-3xl p-8">
           <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-ink border-t-transparent" />
-          <p className="mt-4 font-mono text-xs tracking-widest text-ink-soft uppercase">
-            Loading Wishlist...
-          </p>
+          <p className="mt-4 text-xs text-ink-soft tabular-nums">Loading Wishlist...</p>
         </div>
       </div>
     )
@@ -93,11 +91,11 @@ export function WishlistView() {
   if (products.length === 0) {
     return (
       <div className="mx-auto min-h-[60vh] max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
-        <div className="glass glass-strong mx-auto max-w-xl rounded-3xl p-12 shadow-2xl">
-          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-white/80 bg-white/40 shadow-inner">
+        <div className="glass glass-strong mx-auto max-w-xl rounded-3xl p-12">
+          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-md border border-white/80 bg-white/40">
             <Heart size={36} className="text-ink" />
           </div>
-          <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+          <h1 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
             Your Wishlist is Empty
           </h1>
           <p className="mt-4 font-text text-sm leading-relaxed text-ink-soft sm:text-base">
@@ -122,16 +120,14 @@ export function WishlistView() {
       {/* Header */}
       <div className="mb-10 flex flex-col justify-between gap-4 border-b border-white/40 pb-6 sm:flex-row sm:items-end">
         <div>
-          <span className="font-mono text-xs tracking-widest text-ink-faint uppercase">
-            PRYSM CURATION
-          </span>
-          <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+          <span className="text-xs text-ink-faint tabular-nums">PRYSM curation</span>
+          <h1 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
             Saved Pieces ({products.length})
           </h1>
         </div>
         <Link
           href={routes.shop}
-          className="inline-flex items-center font-mono text-xs tracking-wider text-ink uppercase transition-colors hover:text-ink-soft"
+          className="inline-flex items-center text-xs text-ink tabular-nums transition-colors hover:text-ink-soft"
         >
           Continue Exploring &rarr;
         </Link>
@@ -144,7 +140,7 @@ export function WishlistView() {
           return (
             <div
               key={product.id}
-              className="glass glass-strong group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/80 p-4 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              className="glass glass-strong group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/80 p-4 transition-all duration-300 hover:-translate-y-1"
             >
               <div>
                 {/* Media Image */}
@@ -164,7 +160,7 @@ export function WishlistView() {
                     type="button"
                     onClick={() => toggleWishlist(product.id)}
                     aria-label={`Remove ${product.name} from wishlist`}
-                    className="glass absolute top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full text-ink-soft shadow-md transition-colors hover:bg-white hover:text-rose-500"
+                    className="glass absolute top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-white hover:text-rose-500"
                   >
                     <Trash size={16} />
                   </button>
@@ -172,15 +168,15 @@ export function WishlistView() {
 
                 {/* Details */}
                 <div className="mt-4">
-                  <span className="font-mono text-[10px] tracking-wider text-ink-faint uppercase">
+                  <span className="text-[10px] text-ink-faint tabular-nums">
                     {product.subcategory}
                   </span>
-                  <h3 className="mt-1 font-display text-base font-bold text-ink">
+                  <h3 className="mt-1 font-display text-base font-medium text-ink">
                     <Link href={routes.product(product.slug)} className="hover:underline">
                       {product.name}
                     </Link>
                   </h3>
-                  <p className="mt-1 font-mono text-sm font-semibold text-ink">
+                  <p className="mt-1 text-sm font-semibold text-ink tabular-nums">
                     {formatMoney(product.price, MONEY)}
                   </p>
                 </div>

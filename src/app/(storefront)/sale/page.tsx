@@ -12,7 +12,7 @@ interface SalePageProps {
 
 export default function SalePage(props: SalePageProps) {
   return (
-    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-md bg-surface" />}>
       <SaleContent {...props} />
     </Suspense>
   )
@@ -28,7 +28,7 @@ async function SaleContent({ searchParams }: SalePageProps) {
   const result = await services.catalog.listProducts(query)
 
   return (
-    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-md bg-surface" />}>
       <ProductListView
         products={result.page.items}
         total={result.page.total}

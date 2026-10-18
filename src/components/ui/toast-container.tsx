@@ -18,7 +18,7 @@ export function ToastContainer() {
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className="glass-strong animate-in fade-in slide-in-from-bottom-2 pointer-events-auto flex items-center justify-between gap-3 rounded-full border border-white/60 px-5 py-3 text-sm text-ink shadow-xl backdrop-blur-md duration-200"
+          className="glass-strong animate-in fade-in slide-in-from-bottom-2 pointer-events-auto flex items-center justify-between gap-3 rounded-md border border-white/60 px-5 py-3 text-sm text-ink backdrop-blur-md duration-200"
         >
           <div className="flex items-center gap-2">
             <span
@@ -36,7 +36,7 @@ export function ToastContainer() {
             type="button"
             onClick={() => dismissToast(toast.id)}
             aria-label="Dismiss notification"
-            className="rounded-full p-1 font-mono text-xs text-ink-faint hover:text-ink focus:ring-1 focus:ring-focus focus:outline-none"
+            className="rounded-md p-1 text-xs text-ink-faint tabular-nums hover:text-ink focus:ring-1 focus:ring-focus focus:outline-none"
           >
             ✕
           </button>

@@ -31,7 +31,7 @@ export function Rail({ label, previousLabel, nextLabel, children, className }: R
   return (
     <section aria-label={label} className={cn('relative flex flex-col gap-4', className)}>
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-2xl font-bold text-ink">{label}</h2>
+        <h2 className="font-display text-2xl font-medium text-ink">{label}</h2>
         <div className="flex items-center gap-2">
           <button
             type="button"

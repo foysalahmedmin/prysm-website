@@ -17,7 +17,7 @@ export function Accordion({ items, className }: { items: AccordionItem[]; classN
         <RadixAccordion.Item
           key={item.value}
           value={item.value}
-          className="glass glass-strong overflow-hidden rounded-[20px] transition-all"
+          className="glass glass-strong overflow-hidden rounded-md transition-all"
         >
           <RadixAccordion.Header className="m-0">
             <RadixAccordion.Trigger className="flex w-full items-center justify-between p-5 font-text text-base font-semibold text-ink transition-colors hover:text-ink/80 focus-visible:outline-2 focus-visible:outline-focus">

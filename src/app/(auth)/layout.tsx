@@ -6,13 +6,13 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between p-6">
         <Link
           href="/"
-          className="font-display text-xl font-black tracking-widest text-ink focus-visible:outline-2 focus-visible:outline-focus"
+          className="font-display text-xl font-medium text-ink focus-visible:outline-2 focus-visible:outline-focus"
         >
           PRYSM
         </Link>
         <Link
           href="/"
-          className="font-mono text-xs text-ink-faint transition-colors hover:text-ink"
+          className="text-xs text-ink-faint tabular-nums transition-colors hover:text-ink"
         >
           Return to Boutique ↗
         </Link>
@@ -26,7 +26,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="w-full max-w-md">{children}</div>
       </main>
 
-      <footer className="p-6 text-center font-mono text-xs text-ink-faint">
+      <footer className="p-6 text-center text-xs text-ink-faint tabular-nums">
         © 2026 PRYSM. Secure client authentication.
       </footer>
     </div>

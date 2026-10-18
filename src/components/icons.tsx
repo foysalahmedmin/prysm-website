@@ -15,6 +15,7 @@ import {
   Plus as PhosphorPlus,
   ShoppingBag as PhosphorShoppingBag,
   Sparkle as PhosphorSparkle,
+  Star as PhosphorStar,
   Trash as PhosphorTrash,
   User as PhosphorUser,
   X as PhosphorX,
@@ -39,6 +40,7 @@ export const Minus = createIcon(PhosphorMinus)
 export const Plus = createIcon(PhosphorPlus)
 export const ShoppingBag = createIcon(PhosphorShoppingBag)
 export const Sparkle = createIcon(PhosphorSparkle)
+export const Star = createIcon(PhosphorStar)
 export const Trash = createIcon(PhosphorTrash)
 export const User = createIcon(PhosphorUser)
 export const X = createIcon(PhosphorX)
@@ -56,4 +58,4 @@ export const SearchIcon = MagnifyingGlass
 export const SlidersIcon = Faders
 export const SparkleIcon = Sparkle
 export const SpinnerIcon = Sparkle
-export const StarIcon = Sparkle
+export const StarIcon = Star

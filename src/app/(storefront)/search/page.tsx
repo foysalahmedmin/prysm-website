@@ -12,7 +12,7 @@ interface SearchPageProps {
 
 export default function SearchPage(props: SearchPageProps) {
   return (
-    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-md bg-surface" />}>
       <SearchContent {...props} />
     </Suspense>
   )
@@ -31,7 +31,7 @@ async function SearchContent({ searchParams }: SearchPageProps) {
     : 'Enter keywords or apply filters to locate refractive pieces across the PRYSM catalog.'
 
   return (
-    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-md bg-surface" />}>
       <ProductListView
         products={result.page.items}
         total={result.page.total}

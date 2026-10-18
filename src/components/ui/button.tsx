@@ -9,7 +9,7 @@ import { cn } from '@/lib/cn'
 // different look. Variants map to the design file: solid ink pill, glass pill, text-only.
 const button = cva(
   [
-    'inline-flex items-center justify-center gap-2 rounded-full font-text font-semibold',
+    'inline-flex items-center justify-center gap-2 rounded-md font-text font-semibold',
     'transition-[transform,box-shadow] duration-[250ms] ease-[cubic-bezier(0.2,0.8,0.2,1)]',
     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
     'disabled:pointer-events-none disabled:opacity-50 aria-busy:cursor-progress',
@@ -17,11 +17,7 @@ const button = cva(
   {
     variants: {
       variant: {
-        primary: [
-          'bg-brand text-on-brand shadow-[0_14px_30px_-10px_rgb(15_20_36/0.55)]',
-          'hover:-translate-y-0.5',
-          'hover:shadow-[0_0_0_2px_#fff,0_0_0_4px_var(--color-focus),0_18px_34px_-10px_rgb(15_20_36/0.6)]',
-        ],
+        primary: ['bg-brand text-on-brand ', 'hover:-translate-y-0.5', ''],
         secondary: 'glass glass-strong text-ink hover:-translate-y-0.5',
         ghost: 'text-ink hover:bg-ink/5',
       },

@@ -77,18 +77,18 @@ export function GlassBagDrawer() {
         if (e.target === e.currentTarget) closePanel()
       }}
     >
-      <div className="glass-strong animate-in slide-in-from-right relative m-0 flex h-full w-full flex-col overflow-hidden border border-white/80 shadow-2xl duration-250 sm:m-4 sm:h-[calc(100vh-2rem)] sm:max-w-md sm:rounded-3xl">
+      <div className="glass-strong animate-in slide-in-from-right relative m-0 flex h-full w-full flex-col overflow-hidden border border-white/80 duration-250 sm:m-4 sm:h-[calc(100vh-2rem)] sm:max-w-md sm:rounded-3xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/40 px-6 py-4">
           <div className="flex items-center gap-2">
             <ShoppingBag size={20} className="text-ink" aria-hidden="true" />
-            <h2 className="font-display text-lg font-bold text-ink">Bag ({itemCount})</h2>
+            <h2 className="font-display text-lg font-medium text-ink">Bag ({itemCount})</h2>
           </div>
           <button
             type="button"
             onClick={closePanel}
             aria-label="Close bag"
-            className="glass rounded-full p-1.5 text-ink transition-colors hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus"
+            className="glass rounded-md p-1.5 text-ink transition-colors hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus"
           >
             <X size={18} />
           </button>
@@ -96,9 +96,9 @@ export function GlassBagDrawer() {
 
         {/* Free Shipping Spectral Progress */}
         <div className="border-b border-white/30 bg-white/30 px-6 py-3 text-xs">
-          <div className="mb-1.5 flex items-center justify-between font-mono text-ink">
+          <div className="mb-1.5 flex items-center justify-between text-ink tabular-nums">
             {freeRemaining === 0 ? (
-              <span className="font-semibold text-success">
+              <span className="font-medium text-success">
                 Complimentary express shipping unlocked!
               </span>
             ) : (
@@ -106,9 +106,9 @@ export function GlassBagDrawer() {
             )}
             <span>{freeProgress}%</span>
           </div>
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-ink/10">
+          <div className="h-1.5 w-full overflow-hidden rounded-md bg-ink/10">
             <div
-              className="to-light-lavender h-full bg-gradient-to-r from-accent via-focus transition-all duration-300"
+              className="h-full bg-ink transition-all duration-300"
               style={{ width: `${freeProgress}%` }}
             />
           </div>
@@ -118,10 +118,10 @@ export function GlassBagDrawer() {
         <div className="flex-1 overflow-y-auto p-6">
           {lines.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center py-12 text-center">
-              <div className="glass mb-4 flex h-16 w-16 items-center justify-center rounded-full text-ink-faint">
+              <div className="glass mb-4 flex h-16 w-16 items-center justify-center rounded-md text-ink-faint">
                 <ShoppingBag size={28} />
               </div>
-              <p className="font-display text-base font-semibold text-ink">Your bag is empty</p>
+              <p className="font-display text-base font-medium text-ink">Your bag is empty</p>
               <p className="mt-1 mb-6 max-w-xs font-text text-sm text-ink-faint">
                 Explore our optical and tailored ready-to-wear collections.
               </p>
@@ -162,16 +162,16 @@ export function GlassBagDrawer() {
                   onChange={(e) => setPromoCode(e.target.value)}
                   placeholder="Promo code (e.g. LIGHT10)"
                   aria-label="Promo code"
-                  className="glass-strong flex-1 rounded-full border border-ink/10 px-4 py-1.5 text-xs text-ink uppercase placeholder:text-ink-faint focus:ring-1 focus:ring-focus focus:outline-none"
+                  className="glass-strong flex-1 rounded-md border border-ink/10 px-4 py-1.5 text-xs text-ink placeholder:text-ink-faint focus:ring-1 focus:ring-focus focus:outline-none"
                 />
               </div>
               {quote?.promo && (
-                <p className="mt-1.5 font-mono text-xs text-success">
+                <p className="mt-1.5 text-xs text-success tabular-nums">
                   Applied: {quote.promo.code} ({quote.promo.label})
                 </p>
               )}
               {quote?.promoError && (
-                <p className="mt-1.5 font-mono text-xs text-danger">
+                <p className="mt-1.5 text-xs text-danger tabular-nums">
                   {quote.promoError === 'min-subtotal'
                     ? 'Subtotal does not meet requirement'
                     : 'Invalid promo code'}
@@ -179,7 +179,7 @@ export function GlassBagDrawer() {
               )}
             </div>
 
-            <div className="mb-4 space-y-2 font-mono text-xs">
+            <div className="mb-4 space-y-2 text-xs tabular-nums">
               <div className="flex justify-between text-ink-soft">
                 <span>Subtotal</span>
                 <span>${(subtotal / 100).toFixed(2)}</span>
@@ -192,7 +192,7 @@ export function GlassBagDrawer() {
                     : `$${((quote?.totals.shipping ?? 0) / 100).toFixed(2)}`}
                 </span>
               </div>
-              <div className="flex justify-between border-t border-white/50 pt-2 text-sm font-bold text-ink">
+              <div className="flex justify-between border-t border-white/50 pt-2 text-sm font-medium text-ink">
                 <span>Estimated Total</span>
                 <span>${((quote?.totals.total ?? subtotal) / 100).toFixed(2)}</span>
               </div>

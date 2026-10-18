@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: CollectionPageProps) {
 
 export default function CollectionDetailPage(props: CollectionPageProps) {
   return (
-    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-md bg-surface" />}>
       <CollectionDetailContent {...props} />
     </Suspense>
   )
@@ -41,7 +41,7 @@ async function CollectionDetailContent({ params, searchParams }: CollectionPageP
   const result = await services.catalog.listProducts(query)
 
   return (
-    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-md bg-surface" />}>
       <ProductListView
         products={result.page.items}
         total={result.page.total}

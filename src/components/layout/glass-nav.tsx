@@ -52,18 +52,18 @@ export function GlassNav({
   const displayCount = isHydrated ? cartCount : 0
 
   return (
-    <header className="sticky top-6 z-40 mx-auto w-full max-w-6xl px-4">
+    <header className="sticky top-0 z-40 w-full border-b border-ink/10 bg-white/75 backdrop-blur-xl">
       <nav
         aria-label="Main"
         className={cn(
-          'glass glass-strong flex h-16 items-center justify-between rounded-full border border-white/70 px-6 shadow-xl backdrop-blur-md',
+          'mx-auto flex h-16 w-full max-w-[1360px] items-center justify-between px-4 sm:px-6 lg:px-10',
           className,
         )}
       >
         <div className="flex items-center gap-8">
           <Link
             href="/"
-            className="font-display text-xl font-black tracking-widest text-ink focus-visible:outline-2 focus-visible:outline-focus"
+            className="font-display text-xl font-semibold tracking-[0.2em] text-ink focus-visible:outline-2 focus-visible:outline-focus"
           >
             {brandName}
           </Link>
@@ -88,7 +88,7 @@ export function GlassNav({
             type="button"
             onClick={handleSearchClick}
             aria-label="Search catalog"
-            className="glass flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus"
+            className="flex h-10 w-10 items-center justify-center rounded-md text-ink transition-colors hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-focus"
           >
             <MagnifyingGlass size={18} aria-hidden="true" />
           </button>
@@ -97,7 +97,7 @@ export function GlassNav({
           <Link
             href="/wishlist"
             aria-label="Wishlist"
-            className="glass hidden h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus sm:flex"
+            className="hidden h-10 w-10 items-center justify-center rounded-md text-ink transition-colors hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-focus sm:flex"
           >
             <Heart size={18} aria-hidden="true" />
           </Link>
@@ -106,7 +106,7 @@ export function GlassNav({
           <Link
             href="/account"
             aria-label="Account"
-            className="glass hidden h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus sm:flex"
+            className="hidden h-10 w-10 items-center justify-center rounded-md text-ink transition-colors hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-focus sm:flex"
           >
             <User size={18} aria-hidden="true" />
           </Link>
@@ -116,7 +116,7 @@ export function GlassNav({
             type="button"
             onClick={handleCartClick}
             aria-label={`${cartLabel} (${displayCount})`}
-            className="glass flex h-10 items-center gap-2 rounded-full px-4 font-mono text-xs font-semibold text-ink transition hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus"
+            className="flex h-10 items-center gap-2 rounded-md px-3 text-sm font-medium text-ink transition hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-focus"
           >
             <ShoppingBag size={16} aria-hidden="true" />
             <span>
@@ -133,7 +133,7 @@ export function GlassNav({
                 <button
                   type="button"
                   aria-label="Open menu"
-                  className="glass flex h-10 w-10 items-center justify-center rounded-full text-ink focus-visible:outline-2 focus-visible:outline-focus"
+                  className="flex h-10 w-10 items-center justify-center rounded-md text-ink hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-focus"
                 >
                   ☰
                 </button>
@@ -149,7 +149,7 @@ export function GlassNav({
                       <Link
                         href={link.href}
                         onClick={() => setMenuOpen(false)}
-                        className="font-display text-xl font-bold text-ink transition-colors hover:text-ink/80"
+                        className="font-display text-xl font-medium text-ink transition-colors hover:text-ink/80"
                       >
                         {link.label}
                       </Link>
@@ -157,7 +157,7 @@ export function GlassNav({
                   ))}
                 </ul>
 
-                <div className="flex flex-col gap-3 border-t border-white/40 pt-6 font-mono text-xs">
+                <div className="flex flex-col gap-3 border-t border-white/40 pt-6 text-xs tabular-nums">
                   <Link
                     href="/wishlist"
                     onClick={() => setMenuOpen(false)}

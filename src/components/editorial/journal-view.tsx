@@ -29,7 +29,7 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
   if (posts.length === 0) {
     return (
       <div className="mx-auto max-w-4xl px-4 py-20 text-center">
-        <h1 className="font-display text-3xl font-bold text-ink">The Journal</h1>
+        <h1 className="font-display text-3xl font-medium text-ink">The Journal</h1>
         <p className="mt-4 text-ink-soft">New editorial essays will be published shortly.</p>
       </div>
     )
@@ -41,11 +41,11 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
     <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
       {/* Header */}
       <div className="mb-12 text-center md:text-left">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-3 py-1 font-mono text-xs font-semibold tracking-wider text-brand uppercase">
+        <span className="inline-flex items-center gap-1.5 rounded-md bg-brand/10 px-3 py-1 text-xs font-semibold text-brand tabular-nums">
           <Sparkle size={12} />
           Editorial Essays & Textile Science
         </span>
-        <h1 className="mt-3 font-display text-3xl font-bold tracking-tight text-ink md:text-5xl">
+        <h1 className="mt-3 font-display text-3xl font-medium tracking-tight text-ink md:text-5xl">
           The PRYSM Journal
         </h1>
         <p className="mt-3 max-w-2xl font-text text-base text-ink-soft">
@@ -56,7 +56,7 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
 
       {/* Featured Hero Article */}
       {featured && (
-        <article className="shadow-glass-strong mb-16 overflow-hidden rounded-3xl border border-white/80 bg-white/70 backdrop-blur-xl transition hover:shadow-xl">
+        <article className="mb-16 overflow-hidden rounded-3xl border border-white/80 bg-white/70 backdrop-blur-xl transition">
           <div className="grid md:grid-cols-2">
             <div className="relative aspect-[4/3] overflow-hidden bg-slate-100 md:aspect-auto">
               <Image
@@ -70,7 +70,7 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
             </div>
             <div className="flex flex-col justify-between p-8 md:p-12">
               <div>
-                <div className="flex items-center gap-4 font-mono text-xs text-ink-faint uppercase">
+                <div className="flex items-center gap-4 text-xs text-ink-faint tabular-nums">
                   <time dateTime={featured.publishedAt}>
                     {new Date(featured.publishedAt).toLocaleDateString('en-US', {
                       month: 'short',
@@ -85,7 +85,7 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
                   </span>
                 </div>
 
-                <h2 className="mt-4 font-display text-2xl leading-snug font-bold text-ink md:text-3xl">
+                <h2 className="mt-4 font-display text-2xl leading-snug font-medium text-ink md:text-3xl">
                   <Link
                     href={routes.journalPost(featured.slug)}
                     className="transition hover:text-brand"
@@ -102,7 +102,7 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
               <div className="mt-8">
                 <Link
                   href={routes.journalPost(featured.slug)}
-                  className="inline-flex items-center gap-2 font-display text-sm font-bold text-brand hover:underline"
+                  className="inline-flex items-center gap-2 font-display text-sm font-medium text-brand hover:underline"
                 >
                   Read Full Essay <ArrowRight size={14} />
                 </Link>
@@ -117,7 +117,7 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
         {rest.map((post) => (
           <article
             key={post.slug}
-            className="shadow-glass hover:shadow-glass-strong flex flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/60 backdrop-blur-md transition hover:-translate-y-1"
+            className="flex flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/60 backdrop-blur-md transition hover:-translate-y-1"
           >
             <Link
               href={routes.journalPost(post.slug)}
@@ -134,7 +134,7 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
 
             <div className="flex flex-1 flex-col justify-between p-6">
               <div>
-                <div className="flex items-center gap-3 font-mono text-[11px] text-ink-faint uppercase">
+                <div className="flex items-center gap-3 text-[11px] text-ink-faint tabular-nums">
                   <time dateTime={post.publishedAt}>
                     {new Date(post.publishedAt).toLocaleDateString('en-US', {
                       month: 'short',
@@ -145,7 +145,7 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
                   <span className="text-brand">{post.readingMinutes} min read</span>
                 </div>
 
-                <h3 className="mt-3 font-display text-lg leading-snug font-bold text-ink">
+                <h3 className="mt-3 font-display text-lg leading-snug font-medium text-ink">
                   <Link
                     href={routes.journalPost(post.slug)}
                     className="transition hover:text-brand"
@@ -162,7 +162,7 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
               <div className="mt-6 border-t border-white/50 pt-4">
                 <Link
                   href={routes.journalPost(post.slug)}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-ink hover:text-brand"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-ink hover:text-brand"
                 >
                   Read Story <ArrowRight size={12} />
                 </Link>

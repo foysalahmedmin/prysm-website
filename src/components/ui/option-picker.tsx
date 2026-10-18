@@ -44,16 +44,16 @@ export function OptionPicker({
             aria-label={option.label}
             style={option.swatch ? { ['--swatch' as string]: option.swatch } : undefined}
             className={cn(
-              'glass relative flex h-[52px] min-w-[52px] items-center justify-center rounded-[16px] px-3 font-mono text-sm font-medium text-ink transition-all duration-200',
+              'glass relative flex h-[52px] min-w-[52px] items-center justify-center rounded-md px-3 text-sm font-medium text-ink tabular-nums transition-all duration-200',
               'hover:border-ink/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus',
-              'data-[state=checked]:bg-brand data-[state=checked]:text-on-brand data-[state=checked]:shadow-md',
+              'data-[state=checked]:bg-brand data-[state=checked]:text-on-brand',
               option.unavailable &&
                 'cursor-not-allowed opacity-40 after:absolute after:inset-x-0 after:top-1/2 after:h-px after:-rotate-45 after:bg-ink/60',
             )}
           >
             {option.swatch ? (
               <span
-                className="h-6 w-6 rounded-full border border-black/10 shadow-sm"
+                className="h-6 w-6 rounded-full border border-black/10"
                 style={{ backgroundColor: option.swatch }}
               />
             ) : (
