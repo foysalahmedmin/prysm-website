@@ -65,6 +65,7 @@ export function LookbookView({
           <div className="shadow-glass-strong relative overflow-hidden rounded-3xl border border-white/80 bg-white/70 p-3 backdrop-blur-xl lg:col-span-7">
             <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-slate-100">
               <Image
+                priority
                 src={currentLook.media.src}
                 alt={currentLook.media.alt}
                 fill

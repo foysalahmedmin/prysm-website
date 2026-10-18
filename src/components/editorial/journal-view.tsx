@@ -60,6 +60,7 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
           <div className="grid md:grid-cols-2">
             <div className="relative aspect-[4/3] overflow-hidden bg-slate-100 md:aspect-auto">
               <Image
+                priority
                 src={featured.cover.src}
                 alt={featured.cover.alt}
                 fill
