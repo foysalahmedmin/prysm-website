@@ -470,6 +470,7 @@ export function ProductDetailView({
                   </div>
                   <span className="text-[11px] text-ink-faint tabular-nums">
                     {new Date(rev.createdAt).toLocaleDateString('en-US', {
+                      timeZone: 'UTC',
                       month: 'short',
                       day: 'numeric',
                       year: 'numeric',

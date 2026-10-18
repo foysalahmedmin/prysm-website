@@ -33,6 +33,7 @@ export function JournalPostView({
   relatedPosts?: JournalPost[]
 }) {
   const publishedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
+    timeZone: 'UTC',
     month: 'long',
     day: 'numeric',
     year: 'numeric',
