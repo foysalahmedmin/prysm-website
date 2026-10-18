@@ -1,23 +1,19 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Check, Sparkle } from '@/components/icons'
+import { ArrowRight, Check } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { routes } from '@/config/routes'
 
 export function ShippingReturnsView() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 md:py-16">
+    <div className="page-container py-10 md:py-14">
       {/* Header */}
-      <div className="mb-12 text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-md bg-brand/10 px-3 py-1 text-xs font-semibold text-brand tabular-nums">
-          <Sparkle size={12} />
-          Global Logistics & Guarantee
-        </span>
-        <h1 className="mt-3 font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
+      <div className="mb-10 max-w-2xl md:mb-14">
+        <h1 className="font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
           Shipping & Returns
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl font-text text-base text-ink-soft md:text-lg">
+        <p className="mt-4 font-text text-base text-ink-soft md:text-lg">
           We ensure every garment is handled with archival care from our atelier to your door. Enjoy
           complimentary domestic delivery over $150 and hassle-free returns.
         </p>
@@ -29,7 +25,7 @@ export function ShippingReturnsView() {
           Delivery Options & Timelines
         </h2>
         <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-3xl border border-white/80 bg-white/70 p-6 backdrop-blur-xl">
+          <div className="rounded-3xl border border-ink/10 bg-surface p-6">
             <span className="text-xs font-semibold text-brand tabular-nums">Standard Ground</span>
             <div className="my-3 flex items-baseline gap-2">
               <span className="font-display text-3xl font-medium text-ink">$8</span>
@@ -38,19 +34,19 @@ export function ShippingReturnsView() {
             <p className="font-text text-sm text-ink-soft">
               Delivered within 3 to 6 business days via carbon-neutral ground courier.
             </p>
-            <ul className="mt-4 space-y-2 border-t border-slate-200/60 pt-4 font-text text-xs text-ink-soft">
+            <ul className="mt-4 space-y-2 border-t border-ink/10 pt-4 font-text text-xs text-ink-soft">
               <li className="flex items-center gap-2">
-                <Check size={14} className="text-emerald-500" />
-                Live encrypted tracking
+                <Check size={14} className="text-ink" />
+                Live tracking
               </li>
               <li className="flex items-center gap-2">
-                <Check size={14} className="text-emerald-500" />
+                <Check size={14} className="text-ink" />
                 Signature upon delivery
               </li>
             </ul>
           </div>
 
-          <div className="relative rounded-3xl border-2 border-brand/40 bg-white/80 p-6 backdrop-blur-xl">
+          <div className="relative rounded-3xl border-2 border-brand/40 bg-surface p-6">
             <span className="absolute -top-3 right-6 rounded-md bg-brand px-3 py-0.5 text-[10px] font-semibold text-on-brand tabular-nums">
               Recommended
             </span>
@@ -64,19 +60,19 @@ export function ShippingReturnsView() {
             <p className="font-text text-sm text-ink-soft">
               Guaranteed delivery within 1 to 2 business days via priority air courier.
             </p>
-            <ul className="mt-4 space-y-2 border-t border-slate-200/60 pt-4 font-text text-xs text-ink-soft">
+            <ul className="mt-4 space-y-2 border-t border-ink/10 pt-4 font-text text-xs text-ink-soft">
               <li className="flex items-center gap-2">
-                <Check size={14} className="text-emerald-500" />
-                Same-day atelier dispatch before 14:00
+                <Check size={14} className="text-ink" />
+                Ships the same day if ordered before 14:00
               </li>
               <li className="flex items-center gap-2">
-                <Check size={14} className="text-emerald-500" />
+                <Check size={14} className="text-ink" />
                 Priority customs clearance
               </li>
             </ul>
           </div>
 
-          <div className="rounded-3xl border border-white/80 bg-white/70 p-6 backdrop-blur-xl">
+          <div className="rounded-3xl border border-ink/10 bg-surface p-6">
             <span className="text-xs font-semibold text-brand tabular-nums">
               International Express
             </span>
@@ -87,14 +83,14 @@ export function ShippingReturnsView() {
             <p className="font-text text-sm text-ink-soft">
               Worldwide delivery to 60+ countries in 2 to 4 business days via DHL Express.
             </p>
-            <ul className="mt-4 space-y-2 border-t border-slate-200/60 pt-4 font-text text-xs text-ink-soft">
+            <ul className="mt-4 space-y-2 border-t border-ink/10 pt-4 font-text text-xs text-ink-soft">
               <li className="flex items-center gap-2">
-                <Check size={14} className="text-emerald-500" />
+                <Check size={14} className="text-ink" />
                 All duties & taxes included
               </li>
               <li className="flex items-center gap-2">
-                <Check size={14} className="text-emerald-500" />
-                Zero surprise doorstep customs fees
+                <Check size={14} className="text-ink" />
+                No customs fees on delivery
               </li>
             </ul>
           </div>
@@ -102,11 +98,8 @@ export function ShippingReturnsView() {
       </section>
 
       {/* Returns Policy & Process */}
-      <section className="mb-16 rounded-3xl border border-white/80 bg-white/70 p-8 backdrop-blur-xl md:p-12">
+      <section className="mb-16 rounded-3xl border border-ink/10 bg-surface p-8 md:p-12">
         <div className="max-w-3xl">
-          <span className="text-xs font-semibold text-brand tabular-nums">
-            Complimentary 30-Day Policy
-          </span>
           <h2 className="mt-2 font-display text-2xl font-medium text-ink md:text-3xl">
             Atelier Returns & Exchanges
           </h2>
@@ -161,15 +154,15 @@ export function ShippingReturnsView() {
         <p className="mt-2 font-text text-sm text-ink-soft">
           Enter your order reference code in our tracker for real-time delivery checkpoints.
         </p>
-        <div className="mt-6 flex justify-center gap-4">
+        <div className="mt-6 flex gap-4">
           <Button asChild>
             <Link href={routes.trackOrder}>
-              Track Your Order
+              Track your order
               <ArrowRight size={16} />
             </Link>
           </Button>
           <Button asChild variant="secondary">
-            <Link href={routes.faq}>Review Shipping FAQ</Link>
+            <Link href={routes.faq}>Shipping FAQ</Link>
           </Button>
         </div>
       </div>

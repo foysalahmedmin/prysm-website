@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, MagnifyingGlass, Sparkle } from '@/components/icons'
+import { ArrowRight, MagnifyingGlass } from '@/components/icons'
 import { Accordion, Button } from '@/components/ui'
 import { routes } from '@/config/routes'
 import type { FaqItem } from '@/domain'
@@ -39,7 +39,7 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
         <div className="pt-2">
           <p className="font-text text-sm leading-relaxed text-ink-soft">{item.answer}</p>
           <div className="mt-3">
-            <span className="inline-block rounded-md bg-slate-100 px-2 py-0.5 text-[10px] text-ink-faint tabular-nums">
+            <span className="inline-block rounded-md bg-ink/5 px-2 py-0.5 text-[10px] text-ink-faint tabular-nums">
               Topic: {item.group}
             </span>
           </div>
@@ -49,23 +49,19 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
   }, [filteredItems])
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 md:py-16">
+    <div className="page-container py-10 md:py-14">
       {/* Header */}
-      <div className="mb-12 text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-md bg-brand/10 px-3 py-1 text-xs font-semibold text-brand tabular-nums">
-          <Sparkle size={12} />
-          Knowledge Base & Client Care
-        </span>
-        <h1 className="mt-3 font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
+      <div className="mb-10 max-w-2xl md:mb-14">
+        <h1 className="font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
           Frequently Asked Questions
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl font-text text-base text-ink-soft md:text-lg">
+        <p className="mt-4 font-text text-base text-ink-soft md:text-lg">
           Answers to client inquiries regarding orders, global express delivery, virtual fitting
           technology, and optical textile maintenance.
         </p>
 
         {/* Search Bar */}
-        <div className="relative mx-auto mt-8 max-w-lg">
+        <div className="relative mt-8 max-w-lg">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-ink-faint">
             <MagnifyingGlass size={18} />
           </div>
@@ -79,7 +75,7 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
         </div>
 
         {/* Group / Category Filter Pills */}
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <div className="mt-6 flex flex-wrap gap-2">
           {groups.map((group) => (
             <button
               key={group}
@@ -87,7 +83,7 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
               className={`rounded-md px-4 py-1.5 text-xs font-semibold tabular-nums transition ${
                 selectedGroup === group
                   ? 'bg-brand text-on-brand'
-                  : 'border border-ink/10 bg-white/60 text-ink-soft hover:bg-white hover:text-ink'
+                  : 'border border-ink/10 bg-surface text-ink-soft hover:bg-white hover:text-ink'
               }`}
             >
               {group}
@@ -97,7 +93,7 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
       </div>
 
       {/* Accordion Questions List */}
-      <div className="rounded-3xl border border-ink/10 bg-white/70 p-6 md:p-10">
+      <div className="max-w-3xl">
         <h2 className="sr-only">Questions</h2>
         {accordionItems.length > 0 ? (
           <Accordion items={accordionItems} />
@@ -120,21 +116,18 @@ export function FaqView({ items = [] }: { items: FaqItem[] }) {
         )}
       </div>
 
-      {/* Contact Concierge Support Banner */}
-      <div className="mt-12 rounded-3xl border border-ink/10 bg-surface p-8 text-center md:flex md:items-center md:justify-between md:text-left">
+      {/* Contact us Support Banner */}
+      <div className="mt-16 max-w-3xl border-t border-ink/10 pt-8 md:flex md:items-center md:justify-between">
         <div>
-          <h3 className="font-display text-xl font-medium text-ink">
-            Require specialized assistance?
-          </h3>
+          <h3 className="font-display text-xl font-medium text-ink">Still have a question?</h3>
           <p className="mt-1 font-text text-sm text-ink-soft">
-            Our atelier client advisory staff is at your disposal for bespoke fitting advice and
-            inquiries.
+            Our team can help with sizing, orders and anything else.
           </p>
         </div>
         <div className="mt-6 md:mt-0">
           <Button asChild>
             <Link href={routes.contact}>
-              Contact Concierge
+              Contact us
               <ArrowRight size={16} />
             </Link>
           </Button>

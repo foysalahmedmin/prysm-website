@@ -177,7 +177,7 @@ export function GlassNav({
                     onClick={() => setMenuOpen(false)}
                     className="text-ink-faint hover:text-ink"
                   >
-                    Boutiques & Studios
+                    Stores
                   </Link>
                 </div>
               </div>

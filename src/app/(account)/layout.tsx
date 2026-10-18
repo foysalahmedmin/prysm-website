@@ -14,17 +14,12 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
       <main
         id="main-content"
         tabIndex={-1}
-        className="mx-auto w-full max-w-6xl flex-1 px-6 py-10 focus:outline-none"
+        className="page-container flex-1 pt-10 pb-20 focus:outline-none md:pt-14"
       >
-        <div className="mb-6">
-          <h2 className="font-display text-2xl font-medium tracking-tight text-ink">
-            Account & Preferences
-          </h2>
-          <p className="mt-1 font-text text-sm text-ink-soft">
-            Manage orders, delivery addresses, and personal security.
-          </p>
-        </div>
-        <Suspense fallback={<div className="glass mb-8 h-12 max-w-md animate-pulse rounded-md" />}>
+        <p className="mb-6 font-display text-lg text-ink-soft">My account</p>
+        <Suspense
+          fallback={<div className="mb-8 h-11 max-w-md animate-pulse border-b border-ink/10" />}
+        >
           <AccountNav />
         </Suspense>
         {children}

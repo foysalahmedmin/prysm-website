@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import Link from 'next/link'
 import { ConnectedProductCard } from '@/components/commerce/connected-product-card'
-import { ArrowRight, Sparkle } from '@/components/icons'
+import { ArrowRight } from '@/components/icons'
 import { routes } from '@/config/routes'
 import type { LookbookContent, Product } from '@/domain'
 
@@ -26,22 +26,16 @@ export function LookbookView({
     : []
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 md:py-16">
+    <div className="page-container py-10 md:py-14">
       {/* Editorial Header */}
-      <div className="mb-12 text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-md bg-brand/10 px-3 py-1 text-xs font-semibold text-brand tabular-nums">
-          <Sparkle size={12} />
-          {lookbook.season} Lookbook
-        </span>
-        <h1 className="mt-3 font-display text-4xl font-medium tracking-tight text-ink md:text-6xl">
+      <div className="mb-10 max-w-2xl md:mb-14">
+        <h1 className="font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
           {lookbook.title}
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl font-text text-base text-ink-soft md:text-lg">
-          {lookbook.description}
-        </p>
+        <p className="mt-4 font-text text-base text-ink-soft md:text-lg">{lookbook.description}</p>
 
         {/* Look Selector Pills */}
-        <div className="mt-8 flex flex-wrap justify-center gap-2">
+        <div className="mt-8 flex flex-wrap gap-2">
           {lookbook.looks.map((look, idx) => (
             <button
               key={look.id}
@@ -49,7 +43,7 @@ export function LookbookView({
               className={`rounded-md px-5 py-2 text-xs font-semibold tabular-nums transition ${
                 activeLookIndex === idx
                   ? 'bg-brand text-on-brand'
-                  : 'border border-white/70 bg-white/60 text-ink-soft hover:bg-white hover:text-ink'
+                  : 'border border-ink/10 bg-surface text-ink-soft hover:bg-white hover:text-ink'
               }`}
             >
               Look {String(idx + 1).padStart(2, '0')}
@@ -62,19 +56,19 @@ export function LookbookView({
       {currentLook && (
         <section className="mb-20 grid items-start gap-8 lg:grid-cols-12">
           {/* Main Visual with Lens Frame */}
-          <div className="relative overflow-hidden rounded-3xl border border-white/80 bg-white/70 p-3 backdrop-blur-xl lg:col-span-7">
-            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-slate-100">
+          <div className="relative overflow-hidden rounded-3xl border border-ink/10 bg-surface p-3 lg:col-span-7">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-ink/5">
               <Image
                 priority
                 src={currentLook.media.src}
                 alt={currentLook.media.alt}
                 fill
                 sizes="(min-width: 1024px) 33vw, 100vw"
-                className="h-full w-full object-cover transition duration-700 hover:scale-105"
+                className="h-full w-full object-cover transition duration-700 hover:scale-[1.03]"
               />
 
               {/* Floating Hotspot indicator badge */}
-              <div className="absolute bottom-6 left-6 max-w-xs rounded-2xl border border-white/80 bg-white/85 p-4 backdrop-blur-md">
+              <div className="absolute bottom-6 left-6 max-w-xs rounded-2xl border border-ink/10 bg-white/85 p-4">
                 <span className="text-xs font-semibold text-brand tabular-nums">
                   Active Dossier
                 </span>
@@ -90,8 +84,8 @@ export function LookbookView({
 
           {/* Shoppable Products Side Rail */}
           <div className="flex flex-col gap-6 lg:col-span-5">
-            <div className="rounded-3xl border border-white/80 bg-white/70 p-6 backdrop-blur-xl">
-              <div className="flex items-center justify-between border-b border-slate-200/60 pb-4">
+            <div className="rounded-3xl border border-ink/10 bg-surface p-6">
+              <div className="flex items-center justify-between border-b border-ink/10 pb-4">
                 <div>
                   <h2 className="font-display text-xl font-medium text-ink">Pieces in This Look</h2>
                   <p className="font-text text-xs text-ink-soft">
@@ -112,7 +106,7 @@ export function LookbookView({
                 {currentProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="overflow-hidden rounded-2xl border border-white/80 bg-white/80 p-2 transition"
+                    className="overflow-hidden rounded-2xl border border-ink/10 bg-surface p-2 transition"
                   >
                     <ConnectedProductCard product={product} />
                   </div>
@@ -130,8 +124,8 @@ export function LookbookView({
       )}
 
       {/* All Looks Overview Grid */}
-      <section className="border-t border-slate-200/80 pt-16">
-        <h2 className="mb-8 text-center font-display text-2xl font-medium text-ink md:text-3xl">
+      <section className="border-t border-ink/10 pt-16">
+        <h2 className="mb-8 font-display text-2xl font-medium text-ink md:text-3xl">
           Complete Seasonal Collection
         </h2>
         <div className="grid gap-8 md:grid-cols-3">
@@ -142,15 +136,15 @@ export function LookbookView({
                 setActiveLookIndex(idx)
                 window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
-              className="group flex cursor-pointer flex-col overflow-hidden rounded-3xl border border-white/70 bg-white/60 p-4 backdrop-blur-md transition hover:-translate-y-1"
+              className="group flex cursor-pointer flex-col overflow-hidden rounded-3xl border border-ink/10 bg-surface p-4 transition"
             >
-              <div className="relative mb-4 aspect-[3/4] overflow-hidden rounded-2xl bg-slate-100">
+              <div className="relative mb-4 aspect-[3/4] overflow-hidden rounded-2xl bg-ink/5">
                 <Image
                   src={look.media.src}
                   alt={look.media.alt}
                   fill
                   sizes="(min-width: 1024px) 33vw, 100vw"
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                 />
               </div>
               <div className="flex items-center justify-between">

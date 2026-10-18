@@ -2,9 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ConnectedProductCard } from '@/components/commerce/connected-product-card'
 import { NewsletterSection } from '@/components/commerce/newsletter-section'
-import { ArrowRight } from '@/components/icons'
+import { ArrowRight, Star } from '@/components/icons'
 import { Button } from '@/components/ui'
-import { formatMoney, type JournalPost, type Product } from '@/domain'
+import { formatMoney, type JournalPost, type Product, type Review } from '@/domain'
 import { Reveal } from '@/lib/motion'
 import { pageMetadata } from '@/lib/metadata'
 import { services } from '@/services'
@@ -73,6 +73,15 @@ export default async function HomePage() {
       home.journalTeasers.postSlugs.map((slug) => services.content.getJournalPost(slug)),
     )
   ).filter((post): post is JournalPost => post !== null)
+
+  const reviewPicks = (
+    await Promise.all(
+      featuredProducts.slice(0, 3).map(async (product) => {
+        const review = (await services.catalog.listReviews(product.id)).find((r) => r.rating === 5)
+        return review ? { review, product } : null
+      }),
+    )
+  ).filter((pick): pick is { review: Review; product: Product } => pick !== null)
 
   const spotlight = featuredProducts[0]
   const [mainCategory, ...sideCategories] = home.categories
@@ -328,6 +337,49 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Reviews: real quotes from the catalogue */}
+      {reviewPicks.length > 0 ? (
+        <section aria-labelledby="reviews-heading" className="page-container pt-16 md:pt-24">
+          <Reveal>
+            <SectionHeading id="reviews-heading" title="What customers say" />
+          </Reveal>
+          <ul className="grid gap-10 md:grid-cols-3 md:gap-8">
+            {reviewPicks.map(({ review, product }, idx) => (
+              <Reveal
+                as="li"
+                key={review.id}
+                delay={idx * 100}
+                className="border-t border-ink pt-6"
+              >
+                <div
+                  role="img"
+                  aria-label={`${review.rating} out of 5 stars`}
+                  className="flex gap-0.5"
+                >
+                  {Array.from({ length: review.rating }, (_, i) => (
+                    <Star key={i} size={14} weight="fill" aria-hidden="true" className="text-ink" />
+                  ))}
+                </div>
+                <blockquote className="mt-4 font-display text-xl leading-snug font-medium text-ink">
+                  &ldquo;{review.title}&rdquo;
+                </blockquote>
+                <p className="mt-3 text-sm leading-relaxed text-ink-soft">{review.body}</p>
+                <p className="mt-5 text-xs text-ink-soft">
+                  {review.author}
+                  {review.verified ? ' · Verified purchase' : ''}
+                </p>
+                <Link
+                  href={`/products/${product.slug}`}
+                  className="mt-1 inline-block text-sm text-ink underline-offset-4 hover:underline"
+                >
+                  {product.name}
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       {/* Journal */}
       <section aria-labelledby="journal-heading" className="page-container py-16 md:py-24">
         <Reveal>
@@ -369,6 +421,23 @@ export default async function HomePage() {
             </Reveal>
           ))}
         </ul>
+      </section>
+
+      {/* The basics, stated once */}
+      <section aria-label="Shipping, returns and payment" className="border-t border-ink/10">
+        <dl className="page-container grid grid-cols-2 gap-x-6 gap-y-8 py-10 md:grid-cols-4 md:py-12">
+          {[
+            ['Free shipping', 'On orders over $150'],
+            ['30-day returns', 'Unworn, with tags attached'],
+            ['Try before you buy', 'Preview the fit with Mirror Try'],
+            ['Secure checkout', 'Encrypted card payment'],
+          ].map(([title, text]) => (
+            <div key={title}>
+              <dt className="text-sm font-medium text-ink">{title}</dt>
+              <dd className="mt-1 text-sm text-ink-soft">{text}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       <NewsletterSection

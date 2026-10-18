@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Sparkle } from '@/components/icons'
+import { ArrowRight } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { brand } from '@/config/brand'
 import { routes } from '@/config/routes'
@@ -52,14 +52,10 @@ const TIMELINE = [
 
 export function AboutView() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+    <div className="page-container py-10 md:py-14">
       {/* Hero Section */}
       <div className="relative mb-16 overflow-hidden rounded-3xl border border-ink/10 bg-surface p-8 md:p-14">
         <div className="max-w-2xl">
-          <span className="mb-3 inline-flex items-center gap-1.5 rounded-md bg-brand/10 px-3 py-1 text-xs font-semibold text-brand tabular-nums">
-            <Sparkle size={12} />
-            Our Atelier & Manifesto
-          </span>
           <h1 className="font-display text-3xl font-medium tracking-tight text-ink md:text-5xl">
             Tailoring Cut to Catch the Light.
           </h1>
@@ -85,7 +81,7 @@ export function AboutView() {
 
       {/* Pillars Grid */}
       <section className="mb-16">
-        <div className="mb-8 text-center">
+        <div className="mb-8">
           <h2 className="font-display text-2xl font-medium text-ink md:text-3xl">
             Foundations of Optical Design
           </h2>
@@ -98,7 +94,7 @@ export function AboutView() {
           {PILLARS.map((pillar) => (
             <div
               key={pillar.title}
-              className="rounded-2xl border border-ink/10 bg-white/60 p-6 backdrop-blur-md transition hover:-translate-y-1"
+              className="rounded-2xl border border-ink/10 bg-surface p-6 transition"
             >
               <h3 className="font-display text-lg font-medium text-ink">{pillar.title}</h3>
               <p className="mt-3 font-text text-sm leading-relaxed text-ink-soft">
@@ -110,10 +106,8 @@ export function AboutView() {
       </section>
 
       {/* Atelier Timeline */}
-      <section className="mb-16 rounded-3xl border border-ink/10 bg-white/70 p-8 md:p-12">
-        <h2 className="mb-8 text-center font-display text-2xl font-medium text-ink">
-          Atelier Chronicle
-        </h2>
+      <section className="mb-16 rounded-3xl border border-ink/10 bg-surface p-8 md:p-12">
+        <h2 className="mb-8 font-display text-2xl font-medium text-ink">Atelier Chronicle</h2>
         <div className="grid gap-8 md:grid-cols-4">
           {TIMELINE.map((step) => (
             <div
@@ -133,13 +127,10 @@ export function AboutView() {
       {/* Sustainability & Ethics */}
       <section className="rounded-3xl border border-ink/10 bg-ink p-8 text-white md:p-12">
         <div className="max-w-3xl">
-          <span className="text-xs font-semibold text-indigo-300 tabular-nums">
-            Conscious Creation
-          </span>
           <h2 className="mt-2 font-display text-2xl font-medium md:text-3xl">
             Zero-Waste Cutting & Ethical Sourcing
           </h2>
-          <p className="mt-4 font-text text-sm leading-relaxed text-slate-300 md:text-base">
+          <p className="mt-4 font-text text-sm leading-relaxed text-white/70 md:text-base">
             Every pattern piece is digitally mapped using nesting algorithms to achieve 96.8% cloth
             yield, virtually eliminating scrap offcuts. All wools are certified non-mulesed
             Tasmanian merino, and our silk mills recycle 99% of wastewater in closed-loop thermal
@@ -148,7 +139,7 @@ export function AboutView() {
           <div className="mt-6 flex gap-4">
             <Link
               href={routes.stores}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-white underline underline-offset-4 hover:text-indigo-200"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80"
             >
               Visit Our Ateliers <ArrowRight size={14} />
             </Link>

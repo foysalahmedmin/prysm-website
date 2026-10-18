@@ -15,10 +15,10 @@ import { useOrdersStore } from '@/stores/orders-store'
 const MONEY = { currency: brand.currency, locale: brand.locale }
 
 const STEPS = [
-  { id: 'confirmed', label: 'Acquisition Confirmed', desc: 'Order verified & allocated' },
-  { id: 'processing', label: 'Chamber Preparation', desc: 'Inspection & white-glove packaging' },
+  { id: 'confirmed', label: 'Order confirmed', desc: 'We have your order' },
+  { id: 'processing', label: 'Preparing your order', desc: 'Checked and packed by hand' },
   { id: 'shipped', label: 'In Transit', desc: 'Secure temperature-controlled courier' },
-  { id: 'delivered', label: 'Delivered', desc: 'Signed receipt at destination' },
+  { id: 'delivered', label: 'Delivered', desc: 'Signed for on delivery' },
 ]
 
 export function TrackOrderView() {
@@ -72,20 +72,19 @@ export function TrackOrderView() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="page-container py-10 md:py-14">
       {/* Title */}
       <div className="text-center">
-        <span className="text-xs text-ink-faint tabular-nums">PRYSM courier radar</span>
-        <h1 className="mt-2 font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
-          Track Your Acquisition
+        <h1 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
+          Track your order
         </h1>
         <p className="mt-3 font-text text-sm text-ink-soft sm:text-base">
-          Monitor real-time transit velocity and white-glove courier status for your PRYSM garments.
+          Enter your order number and the email you used at checkout.
         </p>
       </div>
 
       {/* Lookup Form */}
-      <div className="glass glass-strong mx-auto mt-8 max-w-2xl rounded-3xl border border-white/80 p-6 sm:p-8">
+      <div className="glass glass-strong mx-auto mt-8 max-w-2xl rounded-3xl border border-ink/10 p-6 sm:p-8">
         <form onSubmit={handleSearch} className="space-y-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
@@ -99,7 +98,7 @@ export function TrackOrderView() {
                 value={orderNumberInput}
                 onChange={(e) => setOrderNumberInput(e.target.value)}
                 placeholder="e.g. PRY-10842"
-                className="glass w-full rounded-xl border border-white/80 p-3 text-sm text-ink tabular-nums placeholder:text-ink-faint focus:border-ink focus:outline-none"
+                className="w-full rounded-md border border-ink/25 bg-surface p-3 text-sm text-ink tabular-nums placeholder:text-ink-faint hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
               />
             </div>
 
@@ -112,8 +111,8 @@ export function TrackOrderView() {
                 type="email"
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
-                placeholder="collector@example.com"
-                className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
+                placeholder="you@example.com"
+                className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink placeholder:text-ink-faint hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
               />
             </div>
           </div>
@@ -121,14 +120,14 @@ export function TrackOrderView() {
           <div className="pt-2">
             <Button type="submit" size="md" className="w-full">
               <MagnifyingGlass size={16} className="mr-2" />
-              Locate Dispatch
+              Track order
             </Button>
           </div>
         </form>
 
         {/* Quick select if recent orders exist */}
         {hydrated && orders.length > 0 ? (
-          <div className="mt-6 border-t border-white/40 pt-4">
+          <div className="mt-6 border-t border-ink/10 pt-4">
             <span className="text-xs text-ink-faint tabular-nums">
               Or choose a recent acquisition:
             </span>
@@ -138,7 +137,7 @@ export function TrackOrderView() {
                   key={o.id}
                   type="button"
                   onClick={() => handleSelectRecent(o)}
-                  className="glass rounded-xl border border-white/60 px-3 py-1.5 text-xs text-ink tabular-nums transition-colors hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-focus"
+                  className="glass rounded-xl border border-ink/10 px-3 py-1.5 text-xs text-ink tabular-nums transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-focus"
                 >
                   {o.number} ({formatMoney(o.totals.total, MONEY)})
                 </button>
@@ -150,10 +149,10 @@ export function TrackOrderView() {
 
       {/* Search Result */}
       {searchedOrder ? (
-        <div className="glass glass-strong mx-auto mt-10 max-w-3xl rounded-3xl border border-white/80 p-8 sm:p-10">
-          <div className="flex flex-col justify-between gap-4 border-b border-white/40 pb-6 sm:flex-row sm:items-center">
+        <div className="glass glass-strong mx-auto mt-10 max-w-3xl rounded-3xl border border-ink/10 p-8 sm:p-10">
+          <div className="flex flex-col justify-between gap-4 border-b border-ink/10 pb-6 sm:flex-row sm:items-center">
             <div>
-              <span className="text-xs text-ink-faint tabular-nums">Tracking Dispatch</span>
+              <span className="text-xs text-ink-faint tabular-nums">Tracking</span>
               <p className="text-2xl font-semibold text-ink tabular-nums">{searchedOrder.number}</p>
             </div>
             <div className="sm:text-right">
@@ -167,7 +166,7 @@ export function TrackOrderView() {
 
           {/* Stepper */}
           <div className="mt-8">
-            <h2 className="text-xs text-ink-soft tabular-nums">Courier Velocity</h2>
+            <h2 className="text-xs text-ink-soft tabular-nums">Progress</h2>
             <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-4">
               {STEPS.map((step, idx) => {
                 const activeIdx = currentStepIdx(searchedOrder.status)
@@ -183,7 +182,7 @@ export function TrackOrderView() {
                       className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all ${
                         isPassed
                           ? 'border-white bg-ink text-canvas'
-                          : 'border-white/60 bg-white/40 text-ink-faint'
+                          : 'border-ink/10 bg-white/40 text-ink-faint'
                       }`}
                     >
                       {isPassed ? (
@@ -205,7 +204,7 @@ export function TrackOrderView() {
           </div>
 
           {/* Package details */}
-          <div className="mt-10 border-t border-white/40 pt-6">
+          <div className="mt-10 border-t border-ink/10 pt-6">
             <h3 className="text-xs text-ink-soft tabular-nums">Package Contents</h3>
             <ul className="mt-4 divide-y divide-white/40">
               {searchedOrder.lines.map((l) => (
@@ -237,7 +236,7 @@ export function TrackOrderView() {
         </div>
       ) : searchAttempted ? (
         <div className="glass mx-auto mt-8 max-w-xl rounded-3xl p-8 text-center">
-          <p className="font-display text-lg font-medium text-ink">Dispatch Not Located</p>
+          <p className="font-display text-lg font-medium text-ink">Order not found</p>
           <p className="mt-2 text-sm text-ink-soft">
             No matching order was found for <strong>{orderNumberInput}</strong>. Please check your
             order confirmation email or view all orders in your Account.

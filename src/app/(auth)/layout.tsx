@@ -14,7 +14,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           href="/"
           className="text-xs text-ink-faint tabular-nums transition-colors hover:text-ink"
         >
-          Return to Boutique ↗
+          Back to store ↗
         </Link>
       </header>
 
@@ -26,9 +26,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="w-full max-w-md">{children}</div>
       </main>
 
-      <footer className="p-6 text-center text-xs text-ink-faint tabular-nums">
-        © 2026 PRYSM. Secure client authentication.
-      </footer>
+      <footer className="p-6 text-center text-xs text-ink-faint tabular-nums">© 2026 PRYSM</footer>
     </div>
   )
 }

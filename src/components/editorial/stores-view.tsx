@@ -1,26 +1,21 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Sparkle } from '@/components/icons'
+import { ArrowRight } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { routes } from '@/config/routes'
 import type { Store } from '@/domain'
 
 export function StoresView({ stores = [] }: { stores: Store[] }) {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+    <div className="page-container py-10 md:py-14">
       {/* Header */}
-      <div className="mb-12 text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-md bg-brand/10 px-3 py-1 text-xs font-semibold text-brand tabular-nums">
-          <Sparkle size={12} />
-          Global Boutiques & Ateliers
-        </span>
-        <h1 className="mt-3 font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
-          Flagships & Fitting Chambers
+      <div className="mb-10 max-w-2xl md:mb-14">
+        <h1 className="font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
+          Our stores
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl font-text text-base text-ink-soft md:text-lg">
-          Experience our optical textiles in person. Every boutique features physical garment
-          archives, dedicated private fitting chambers, and optical mirror analysis.
+        <p className="mt-4 font-text text-base text-ink-soft md:text-lg">
+          See the collection in person. Every store has fitting rooms and a Mirror Try mirror.
         </p>
       </div>
 
@@ -29,7 +24,7 @@ export function StoresView({ stores = [] }: { stores: Store[] }) {
         {stores.map((store) => (
           <div
             key={store.id}
-            className="flex flex-col justify-between overflow-hidden rounded-3xl border border-ink/10 bg-white/70 p-8 transition hover:-translate-y-1"
+            className="flex flex-col justify-between overflow-hidden rounded-3xl border border-ink/10 bg-surface p-8 transition"
           >
             <div>
               <div className="flex items-center justify-between">
@@ -70,7 +65,7 @@ export function StoresView({ stores = [] }: { stores: Store[] }) {
               </div>
             </div>
 
-            <div className="mt-8 border-t border-slate-200/60 pt-6">
+            <div className="mt-8 border-t border-ink/10 pt-6">
               <Button asChild variant="secondary" className="w-full justify-center text-xs">
                 <Link href={routes.contact}>
                   Book Consultation
@@ -83,14 +78,13 @@ export function StoresView({ stores = [] }: { stores: Store[] }) {
       </div>
 
       {/* Consultation Banner */}
-      <div className="mt-16 rounded-3xl border border-ink/10 bg-surface p-8 text-center md:flex md:items-center md:justify-between md:text-left">
+      <div className="mt-16 border-t border-ink/10 pt-8 md:flex md:items-center md:justify-between">
         <div>
           <h3 className="font-display text-xl font-medium text-ink">
             Private Virtual Consultations
           </h3>
           <p className="mt-1 font-text text-sm text-ink-soft">
-            Unable to visit a flagship? Connect with a master stylist via encrypted 1-on-1 virtual
-            chamber session.
+            Cannot visit a store? Book a one-to-one video session with a stylist.
           </p>
         </div>
         <div className="mt-6 md:mt-0">

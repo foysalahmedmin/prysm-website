@@ -366,7 +366,7 @@ export function ProductDetailView({
           <div className="grid grid-cols-2 gap-3 pt-4 text-xs text-ink-soft tabular-nums">
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-brand" />
-              <span>Complimentary shipping $150+</span>
+              <span>Free shipping over $150</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-brand" />
@@ -421,7 +421,7 @@ export function ProductDetailView({
                 </div>
               ) : (
                 <div className="space-y-2 text-xs">
-                  <p>• Dispatched from Zurich laboratory hub within 24 hours.</p>
+                  <p>• Ships from Zurich within 24 hours.</p>
                   <p>• Standard carbon-neutral delivery: 3–5 business days ($8, free over $150).</p>
                   <p>• Express priority courier: 1–2 business days ($18 flat rate).</p>
                   <p>• 30-day complimentary returns on unworn items with original seals intact.</p>
@@ -442,7 +442,7 @@ export function ProductDetailView({
           id="reviews-heading"
           className="font-display text-2xl font-medium tracking-tight text-ink md:text-3xl"
         >
-          Verified Client Reviews
+          Reviews
         </h2>
 
         <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
@@ -451,7 +451,7 @@ export function ProductDetailView({
               rating={product.rating ?? { average: 5, count: reviews.length }}
               distribution={distribution}
               labels={{
-                heading: 'Client Satisfaction',
+                heading: 'Rating',
                 outOf: (avg) => `${avg} out of 5 stars`,
                 count: (cnt) => `Based on ${cnt} verified reviews`,
                 stars: (s, c) => `${s} stars: ${c}`,

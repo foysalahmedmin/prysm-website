@@ -30,7 +30,7 @@ export default function CheckoutLayout({ children }: { children: React.ReactNode
 
       <footer className="border-t border-ink/5 py-6 text-center text-xs text-ink-faint tabular-nums">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 sm:flex-row">
-          <span>© 2026 PRYSM. All transactions encrypted.</span>
+          <span>© 2026 PRYSM. Secure checkout.</span>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-ink">
               Privacy

@@ -48,7 +48,7 @@ export function NewsletterSection({
         {status === 'success' ? (
           <p className="flex items-center gap-2 text-sm text-on-brand" role="status">
             <Check size={16} aria-hidden="true" />
-            Thank you for subscribing. Your first dispatch is on its way.
+            Thank you for subscribing. Our next email will land in your inbox.
           </p>
         ) : (
           <form

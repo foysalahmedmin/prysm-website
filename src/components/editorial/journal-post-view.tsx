@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowLeft, Sparkle } from '@/components/icons'
+import { ArrowLeft } from '@/components/icons'
 import { routes } from '@/config/routes'
 import type { JournalPost } from '@/domain'
 
@@ -39,7 +39,7 @@ export function JournalPostView({
   })
 
   return (
-    <article className="mx-auto max-w-4xl px-4 py-12 md:py-16">
+    <article className="page-container py-10 md:py-14">
       {/* Navigation Breadcrumb */}
       <div className="mb-8">
         <Link
@@ -54,10 +54,6 @@ export function JournalPostView({
       {/* Header */}
       <header className="mb-10">
         <div className="flex items-center gap-3 text-xs text-ink-faint tabular-nums">
-          <span className="inline-flex items-center gap-1 font-semibold text-brand">
-            <Sparkle size={12} />
-            Editorial Essay
-          </span>
           <span>·</span>
           <time dateTime={post.publishedAt}>{publishedDate}</time>
           <span>·</span>
@@ -67,7 +63,7 @@ export function JournalPostView({
           </span>
         </div>
 
-        <h1 className="mt-4 font-display text-3xl leading-tight font-medium tracking-tight text-ink md:text-5xl">
+        <h1 className="font-display text-3xl leading-tight font-medium tracking-tight text-ink md:text-5xl">
           {post.title}
         </h1>
 
@@ -77,7 +73,7 @@ export function JournalPostView({
       </header>
 
       {/* Hero Media */}
-      <div className="relative mb-12 overflow-hidden rounded-3xl border border-white/80 bg-white/60">
+      <div className="relative mb-12 overflow-hidden rounded-3xl border border-ink/10 bg-surface">
         <Image
           priority
           src={post.cover.src}
@@ -87,7 +83,7 @@ export function JournalPostView({
           sizes="(min-width: 1024px) 768px, 100vw"
           className="aspect-[16/9] w-full object-cover"
         />
-        <div className="border-t border-white/60 p-3 text-center font-text text-xs text-ink-faint">
+        <div className="border-t border-ink/10 p-3 text-center font-text text-xs text-ink-faint">
           {post.cover.alt}
         </div>
       </div>
@@ -104,7 +100,7 @@ export function JournalPostView({
         ))}
 
         {/* Pull Quote */}
-        <blockquote className="my-10 rounded-2xl border-l-4 border-brand bg-white/70 p-6 backdrop-blur-md md:p-8">
+        <blockquote className="my-10 rounded-2xl border-l-4 border-brand bg-surface p-6 md:p-8">
           <p className="font-display text-lg font-medium text-ink italic md:text-xl">
             &ldquo;When luxury tailoring is drafted with structural physics, garments cease being
             passive coverings and become dynamic lenses for light and posture.&rdquo;
@@ -117,7 +113,7 @@ export function JournalPostView({
 
       {/* Related Posts */}
       {relatedPosts.length > 0 && (
-        <section className="mt-20 border-t border-slate-200/80 pt-12">
+        <section className="mt-20 border-t border-ink/10 pt-12">
           <div className="mb-8 flex items-center justify-between">
             <h2 className="font-display text-2xl font-medium text-ink">Related Essays</h2>
             <Link
@@ -133,15 +129,15 @@ export function JournalPostView({
               <Link
                 key={related.slug}
                 href={routes.journalPost(related.slug)}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/60 p-5 backdrop-blur-md transition hover:-translate-y-1"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface p-5 transition"
               >
-                <div className="relative mb-4 aspect-[16/9] overflow-hidden rounded-xl bg-slate-100">
+                <div className="relative mb-4 aspect-[16/9] overflow-hidden rounded-xl bg-ink/5">
                   <Image
                     src={related.cover.src}
                     alt={related.cover.alt}
                     fill
                     sizes="(min-width: 1024px) 33vw, 100vw"
-                    className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                    className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
                   />
                 </div>
                 <div className="flex items-center gap-2 text-xs text-ink-faint tabular-nums">

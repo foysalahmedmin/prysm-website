@@ -98,9 +98,7 @@ export function GlassBagDrawer() {
         <div className="border-b border-white/30 bg-white/30 px-6 py-3 text-xs">
           <div className="mb-1.5 flex items-center justify-between text-ink tabular-nums">
             {freeRemaining === 0 ? (
-              <span className="font-medium text-success">
-                Complimentary express shipping unlocked!
-              </span>
+              <span className="font-medium text-success">Free express shipping unlocked</span>
             ) : (
               <span>Add ${(freeRemaining / 100).toFixed(2)} for free shipping</span>
             )}
@@ -123,7 +121,7 @@ export function GlassBagDrawer() {
               </div>
               <p className="font-display text-base font-medium text-ink">Your bag is empty</p>
               <p className="mt-1 mb-6 max-w-xs font-text text-sm text-ink-faint">
-                Explore our optical and tailored ready-to-wear collections.
+                Pieces you add will appear here.
               </p>
               <Button
                 onClick={() => {

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { ArrowRight, Check } from '@/components/icons'
+import { ArrowRight } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { brand } from '@/config/brand'
 import { routes } from '@/config/routes'
@@ -37,12 +37,10 @@ export function OrderConfirmationView() {
       <div className="mx-auto min-h-[50vh] max-w-xl px-4 py-20 text-center">
         <div className="glass glass-strong rounded-3xl p-10">
           <h1 className="font-display text-2xl font-medium text-ink">Order Not Found</h1>
-          <p className="mt-2 text-sm text-ink-soft">
-            We could not locate this order. Return to your shopping gallery.
-          </p>
+          <p className="mt-2 text-sm text-ink-soft">We could not find this order.</p>
           <div className="mt-6">
             <Button asChild>
-              <Link href={routes.shop}>Explore Collection</Link>
+              <Link href={routes.shop}>Continue shopping</Link>
             </Button>
           </div>
         </div>
@@ -51,26 +49,22 @@ export function OrderConfirmationView() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="page-container py-10 md:py-14">
       {/* Header Badge */}
       <div className="text-center">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-md border border-white/80 bg-white/60">
-          <Check size={32} className="text-emerald-500" />
-        </div>
-        <span className="text-xs text-ink-faint tabular-nums">Acquisition confirmed</span>
-        <h1 className="mt-2 font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
+        <h1 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
           Thank you for your order
         </h1>
         <p className="mt-3 font-text text-sm text-ink-soft sm:text-base">
-          A confirmation dispatch has been sent to{' '}
+          A confirmation has been sent to{' '}
           <strong className="text-ink">{order.customerEmail}</strong>.
         </p>
       </div>
 
       {/* Main Glass Receipt Card */}
-      <div className="glass glass-strong mt-10 rounded-3xl border border-white/80 p-8 sm:p-10">
+      <div className="glass glass-strong mt-10 rounded-3xl border border-ink/10 p-8 sm:p-10">
         {/* Receipt Header Bar */}
-        <div className="flex flex-col justify-between gap-4 border-b border-white/40 pb-6 sm:flex-row sm:items-center">
+        <div className="flex flex-col justify-between gap-4 border-b border-ink/10 pb-6 sm:flex-row sm:items-center">
           <div>
             <span className="text-xs text-ink-faint tabular-nums">Order Number</span>
             <p className="text-xl font-semibold text-ink tabular-nums">{order.number}</p>
@@ -115,9 +109,9 @@ export function OrderConfirmationView() {
         </div>
 
         {/* Shipping & Payment Meta */}
-        <div className="mt-8 grid grid-cols-1 gap-6 border-t border-white/40 pt-6 sm:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-6 border-t border-ink/10 pt-6 sm:grid-cols-2">
           <div>
-            <h3 className="text-xs text-ink-soft tabular-nums">Delivery Destination</h3>
+            <h3 className="text-xs text-ink-soft tabular-nums">Delivery address</h3>
             <div className="mt-2 font-text text-sm text-ink">
               <p className="font-semibold">{order.address.name}</p>
               <p>{order.address.line1}</p>
@@ -148,7 +142,7 @@ export function OrderConfirmationView() {
         </div>
 
         {/* Pricing Summary */}
-        <div className="mt-8 border-t border-white/40 pt-6">
+        <div className="mt-8 border-t border-ink/10 pt-6">
           <dl className="space-y-2 font-text text-sm">
             <div className="flex justify-between text-ink-soft">
               <dt>Subtotal</dt>
@@ -163,16 +157,14 @@ export function OrderConfirmationView() {
             <div className="flex justify-between text-ink-soft">
               <dt>Delivery</dt>
               <dd className="text-ink tabular-nums">
-                {order.totals.shipping === 0
-                  ? 'Complimentary'
-                  : formatMoney(order.totals.shipping, MONEY)}
+                {order.totals.shipping === 0 ? 'Free' : formatMoney(order.totals.shipping, MONEY)}
               </dd>
             </div>
             <div className="flex justify-between text-ink-soft">
               <dt>Estimated Tax (8%)</dt>
               <dd className="text-ink tabular-nums">{formatMoney(order.totals.tax, MONEY)}</dd>
             </div>
-            <div className="flex justify-between border-t border-white/60 pt-3 font-display text-lg font-medium text-ink">
+            <div className="flex justify-between border-t border-ink/10 pt-3 font-display text-lg font-medium text-ink">
               <dt>Total Billed</dt>
               <dd className="tabular-nums">{formatMoney(order.totals.total, MONEY)}</dd>
             </div>
@@ -180,11 +172,11 @@ export function OrderConfirmationView() {
         </div>
 
         {/* Action Buttons */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/40 pt-6 sm:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-ink/10 pt-6 sm:flex-row">
           <div className="flex gap-3">
             <Button asChild size="md">
               <Link href={routes.trackOrder}>
-                Track Acquisition
+                Track order
                 <ArrowRight size={14} className="ml-1.5" />
               </Link>
             </Button>

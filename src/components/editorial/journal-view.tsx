@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Sparkle } from '@/components/icons'
+import { ArrowRight } from '@/components/icons'
 import { routes } from '@/config/routes'
 import type { JournalPost } from '@/domain'
 
@@ -38,14 +38,10 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
   const [featured, ...rest] = posts
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+    <div className="page-container py-10 md:py-14">
       {/* Header */}
-      <div className="mb-12 text-center md:text-left">
-        <span className="inline-flex items-center gap-1.5 rounded-md bg-brand/10 px-3 py-1 text-xs font-semibold text-brand tabular-nums">
-          <Sparkle size={12} />
-          Editorial Essays & Textile Science
-        </span>
-        <h1 className="mt-3 font-display text-3xl font-medium tracking-tight text-ink md:text-5xl">
+      <div className="mb-10 max-w-2xl md:mb-14">
+        <h1 className="font-display text-3xl font-medium tracking-tight text-ink md:text-5xl">
           The PRYSM Journal
         </h1>
         <p className="mt-3 max-w-2xl font-text text-base text-ink-soft">
@@ -56,16 +52,16 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
 
       {/* Featured Hero Article */}
       {featured && (
-        <article className="mb-16 overflow-hidden rounded-3xl border border-white/80 bg-white/70 backdrop-blur-xl transition">
+        <article className="mb-16 overflow-hidden rounded-3xl border border-ink/10 bg-surface transition">
           <div className="grid md:grid-cols-2">
-            <div className="relative aspect-[4/3] overflow-hidden bg-slate-100 md:aspect-auto">
+            <div className="relative aspect-[4/3] overflow-hidden bg-ink/5 md:aspect-auto">
               <Image
                 priority
                 src={featured.cover.src}
                 alt={featured.cover.alt}
                 fill
                 sizes="(min-width: 1024px) 33vw, 100vw"
-                className="h-full w-full object-cover transition duration-700 hover:scale-105"
+                className="h-full w-full object-cover transition duration-700 hover:scale-[1.03]"
               />
             </div>
             <div className="flex flex-col justify-between p-8 md:p-12">
@@ -104,7 +100,7 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
                   href={routes.journalPost(featured.slug)}
                   className="inline-flex items-center gap-2 font-display text-sm font-medium text-brand hover:underline"
                 >
-                  Read Full Essay <ArrowRight size={14} />
+                  Read the essay <ArrowRight size={14} />
                 </Link>
               </div>
             </div>
@@ -117,18 +113,18 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
         {rest.map((post) => (
           <article
             key={post.slug}
-            className="flex flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/60 backdrop-blur-md transition hover:-translate-y-1"
+            className="flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface transition"
           >
             <Link
               href={routes.journalPost(post.slug)}
-              className="relative aspect-[16/10] overflow-hidden bg-slate-100"
+              className="relative aspect-[16/10] overflow-hidden bg-ink/5"
             >
               <Image
                 src={post.cover.src}
                 alt={post.cover.alt}
                 fill
                 sizes="(min-width: 1024px) 33vw, 100vw"
-                className="h-full w-full object-cover transition duration-500 hover:scale-105"
+                className="h-full w-full object-cover transition duration-500 hover:scale-[1.03]"
               />
             </Link>
 
@@ -159,7 +155,7 @@ export function JournalView({ posts }: { posts: JournalPost[] }) {
                 </p>
               </div>
 
-              <div className="mt-6 border-t border-white/50 pt-4">
+              <div className="mt-6 border-t border-ink/10 pt-4">
                 <Link
                   href={routes.journalPost(post.slug)}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-ink hover:text-brand"

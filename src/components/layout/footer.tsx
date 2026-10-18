@@ -90,7 +90,7 @@ export function Footer() {
 
           {/* Help Column */}
           <div>
-            <h3 className="mb-4 text-xs text-ink-faint tabular-nums">Client Care</h3>
+            <h3 className="mb-4 text-xs text-ink-faint tabular-nums">Help</h3>
             <ul className="space-y-2.5 font-text text-sm">
               <li>
                 <Link
@@ -120,7 +120,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/contact" className="text-ink-soft transition-colors hover:text-ink">
-                  Contact Concierge
+                  Contact us
                 </Link>
               </li>
             </ul>
@@ -130,7 +130,7 @@ export function Footer() {
           <div>
             <h3 className="mb-4 text-xs text-ink-faint tabular-nums">Newsletter</h3>
             <p className="mb-3 font-text text-xs text-ink-soft">
-              Receive private invitations and seasonal collection releases.
+              New arrivals and seasonal releases, by email.
             </p>
             <form onSubmit={handleSubscribe} className="space-y-2">
               <div className="relative">
@@ -169,7 +169,7 @@ export function Footer() {
               Terms of Service
             </Link>
             <Link href="/stores" className="transition-colors hover:text-ink">
-              Boutiques
+              Stores
             </Link>
           </div>
         </div>

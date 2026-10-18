@@ -9,7 +9,7 @@ export interface AnnouncementBarProps {
 }
 
 export function AnnouncementBar({
-  message = 'Complimentary worldwide express delivery on orders over $150 · Free 30-day returns',
+  message = 'Free express delivery on orders over $150 · 30-day returns',
 }: AnnouncementBarProps) {
   const [visible, setVisible] = useState(true)
 

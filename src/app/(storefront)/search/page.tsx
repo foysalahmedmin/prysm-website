@@ -25,7 +25,7 @@ async function SearchContent({ searchParams }: SearchPageProps) {
 
   const result = await services.catalog.listProducts(query)
 
-  const title = searchQuery ? `Search: "${searchQuery}"` : 'Search Archive'
+  const title = searchQuery ? `Search: "${searchQuery}"` : 'Search'
   const description = searchQuery
     ? `Showing results for query "${searchQuery}". Use the filters below to refine your selection.`
     : 'Enter keywords or apply filters to locate refractive pieces across the PRYSM catalog.'

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { CartLine } from '@/components/commerce/cart-line'
-import { ArrowRight, ShoppingBag, Sparkle } from '@/components/icons'
+import { ArrowRight } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { brand } from '@/config/brand'
 import { routes } from '@/config/routes'
@@ -99,20 +99,16 @@ export function CartView() {
     return (
       <div className="mx-auto min-h-[60vh] max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <div className="glass glass-strong mx-auto max-w-xl rounded-3xl p-12">
-          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-md border border-white/80 bg-white/40">
-            <ShoppingBag size={36} className="text-ink" />
-          </div>
           <h1 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
-            Your Bag is Empty
+            Your bag is empty
           </h1>
           <p className="mt-4 font-text text-sm leading-relaxed text-ink-soft sm:text-base">
-            Discover photonic outerwear, fluid mulberry silks, and spectral glass accessories
-            engineered for luminosity.
+            Pieces you add will appear here.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="lg">
               <Link href={routes.shop}>
-                Explore Collection
+                Continue shopping
                 <ArrowRight size={16} className="ml-2" />
               </Link>
             </Button>
@@ -126,11 +122,10 @@ export function CartView() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="page-container py-10 md:py-14">
       {/* Header */}
-      <div className="mb-10 flex flex-col justify-between gap-4 border-b border-white/40 pb-6 sm:flex-row sm:items-end">
+      <div className="mb-10 flex flex-col justify-between gap-4 border-b border-ink/10 pb-6 sm:flex-row sm:items-end">
         <div>
-          <span className="text-xs text-ink-faint tabular-nums">PRYSM archive</span>
           <h1 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
             Shopping Bag ({itemCount})
           </h1>
@@ -147,16 +142,13 @@ export function CartView() {
         {/* Lines Column */}
         <div className="space-y-6 lg:col-span-7 xl:col-span-8">
           {/* Free Shipping Spectral Meter */}
-          <div className="glass glass-strong overflow-hidden rounded-2xl border border-white/80 p-5">
+          <div className="glass glass-strong overflow-hidden rounded-2xl border border-ink/10 p-5">
             <div className="mb-2 flex items-center justify-between text-xs">
               <span className="font-medium text-ink tabular-nums">
                 {freeRemaining === 0 ? (
-                  <span className="flex items-center gap-1.5 font-semibold text-ink">
-                    <Sparkle size={14} />
-                    Complimentary Spectral Delivery unlocked
-                  </span>
+                  <span className="font-semibold text-ink">Free shipping unlocked</span>
                 ) : (
-                  <>Add {formatMoney(freeRemaining, MONEY)} more for Complimentary Shipping</>
+                  <>Add {formatMoney(freeRemaining, MONEY)} more for free shipping</>
                 )}
               </span>
               <span className="text-ink-faint tabular-nums">{freeProgress}%</span>
@@ -217,20 +209,16 @@ export function CartView() {
 
         {/* Summary Sidebar Column */}
         <div className="lg:col-span-5 xl:col-span-4">
-          <div className="glass glass-strong sticky top-28 rounded-3xl border border-white/80 p-6">
-            <h2 className="font-display text-xl font-medium text-ink">Order Summary</h2>
+          <div className="glass glass-strong sticky top-28 rounded-3xl border border-ink/10 p-6">
+            <h2 className="font-display text-xl font-medium text-ink">Order summary</h2>
 
             {/* Promo code drawer */}
-            <form onSubmit={handleApplyPromo} className="mt-6 border-b border-white/40 pb-6">
+            <form onSubmit={handleApplyPromo} className="mt-6 border-b border-ink/10 pb-6">
               <label htmlFor="promo" className="mb-2 block text-xs text-ink-soft tabular-nums">
-                Promotional Code
+                Promo code
               </label>
               <div className="flex gap-2">
                 <div className="relative flex-1">
-                  <Sparkle
-                    size={16}
-                    className="absolute top-1/2 left-3 -translate-y-1/2 text-ink-faint"
-                  />
                   <input
                     id="promo"
                     type="text"
@@ -238,7 +226,7 @@ export function CartView() {
                     onChange={(e) => setPromoInput(e.target.value)}
                     placeholder="e.g. WELCOME10"
                     disabled={Boolean(appliedPromo)}
-                    className="glass w-full rounded-xl border border-white/60 py-2 pr-3 pl-9 text-xs text-ink tabular-nums placeholder:text-ink-faint focus:border-ink focus:outline-none"
+                    className="glass w-full rounded-xl border border-ink/10 px-3 py-2 text-xs text-ink tabular-nums placeholder:text-ink-faint focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                   />
                 </div>
                 {appliedPromo ? (
@@ -259,7 +247,7 @@ export function CartView() {
                 </div>
               ) : null}
               {appliedPromo && quote?.promoError ? (
-                <div className="mt-2 text-xs text-rose-500">
+                <div className="mt-2 text-xs text-ink">
                   {quote.promoError === 'min-subtotal'
                     ? 'Cart subtotal does not meet minimum for this code'
                     : 'Invalid promotional code'}
@@ -268,12 +256,12 @@ export function CartView() {
             </form>
 
             {/* Shipping selection */}
-            <div className="mt-6 border-b border-white/40 pb-6">
+            <div className="mt-6 border-b border-ink/10 pb-6">
               <label className="mb-2 block text-xs text-ink-soft tabular-nums">
                 Delivery Option
               </label>
               <div className="space-y-2">
-                <label className="glass flex cursor-pointer items-center justify-between rounded-xl border border-white/60 p-3">
+                <label className="glass flex cursor-pointer items-center justify-between rounded-xl border border-ink/10 p-3">
                   <div className="flex items-center gap-2">
                     <input
                       type="radio"
@@ -290,7 +278,7 @@ export function CartView() {
                     {freeRemaining === 0 ? 'FREE' : formatMoney(800, MONEY)}
                   </span>
                 </label>
-                <label className="glass flex cursor-pointer items-center justify-between rounded-xl border border-white/60 p-3">
+                <label className="glass flex cursor-pointer items-center justify-between rounded-xl border border-ink/10 p-3">
                   <div className="flex items-center gap-2">
                     <input
                       type="radio"
@@ -324,7 +312,7 @@ export function CartView() {
                 <dt>Estimated Shipping</dt>
                 <dd className="text-ink tabular-nums">
                   {quote?.totals.shipping === 0
-                    ? 'Complimentary'
+                    ? 'Free'
                     : formatMoney(quote?.totals.shipping ?? 0, MONEY)}
                 </dd>
               </div>
@@ -334,7 +322,7 @@ export function CartView() {
                   {formatMoney(quote?.totals.tax ?? 0, MONEY)}
                 </dd>
               </div>
-              <div className="flex justify-between border-t border-white/60 pt-4 font-display text-lg font-medium text-ink">
+              <div className="flex justify-between border-t border-ink/10 pt-4 font-display text-lg font-medium text-ink">
                 <dt>Total</dt>
                 <dd className="tabular-nums">
                   {formatMoney(quote?.totals.total ?? subtotal, MONEY)}
@@ -354,8 +342,7 @@ export function CartView() {
 
             {/* Trust badge */}
             <div className="mt-6 flex items-center justify-center gap-2 text-[11px] text-ink-faint tabular-nums">
-              <Sparkle size={14} />
-              <span>Complimentary Returns • Insured Courier Transit</span>
+              <span>Free returns within 30 days</span>
             </div>
           </div>
         </div>

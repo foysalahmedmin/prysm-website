@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { ArrowRight, Check, Sparkle } from '@/components/icons'
+import { ArrowRight, Check } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { routes } from '@/config/routes'
 import { useSessionStore } from '@/stores/session-store'
@@ -26,19 +26,18 @@ export function LoginView() {
   }
 
   const handleQuickDemoLogin = () => {
-    login('collector@prysm.luxury', 'Elena Rostova')
+    login('elena.rostova@example.com', 'Elena Rostova')
     router.push(routes.account)
   }
 
   return (
-    <div className="glass glass-strong rounded-3xl border border-white/80 p-8">
+    <div className="glass glass-strong rounded-3xl border border-ink/10 p-8">
       <div className="text-center">
-        <span className="text-xs text-ink-faint tabular-nums">PRYSM archive access</span>
-        <h1 className="mt-2 font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
-          Sign In
+        <h1 className="font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
+          Sign in
         </h1>
         <p className="mt-2 font-text text-xs text-ink-soft sm:text-sm">
-          Access your acquired garments, tracking telemetry, and private reservations.
+          Sign in to see your orders and saved pieces.
         </p>
       </div>
 
@@ -51,11 +50,10 @@ export function LoginView() {
       {/* 1-Click Demo Entry */}
       <div className="border-accent-cyan/30 bg-accent-cyan/10 mt-6 rounded-2xl border p-4 text-center">
         <p className="flex items-center justify-center gap-1.5 text-xs font-semibold text-ink tabular-nums">
-          <Sparkle size={14} className="text-ink" />
-          Rapid Evaluation Demo
+          Demo account
         </p>
         <p className="mt-1 font-text text-[11px] text-ink-soft">
-          Instant guest access as Elena Rostova (preloaded with sample orders and addresses).
+          Sign in as Elena Rostova, with sample orders and addresses.
         </p>
         <Button
           type="button"
@@ -63,13 +61,13 @@ export function LoginView() {
           onClick={handleQuickDemoLogin}
           className="mt-3 w-full bg-ink text-canvas hover:bg-ink/90"
         >
-          Quick Demo Login
+          Use demo account
         </Button>
       </div>
 
       <div className="my-6 flex items-center gap-3">
         <div className="h-px flex-1 bg-white/40" />
-        <span className="text-[10px] text-ink-faint tabular-nums">Or Credentials</span>
+        <span className="text-[10px] text-ink-faint tabular-nums">Or use your email</span>
         <div className="h-px flex-1 bg-white/40" />
       </div>
 
@@ -84,8 +82,8 @@ export function LoginView() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="collector@example.com"
-            className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
+            placeholder="you@example.com"
+            className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink placeholder:text-ink-faint hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           />
         </div>
 
@@ -108,13 +106,13 @@ export function LoginView() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
+            className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink placeholder:text-ink-faint hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           />
         </div>
 
         <div className="pt-2">
           <Button type="submit" size="lg" className="w-full">
-            Enter Boutique
+            Sign in
             <ArrowRight size={16} className="ml-2" />
           </Button>
         </div>
@@ -123,7 +121,7 @@ export function LoginView() {
       <div className="mt-6 text-center font-text text-xs text-ink-soft">
         Don&apos;t have an account?{' '}
         <Link href={routes.register} className="font-semibold text-ink underline hover:text-ink/80">
-          Create Archive Account
+          Create an account
         </Link>
       </div>
     </div>
@@ -149,14 +147,13 @@ export function RegisterView() {
   }
 
   return (
-    <div className="glass glass-strong rounded-3xl border border-white/80 p-8">
+    <div className="glass glass-strong rounded-3xl border border-ink/10 p-8">
       <div className="text-center">
-        <span className="text-xs text-ink-faint tabular-nums">PRYSM archive</span>
-        <h1 className="mt-2 font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
+        <h1 className="font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
           Register
         </h1>
         <p className="mt-2 font-text text-xs text-ink-soft sm:text-sm">
-          Create an exclusive account to curate your wardrobe and track couture dispatches.
+          Save pieces, check out faster and follow your orders.
         </p>
       </div>
 
@@ -178,7 +175,7 @@ export function RegisterView() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Elena Rostova"
-            className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
+            className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink placeholder:text-ink-faint hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           />
         </div>
 
@@ -192,8 +189,8 @@ export function RegisterView() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="collector@example.com"
-            className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
+            placeholder="you@example.com"
+            className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink placeholder:text-ink-faint hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           />
         </div>
 
@@ -208,20 +205,20 @@ export function RegisterView() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
+            className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink placeholder:text-ink-faint hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           />
         </div>
 
         <div className="pt-2">
           <Button type="submit" size="lg" className="w-full">
-            Create Account
+            Create account
             <ArrowRight size={16} className="ml-2" />
           </Button>
         </div>
       </form>
 
       <div className="mt-6 text-center font-text text-xs text-ink-soft">
-        Already an archive member?{' '}
+        Already have an account?{' '}
         <Link href={routes.login} className="font-semibold text-ink underline hover:text-ink/80">
           Sign In
         </Link>
@@ -242,14 +239,13 @@ export function ForgotPasswordView() {
   }
 
   return (
-    <div className="glass glass-strong rounded-3xl border border-white/80 p-8">
+    <div className="glass glass-strong rounded-3xl border border-ink/10 p-8">
       <div className="text-center">
-        <span className="text-xs text-ink-faint tabular-nums">Authentication recovery</span>
-        <h1 className="mt-2 font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
-          Reset Password
+        <h1 className="font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
+          Reset password
         </h1>
         <p className="mt-2 font-text text-xs text-ink-soft sm:text-sm">
-          Enter your registered email and we will dispatch a secure recovery access token.
+          Enter your email and we will send you a link to reset your password.
         </p>
       </div>
 
@@ -258,11 +254,9 @@ export function ForgotPasswordView() {
           <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 text-canvas">
             <Check size={20} />
           </div>
-          <p className="mt-3 font-text text-sm font-semibold text-emerald-800">
-            Recovery Dispatch Sent
-          </p>
+          <p className="mt-3 font-text text-sm font-semibold text-emerald-800">Check your email</p>
           <p className="mt-1 font-text text-xs text-emerald-700">
-            A temporary authentication link has been dispatched to <strong>{email}</strong>.
+            We sent a password reset link to <strong>{email}</strong>.
           </p>
           <div className="mt-6">
             <Button asChild size="sm">
@@ -282,14 +276,14 @@ export function ForgotPasswordView() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="collector@example.com"
-              className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none"
+              placeholder="you@example.com"
+              className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink placeholder:text-ink-faint hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
             />
           </div>
 
           <div className="pt-2">
             <Button type="submit" size="lg" className="w-full">
-              Dispatch Token
+              Send reset link
               <ArrowRight size={16} className="ml-2" />
             </Button>
           </div>

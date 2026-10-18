@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import { Plus, ShoppingBag, Trash, User } from '@/components/icons'
+import { Plus, ShoppingBag, Trash } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { brand } from '@/config/brand'
 import { routes } from '@/config/routes'
@@ -31,13 +31,10 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
 
   if (!isAuthenticated) {
     return (
-      <div className="glass glass-strong mx-auto max-w-md rounded-3xl border border-white/80 p-8 text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-md bg-ink/10 text-ink">
-          <User size={28} />
-        </div>
-        <h1 className="font-display text-2xl font-medium text-ink">Sign In Required</h1>
+      <div className="glass glass-strong mx-auto max-w-md rounded-3xl border border-ink/10 p-8 text-center">
+        <h1 className="font-display text-2xl font-medium text-ink">Sign in required</h1>
         <p className="mt-2 font-text text-sm text-ink-soft">
-          Please sign in or use demo access to view your private archive dashboard.
+          Sign in, or use the demo account, to see your orders and addresses.
         </p>
         <div className="mt-6 flex flex-col gap-3">
           <Button asChild size="lg">
@@ -46,9 +43,9 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
           <Button
             variant="secondary"
             size="lg"
-            onClick={() => login('collector@prysm.luxury', 'Elena Rostova')}
+            onClick={() => login('elena.rostova@example.com', 'Elena Rostova')}
           >
-            Quick Demo Login
+            Use demo account
           </Button>
         </div>
       </div>
@@ -71,11 +68,10 @@ export function AccountDashboardView() {
     <AuthGuard>
       <div className="space-y-8">
         {/* Welcome Header */}
-        <div className="glass glass-strong flex flex-col justify-between gap-4 rounded-3xl border border-white/80 p-8 sm:flex-row sm:items-center">
+        <div className="flex flex-col justify-between gap-4 border-b border-ink/10 pb-8 sm:flex-row sm:items-center">
           <div>
-            <span className="text-xs text-ink-faint tabular-nums">PRYSM client archive</span>
             <h1 className="font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
-              Welcome, {customer?.name ?? 'Collector'}
+              Welcome back, {customer?.name ?? 'there'}
             </h1>
             <p className="mt-1 text-xs text-ink-soft tabular-nums">{customer?.email}</p>
           </div>
@@ -87,32 +83,26 @@ export function AccountDashboardView() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          <div className="glass rounded-2xl border border-white/80 p-6">
-            <span className="text-xs text-ink-faint tabular-nums">Total Acquisitions</span>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="glass rounded-2xl border border-ink/10 p-6">
+            <span className="text-xs text-ink-faint tabular-nums">Orders placed</span>
             <p className="mt-2 font-display text-3xl font-medium text-ink">{orders.length}</p>
-            <p className="mt-1 font-text text-xs text-ink-soft">Lifetime verified orders</p>
+            <p className="mt-1 font-text text-xs text-ink-soft">Since you joined</p>
           </div>
 
-          <div className="glass rounded-2xl border border-white/80 p-6">
-            <span className="text-xs text-ink-faint tabular-nums">Client Standing</span>
-            <p className="mt-2 font-display text-3xl font-medium text-ink">Photonic Tier</p>
-            <p className="mt-1 font-text text-xs text-ink-soft">Complimentary worldwide transit</p>
-          </div>
-
-          <div className="glass rounded-2xl border border-white/80 p-6">
-            <span className="text-xs text-ink-faint tabular-nums">Saved Addresses</span>
+          <div className="glass rounded-2xl border border-ink/10 p-6">
+            <span className="text-xs text-ink-faint tabular-nums">Saved addresses</span>
             <p className="mt-2 font-display text-3xl font-medium text-ink">{addresses.length}</p>
-            <p className="mt-1 font-text text-xs text-ink-soft">Active delivery destinations</p>
+            <p className="mt-1 font-text text-xs text-ink-soft">Delivery addresses on file</p>
           </div>
         </div>
 
         {/* Latest Order & Address Section */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Latest Order */}
-          <div className="glass glass-strong rounded-3xl border border-white/80 p-6">
-            <div className="flex items-center justify-between border-b border-white/40 pb-4">
-              <h2 className="font-display text-lg font-medium text-ink">Recent Acquisition</h2>
+          <div className="glass glass-strong rounded-3xl border border-ink/10 p-6">
+            <div className="flex items-center justify-between border-b border-ink/10 pb-4">
+              <h2 className="font-display text-lg font-medium text-ink">Latest order</h2>
               <Link href={routes.orders} className="text-xs text-ink tabular-nums hover:underline">
                 View All &rarr;
               </Link>
@@ -144,9 +134,7 @@ export function AccountDashboardView() {
             ) : (
               <div className="py-8 text-center">
                 <ShoppingBag size={32} className="mx-auto text-ink-faint" />
-                <p className="mt-2 font-text text-sm text-ink-soft">
-                  No acquisitions recorded yet.
-                </p>
+                <p className="mt-2 font-text text-sm text-ink-soft">No orders yet.</p>
                 <div className="mt-4">
                   <Button asChild size="sm">
                     <Link href={routes.shop}>Discover Collection</Link>
@@ -157,9 +145,9 @@ export function AccountDashboardView() {
           </div>
 
           {/* Primary Address */}
-          <div className="glass glass-strong rounded-3xl border border-white/80 p-6">
-            <div className="flex items-center justify-between border-b border-white/40 pb-4">
-              <h2 className="font-display text-lg font-medium text-ink">Primary Destination</h2>
+          <div className="glass glass-strong rounded-3xl border border-ink/10 p-6">
+            <div className="flex items-center justify-between border-b border-ink/10 pb-4">
+              <h2 className="font-display text-lg font-medium text-ink">Default address</h2>
               <Link
                 href={routes.addresses}
                 className="text-xs text-ink tabular-nums hover:underline"
@@ -199,12 +187,10 @@ export function AccountOrdersView() {
   return (
     <AuthGuard>
       <div className="space-y-6">
-        <div className="flex items-center justify-between border-b border-white/40 pb-4">
-          <h1 className="font-display text-2xl font-medium text-ink">
-            Acquisition History ({orders.length})
-          </h1>
+        <div className="flex items-center justify-between border-b border-ink/10 pb-4">
+          <h1 className="font-display text-2xl font-medium text-ink">Orders ({orders.length})</h1>
           <Link href={routes.trackOrder} className="text-xs text-ink tabular-nums hover:underline">
-            Track via Courier Radar &rarr;
+            Track an order &rarr;
           </Link>
         </div>
 
@@ -212,12 +198,10 @@ export function AccountOrdersView() {
           <div className="glass glass-strong rounded-3xl p-12 text-center">
             <ShoppingBag size={40} className="mx-auto text-ink-faint" />
             <h2 className="mt-4 font-display text-xl font-medium text-ink">No Orders Placed</h2>
-            <p className="mt-2 text-sm text-ink-soft">
-              Explore the archive boutique and acquire your first PRYSM garment.
-            </p>
+            <p className="mt-2 text-sm text-ink-soft">Orders you place will appear here.</p>
             <div className="mt-6">
               <Button asChild size="lg">
-                <Link href={routes.shop}>Explore Collection</Link>
+                <Link href={routes.shop}>Continue shopping</Link>
               </Button>
             </div>
           </div>
@@ -226,9 +210,9 @@ export function AccountOrdersView() {
             {orders.map((order) => (
               <div
                 key={order.id}
-                className="glass glass-strong rounded-3xl border border-white/80 p-6 transition-all hover:bg-white/70"
+                className="glass glass-strong rounded-3xl border border-ink/10 p-6 transition-all hover:bg-surface"
               >
-                <div className="flex flex-col justify-between gap-4 border-b border-white/40 pb-4 sm:flex-row sm:items-center">
+                <div className="flex flex-col justify-between gap-4 border-b border-ink/10 pb-4 sm:flex-row sm:items-center">
                   <div>
                     <span className="text-xs text-ink-faint tabular-nums">Order Number</span>
                     <p className="text-lg font-semibold text-ink tabular-nums">{order.number}</p>
@@ -290,7 +274,7 @@ export function AccountOrderDetailView({ id }: { id: string }) {
   return (
     <AuthGuard>
       <div className="space-y-6">
-        <div className="flex items-center justify-between border-b border-white/40 pb-4">
+        <div className="flex items-center justify-between border-b border-ink/10 pb-4">
           <div>
             <Link
               href={routes.orders}
@@ -298,8 +282,8 @@ export function AccountOrderDetailView({ id }: { id: string }) {
             >
               &larr; Back to Orders
             </Link>
-            <h1 className="mt-2 font-display text-2xl font-medium text-ink">
-              Acquisition {order?.number ?? id}
+            <h1 className="font-display text-2xl font-medium text-ink">
+              Order {order?.number ?? id}
             </h1>
           </div>
           {order ? (
@@ -310,7 +294,7 @@ export function AccountOrderDetailView({ id }: { id: string }) {
         </div>
 
         {order ? (
-          <div className="glass glass-strong rounded-3xl border border-white/80 p-8">
+          <div className="glass glass-strong rounded-3xl border border-ink/10 p-8">
             <h2 className="text-xs text-ink-soft tabular-nums">Itemized Artifacts</h2>
             <ul className="mt-4 divide-y divide-white/40">
               {order.lines.map((line) => (
@@ -341,7 +325,7 @@ export function AccountOrderDetailView({ id }: { id: string }) {
               ))}
             </ul>
 
-            <div className="mt-8 grid grid-cols-1 gap-6 border-t border-white/40 pt-6 sm:grid-cols-2">
+            <div className="mt-8 grid grid-cols-1 gap-6 border-t border-ink/10 pt-6 sm:grid-cols-2">
               <div>
                 <h3 className="text-xs text-ink-soft tabular-nums">Destination</h3>
                 <div className="mt-2 font-text text-sm text-ink">
@@ -368,7 +352,7 @@ export function AccountOrderDetailView({ id }: { id: string }) {
               </div>
             </div>
 
-            <div className="mt-8 border-t border-white/40 pt-6">
+            <div className="mt-8 border-t border-ink/10 pt-6">
               <dl className="space-y-2 font-text text-sm">
                 <div className="flex justify-between text-ink-soft">
                   <dt>Subtotal</dt>
@@ -386,7 +370,7 @@ export function AccountOrderDetailView({ id }: { id: string }) {
                   <dt>Delivery</dt>
                   <dd className="text-ink tabular-nums">
                     {order.totals.shipping === 0
-                      ? 'Complimentary'
+                      ? 'Free'
                       : formatMoney(order.totals.shipping, MONEY)}
                   </dd>
                 </div>
@@ -394,7 +378,7 @@ export function AccountOrderDetailView({ id }: { id: string }) {
                   <dt>Estimated Tax (8%)</dt>
                   <dd className="text-ink tabular-nums">{formatMoney(order.totals.tax, MONEY)}</dd>
                 </div>
-                <div className="flex justify-between border-t border-white/60 pt-3 font-display text-lg font-medium text-ink">
+                <div className="flex justify-between border-t border-ink/10 pt-3 font-display text-lg font-medium text-ink">
                   <dt>Total</dt>
                   <dd className="tabular-nums">{formatMoney(order.totals.total, MONEY)}</dd>
                 </div>
@@ -451,20 +435,20 @@ export function AccountAddressesView() {
   return (
     <AuthGuard>
       <div className="space-y-6">
-        <div className="flex items-center justify-between border-b border-white/40 pb-4">
+        <div className="flex items-center justify-between border-b border-ink/10 pb-4">
           <h1 className="font-display text-2xl font-medium text-ink">
-            Delivery Addresses ({addresses.length})
+            Addresses ({addresses.length})
           </h1>
           <Button size="sm" onClick={() => setIsAdding(!isAdding)}>
             <Plus size={16} className="mr-1.5" />
-            {isAdding ? 'Cancel' : 'Add New Destination'}
+            {isAdding ? 'Cancel' : 'Add address'}
           </Button>
         </div>
 
         {isAdding ? (
           <form
             onSubmit={handleAdd}
-            className="glass glass-strong rounded-3xl border border-white/80 p-6"
+            className="glass glass-strong rounded-3xl border border-ink/10 p-6"
           >
             <h2 className="mb-4 font-display text-lg font-medium text-ink">New Address</h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -482,7 +466,7 @@ export function AccountAddressesView() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Elena Rostova"
-                  className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink focus:border-ink focus:outline-none"
+                  className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                 />
               </div>
 
@@ -500,7 +484,7 @@ export function AccountAddressesView() {
                   value={line1}
                   onChange={(e) => setLine1(e.target.value)}
                   placeholder="108 Spectral Way"
-                  className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink focus:border-ink focus:outline-none"
+                  className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                 />
               </div>
 
@@ -517,7 +501,7 @@ export function AccountAddressesView() {
                   value={line2}
                   onChange={(e) => setLine2(e.target.value)}
                   placeholder="Suite 4B"
-                  className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink focus:border-ink focus:outline-none"
+                  className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                 />
               </div>
 
@@ -535,7 +519,7 @@ export function AccountAddressesView() {
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   placeholder="Stockholm"
-                  className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink focus:border-ink focus:outline-none"
+                  className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                 />
               </div>
 
@@ -553,7 +537,7 @@ export function AccountAddressesView() {
                   value={region}
                   onChange={(e) => setRegion(e.target.value)}
                   placeholder="Stockholm"
-                  className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink focus:border-ink focus:outline-none"
+                  className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                 />
               </div>
 
@@ -571,7 +555,7 @@ export function AccountAddressesView() {
                   value={postcode}
                   onChange={(e) => setPostcode(e.target.value)}
                   placeholder="111 22"
-                  className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink focus:border-ink focus:outline-none"
+                  className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                 />
               </div>
 
@@ -589,7 +573,7 @@ export function AccountAddressesView() {
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
                   placeholder="Sweden"
-                  className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink focus:border-ink focus:outline-none"
+                  className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                 />
               </div>
             </div>
@@ -614,7 +598,7 @@ export function AccountAddressesView() {
           {addresses.map((addr) => (
             <div
               key={addr.id}
-              className="glass glass-strong flex flex-col justify-between rounded-3xl border border-white/80 p-6"
+              className="glass glass-strong flex flex-col justify-between rounded-3xl border border-ink/10 p-6"
             >
               <div>
                 <div className="flex items-center justify-between">
@@ -635,7 +619,7 @@ export function AccountAddressesView() {
                 </div>
               </div>
 
-              <div className="mt-6 flex items-center justify-between border-t border-white/40 pt-4">
+              <div className="mt-6 flex items-center justify-between border-t border-ink/10 pt-4">
                 {!addr.isDefault && addr.id ? (
                   <button
                     type="button"
@@ -652,7 +636,7 @@ export function AccountAddressesView() {
                     type="button"
                     onClick={() => deleteAddress(addr.id!)}
                     aria-label={`Delete ${addr.name}`}
-                    className="p-1 text-ink-soft transition-colors hover:text-rose-500"
+                    className="p-1 text-ink-soft transition-colors hover:text-ink"
                   >
                     <Trash size={16} />
                   </button>
@@ -685,22 +669,22 @@ export function AccountProfileView() {
   return (
     <AuthGuard>
       <div className="mx-auto max-w-2xl space-y-6">
-        <div className="border-b border-white/40 pb-4">
-          <h1 className="font-display text-2xl font-medium text-ink">Personal Profile</h1>
+        <div className="border-b border-ink/10 pb-4">
+          <h1 className="font-display text-2xl font-medium text-ink">Profile</h1>
           <p className="mt-1 font-text text-sm text-ink-soft">
-            Manage credentials and confidential showroom communications.
+            Update your name, email and phone number.
           </p>
         </div>
 
         {saved ? (
           <div className="rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-xs font-semibold text-emerald-700">
-            Profile changes successfully saved to your archive record.
+            Profile saved.
           </div>
         ) : null}
 
         <form
           onSubmit={handleSave}
-          className="glass glass-strong space-y-5 rounded-3xl border border-white/80 p-8"
+          className="glass glass-strong space-y-5 rounded-3xl border border-ink/10 p-8"
         >
           <div>
             <label
@@ -715,7 +699,7 @@ export function AccountProfileView() {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink focus:border-ink focus:outline-none"
+              className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
             />
           </div>
 
@@ -732,7 +716,7 @@ export function AccountProfileView() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink focus:border-ink focus:outline-none"
+              className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
             />
           </div>
 
@@ -749,13 +733,13 @@ export function AccountProfileView() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="+46 8 123 4567"
-              className="glass w-full rounded-xl border border-white/80 p-3 font-text text-sm text-ink focus:border-ink focus:outline-none"
+              className="w-full rounded-md border border-ink/25 bg-surface p-3 font-text text-sm text-ink hover:border-ink/50 focus-visible:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
             />
           </div>
 
           <div className="pt-4">
             <Button type="submit" size="md">
-              Update Profile Record
+              Save profile
             </Button>
           </div>
         </form>

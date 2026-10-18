@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { ArrowRight, Heart, ShoppingBag, Trash } from '@/components/icons'
+import { ArrowRight, ShoppingBag, Trash } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { brand } from '@/config/brand'
 import { routes } from '@/config/routes'
@@ -92,20 +92,16 @@ export function WishlistView() {
     return (
       <div className="mx-auto min-h-[60vh] max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <div className="glass glass-strong mx-auto max-w-xl rounded-3xl p-12">
-          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-md border border-white/80 bg-white/40">
-            <Heart size={36} className="text-ink" />
-          </div>
           <h1 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
-            Your Wishlist is Empty
+            Your wishlist is empty
           </h1>
           <p className="mt-4 font-text text-sm leading-relaxed text-ink-soft sm:text-base">
-            Save pieces while browsing to reserve them in your private curation and test with Mirror
-            Try.
+            Tap the heart on any piece to save it here, then try it on with Mirror Try.
           </p>
           <div className="mt-8">
             <Button asChild size="lg">
               <Link href={routes.shop}>
-                Explore Collection
+                Continue shopping
                 <ArrowRight size={16} className="ml-2" />
               </Link>
             </Button>
@@ -116,11 +112,10 @@ export function WishlistView() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="page-container py-10 md:py-14">
       {/* Header */}
-      <div className="mb-10 flex flex-col justify-between gap-4 border-b border-white/40 pb-6 sm:flex-row sm:items-end">
+      <div className="mb-10 flex flex-col justify-between gap-4 border-b border-ink/10 pb-6 sm:flex-row sm:items-end">
         <div>
-          <span className="text-xs text-ink-faint tabular-nums">PRYSM curation</span>
           <h1 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl">
             Saved Pieces ({products.length})
           </h1>
@@ -140,7 +135,7 @@ export function WishlistView() {
           return (
             <div
               key={product.id}
-              className="glass glass-strong group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/80 p-4 transition-all duration-300 hover:-translate-y-1"
+              className="glass glass-strong group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-ink/10 p-4 transition-all duration-300"
             >
               <div>
                 {/* Media Image */}
@@ -151,7 +146,7 @@ export function WishlistView() {
                       alt={mainImg.alt}
                       fill
                       sizes="(min-width: 1024px) 33vw, 100vw"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   ) : null}
 
@@ -160,7 +155,7 @@ export function WishlistView() {
                     type="button"
                     onClick={() => toggleWishlist(product.id)}
                     aria-label={`Remove ${product.name} from wishlist`}
-                    className="glass absolute top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-white hover:text-rose-500"
+                    className="glass absolute top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-white hover:text-ink"
                   >
                     <Trash size={16} />
                   </button>

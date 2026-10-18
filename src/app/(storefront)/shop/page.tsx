@@ -32,7 +32,7 @@ async function ShopContent({ searchParams }: ShopPageProps) {
         facets={result.facets}
         query={query}
         title="All Pieces"
-        description="The complete PRYSM archive: refractive tailoring, spectral lightwear, and precision jewelry."
+        description="The full PRYSM range: refractive tailoring, spectral lightwear, and precision jewelry."
         basePath="/shop"
       />
     </Suspense>

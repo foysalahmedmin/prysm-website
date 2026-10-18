@@ -2,7 +2,7 @@
 
 import { useId, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Sparkle } from '@/components/icons'
+import { ArrowRight } from '@/components/icons'
 import { Button } from '@/components/ui'
 import { routes } from '@/config/routes'
 
@@ -69,23 +69,18 @@ export function SizeGuideView() {
   }, [chestInput, waistInput, fitPreference, unit])
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+    <div className="page-container py-10 md:py-14">
       {/* Header */}
-      <div className="mb-12 text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-md bg-brand/10 px-3 py-1 text-xs font-semibold text-brand tabular-nums">
-          <Sparkle size={12} />
-          Anatomical Precision Sizing
-        </span>
-        <h1 className="mt-3 font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
-          Size Guide & Interactive Finder
+      <div className="mb-10 max-w-2xl md:mb-14">
+        <h1 className="font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
+          Size guide
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl font-text text-base text-ink-soft md:text-lg">
-          PRYSM garments are tailored with architectural precision. Use our measurement charts and
-          algorithmic Size Finder to determine your ideal fit.
+        <p className="mt-4 font-text text-base text-ink-soft md:text-lg">
+          Check the charts below, or enter your measurements to get a suggested size.
         </p>
 
         {/* Unit Selector */}
-        <div className="mt-8 inline-flex items-center rounded-md border border-ink/10 bg-white/70 p-1 backdrop-blur-md">
+        <div className="mt-8 inline-flex items-center rounded-md border border-ink/10 bg-surface p-1">
           <button
             onClick={() => setUnit('cm')}
             className={`rounded-md px-5 py-2 text-xs font-semibold tabular-nums transition ${
@@ -111,11 +106,8 @@ export function SizeGuideView() {
           {/* Controls */}
           <div className="space-y-6 lg:col-span-7">
             <div>
-              <span className="text-xs font-semibold text-brand tabular-nums">
-                Interactive Recommendation Tool
-              </span>
               <h2 className="mt-1 font-display text-2xl font-medium text-ink md:text-3xl">
-                Calculate Your Tailored Size
+                Find your size
               </h2>
               <p className="mt-2 font-text text-sm text-ink-soft">
                 Adjust your anatomical measurements below. Our sizing algorithm accounts for ease
@@ -139,7 +131,7 @@ export function SizeGuideView() {
                   max={unit === 'cm' ? 125 : 50}
                   value={chestInput}
                   onChange={(e) => setChestInput(Number(e.target.value))}
-                  className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-brand"
+                  className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-ink/10 accent-brand"
                 />
               </div>
 
@@ -157,7 +149,7 @@ export function SizeGuideView() {
                   max={unit === 'cm' ? 115 : 45}
                   value={waistInput}
                   onChange={(e) => setWaistInput(Number(e.target.value))}
-                  className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-brand"
+                  className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-ink/10 accent-brand"
                 />
               </div>
 
@@ -175,7 +167,7 @@ export function SizeGuideView() {
                   max={unit === 'cm' ? 125 : 50}
                   value={hipsInput}
                   onChange={(e) => setHipsInput(Number(e.target.value))}
-                  className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-brand"
+                  className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-ink/10 accent-brand"
                 />
               </div>
 
@@ -193,7 +185,7 @@ export function SizeGuideView() {
                       className={`rounded-xl border p-2.5 font-text text-xs font-medium capitalize transition ${
                         fitPreference === pref
                           ? 'border-brand bg-brand/10 font-semibold text-brand'
-                          : 'border-slate-200 bg-white/70 text-ink-soft hover:bg-white'
+                          : 'border-ink/10 bg-surface text-ink-soft hover:bg-white'
                       }`}
                     >
                       {pref === 'fitted'
@@ -210,7 +202,7 @@ export function SizeGuideView() {
 
           {/* Recommendation Output Card */}
           <div className="lg:col-span-5">
-            <div className="rounded-3xl border border-white/90 bg-white/80 p-8 text-center">
+            <div className="rounded-3xl border border-ink/10 bg-surface p-8 text-center">
               <span className="text-xs text-ink-faint tabular-nums">Recommended Brand Size</span>
               <div className="my-4 font-display text-6xl font-medium tracking-tight text-brand md:text-7xl">
                 {recommendedSize}
@@ -232,7 +224,7 @@ export function SizeGuideView() {
                 .
               </p>
 
-              <div className="mt-6 border-t border-slate-200/60 pt-6">
+              <div className="mt-6 border-t border-ink/10 pt-6">
                 <Button asChild size="lg" className="w-full justify-center">
                   <Link href={routes.shop}>
                     Shop In Size {recommendedSize}
@@ -262,11 +254,11 @@ export function SizeGuideView() {
           tabIndex={0}
           role="region"
           aria-label="Size chart, scrolls sideways on small screens"
-          className="overflow-x-auto rounded-3xl border border-ink/10 bg-white/70"
+          className="overflow-x-auto rounded-3xl border border-ink/10 bg-surface"
         >
           <table className="w-full border-collapse text-left font-text text-sm">
             <thead>
-              <tr className="border-b border-slate-200/80 bg-slate-50/50">
+              <tr className="border-b border-ink/10 bg-ink/5">
                 <th className="p-4 pl-6 text-xs font-semibold text-ink tabular-nums">Size</th>
                 <th className="p-4 text-xs font-semibold text-ink tabular-nums">Chest</th>
                 <th className="p-4 text-xs font-semibold text-ink tabular-nums">Waist</th>
@@ -280,7 +272,7 @@ export function SizeGuideView() {
               {SIZE_CHART.map((row) => (
                 <tr
                   key={row.size}
-                  className={`transition hover:bg-slate-50/50 ${
+                  className={`transition hover:bg-ink/5 ${
                     row.size === recommendedSize ? 'bg-brand/5 font-semibold' : ''
                   }`}
                 >
@@ -304,12 +296,12 @@ export function SizeGuideView() {
       </section>
 
       {/* How to Measure Anatomical Guide */}
-      <section className="rounded-3xl border border-ink/10 bg-white/70 p-8 md:p-12">
+      <section className="rounded-3xl border border-ink/10 bg-surface p-8 md:p-12">
         <h2 className="mb-6 font-display text-2xl font-medium text-ink">
           How to Measure with Precision
         </h2>
         <div className="grid gap-6 md:grid-cols-4">
-          <div className="rounded-2xl border border-ink/10 bg-white/60 p-5">
+          <div className="rounded-2xl border border-ink/10 bg-surface p-5">
             <span className="text-xs font-semibold text-brand tabular-nums">01. Chest</span>
             <h3 className="mt-1 font-display text-base font-medium text-ink">
               Across Fullest Point
@@ -319,7 +311,7 @@ export function SizeGuideView() {
               but comfortably flat across shoulder blades.
             </p>
           </div>
-          <div className="rounded-2xl border border-ink/10 bg-white/60 p-5">
+          <div className="rounded-2xl border border-ink/10 bg-surface p-5">
             <span className="text-xs font-semibold text-brand tabular-nums">02. Waist</span>
             <h3 className="mt-1 font-display text-base font-medium text-ink">
               Natural Crease Line
@@ -329,7 +321,7 @@ export function SizeGuideView() {
               your belly button. Measure without holding your breath.
             </p>
           </div>
-          <div className="rounded-2xl border border-ink/10 bg-white/60 p-5">
+          <div className="rounded-2xl border border-ink/10 bg-surface p-5">
             <span className="text-xs font-semibold text-brand tabular-nums">03. Hips</span>
             <h3 className="mt-1 font-display text-base font-medium text-ink">
               Fullest Pelvic Span
@@ -339,7 +331,7 @@ export function SizeGuideView() {
               your hips and seat.
             </p>
           </div>
-          <div className="rounded-2xl border border-ink/10 bg-white/60 p-5">
+          <div className="rounded-2xl border border-ink/10 bg-surface p-5">
             <span className="text-xs font-semibold text-brand tabular-nums">04. Sleeve</span>
             <h3 className="mt-1 font-display text-base font-medium text-ink">
               Center Back to Wrist

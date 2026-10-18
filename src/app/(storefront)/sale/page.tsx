@@ -34,7 +34,7 @@ async function SaleContent({ searchParams }: SalePageProps) {
         total={result.page.total}
         facets={result.facets}
         query={query}
-        title="Curated Archive Sale"
+        title="Sale"
         description="Limited seasonal markdowns on select refractive outerwear, silk separates, and titanium forms."
         basePath="/sale"
       />

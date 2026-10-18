@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowRight, Check, Sparkle } from '@/components/icons'
+import { ArrowRight } from '@/components/icons'
 import { Button, TextField } from '@/components/ui'
 import { brand } from '@/config/brand'
 
@@ -83,33 +83,26 @@ export function ContactView() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+    <div className="page-container py-10 md:py-14">
       {/* Header */}
-      <div className="mb-12 text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-md bg-brand/10 px-3 py-1 text-xs font-semibold text-brand tabular-nums">
-          <Sparkle size={12} />
-          Atelier Concierge
-        </span>
-        <h1 className="mt-3 font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
-          Direct Client Concierge
+      <div className="mb-10 max-w-2xl md:mb-14">
+        <h1 className="font-display text-4xl font-medium tracking-tight text-ink md:text-5xl">
+          Contact us
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl font-text text-base text-ink-soft md:text-lg">
-          Our client advisory team assists with bespoke sizing, order tracking, textile care
-          consultations, and private appointments.
+        <p className="mt-4 font-text text-base text-ink-soft md:text-lg">
+          Questions about sizing, an order or a store visit? Send us a message and we will reply by
+          email.
         </p>
       </div>
 
       <div className="grid items-start gap-12 lg:grid-cols-12">
         {/* Contact Form Card */}
         <div className="lg:col-span-7">
-          <div className="rounded-3xl border border-white/80 bg-white/70 p-8 backdrop-blur-xl md:p-10">
+          <div className="rounded-3xl border border-ink/10 bg-surface p-8 md:p-10">
             {submitted ? (
               <div className="animate-fade-in py-6 text-center" role="status">
-                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-md bg-emerald-100 text-emerald-600">
-                  <Check size={32} />
-                </div>
                 <h2 className="font-display text-2xl font-medium text-ink md:text-3xl">
-                  Inquiry Submitted Successfully
+                  Message sent
                 </h2>
                 <p className="mt-2 text-xs font-semibold text-brand tabular-nums">
                   Reference: {ticketId}
@@ -130,9 +123,7 @@ export function ContactView() {
             ) : (
               <form onSubmit={handleSubmit} noValidate className="space-y-6">
                 <div>
-                  <h2 className="font-display text-xl font-medium text-ink">
-                    Send an Atelier Inquiry
-                  </h2>
+                  <h2 className="font-display text-xl font-medium text-ink">Send us a message</h2>
                   <p className="mt-1 font-text text-xs text-ink-soft">
                     All communications are handled with discretion by our New York advisory staff.
                   </p>
@@ -164,7 +155,7 @@ export function ContactView() {
                       htmlFor="topic-select"
                       className="font-text text-sm font-medium text-ink"
                     >
-                      Inquiry Topic
+                      Topic
                     </label>
                     <select
                       id="topic-select"
@@ -185,7 +176,7 @@ export function ContactView() {
                     value={form.orderNumber}
                     onChange={(e) => setForm({ ...form, orderNumber: e.target.value })}
                     placeholder="e.g. PRY-10829"
-                    hint="Include if inquiring regarding an active dispatch"
+                    hint="Add it if your question is about an order"
                   />
                 </div>
 
@@ -214,7 +205,7 @@ export function ContactView() {
                   disabled={isSubmitting}
                   className="w-full justify-center"
                 >
-                  {isSubmitting ? 'Transmitting to Concierge...' : 'Submit Inquiry'}
+                  {isSubmitting ? 'Transmitting to Concierge...' : 'Send message'}
                   <ArrowRight size={16} />
                 </Button>
               </form>
@@ -224,11 +215,11 @@ export function ContactView() {
 
         {/* Studio Contacts & Operating Hours Side Card */}
         <div className="space-y-6 lg:col-span-5">
-          <div className="rounded-3xl border border-white/80 bg-white/70 p-8 backdrop-blur-xl">
-            <h3 className="font-display text-lg font-medium text-ink">Direct Atelier Contacts</h3>
+          <div className="rounded-3xl border border-ink/10 bg-surface p-8">
+            <h3 className="font-display text-lg font-medium text-ink">Contact details</h3>
             <ul className="mt-5 space-y-4 font-text text-sm">
               <li className="flex flex-col">
-                <span className="text-xs text-ink-faint tabular-nums">Client Concierge Email</span>
+                <span className="text-xs text-ink-faint tabular-nums">Email</span>
                 <a
                   href={`mailto:concierge@${brand.id}-atelier.com`}
                   className="mt-1 font-semibold text-brand hover:underline"
@@ -251,7 +242,7 @@ export function ContactView() {
             </ul>
           </div>
 
-          <div className="rounded-3xl border border-white/80 bg-white/70 p-8 backdrop-blur-xl">
+          <div className="rounded-3xl border border-ink/10 bg-surface p-8">
             <h3 className="font-display text-lg font-medium text-ink">
               SoHo Flagship Consultations
             </h3>
@@ -259,7 +250,7 @@ export function ContactView() {
               Private fitting chamber sessions and garment previews are available by advance booking
               at 482 Broome Street, New York.
             </p>
-            <div className="mt-4 border-t border-slate-200/60 pt-4 text-xs text-brand tabular-nums">
+            <div className="mt-4 border-t border-ink/10 pt-4 text-xs text-brand tabular-nums">
               Walk-ins accommodated subject to fitting chamber availability.
             </div>
           </div>
