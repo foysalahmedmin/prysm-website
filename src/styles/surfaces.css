@@ -1,4 +1,4 @@
-/* PRYSM surfaces: glass, the prismatic edge and the light field. */
+/* PRYSM surfaces: glass, a monochrome edge highlight and an optional light field. Greys only. */
 
 /* Lets the edge's gradient angle be set from JavaScript and animated. */
 @property --angle {
@@ -30,7 +30,7 @@
     -webkit-backdrop-filter: none;
   }
 
-  /* The signature: a conic-gradient edge revealed through a mask. Add data-active to force it on. */
+  /* A grey conic-gradient highlight on the edge, revealed through a mask. Add data-active to force it on. */
   .edge {
     position: relative;
   }
@@ -41,16 +41,7 @@
     inset: -1px;
     border-radius: inherit;
     padding: 1.5px;
-    background: conic-gradient(
-      from var(--angle),
-      #ff6b8b,
-      #ffb86b,
-      #f6e27a,
-      #6be3b0,
-      #6bc4ff,
-      #9a7bff,
-      #ff6b8b
-    );
+    background: conic-gradient(from var(--angle), #0a0a0b, #85858b, #d8d8db, #85858b, #0a0a0b);
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
@@ -68,14 +59,14 @@
     opacity: 0.95;
   }
 
-  /* The spectrum as an underline or a bar. Never a text fill: it fails contrast. */
+  /* A single ink-to-grey line, used as an underline or a bar. Never a text fill: it fails contrast. */
   .spectrum-line {
-    background: linear-gradient(90deg, #ff6b8b, #ffb86b, #f6e27a, #6be3b0, #6bc4ff, #9a7bff);
+    background: linear-gradient(90deg, #0a0a0b, #85858b);
     height: 4px;
     border-radius: 4px;
   }
 
-  /* Four large blurred blobs behind everything. Render once: <div class="light-field" aria-hidden="true"><i/><i/><i/><i/></div> */
+  /* Four large blurred grey blobs behind everything, switched off by default. Render once: <div class="light-field" aria-hidden="true"><i/><i/><i/><i/></div> */
   .light-field {
     display: none;
     position: fixed;

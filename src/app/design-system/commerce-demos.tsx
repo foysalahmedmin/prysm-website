@@ -24,31 +24,27 @@ const cardLabels = {
 
 const demoProduct: Product = {
   id: 'prod-ds-1',
-  slug: 'aurel-trench-slate',
-  name: 'Aurel Refractive Trench',
+  slug: 'spectral-silk-button-down',
+  name: 'Spectral Silk Button-Down',
   category: 'clothing',
-  subcategory: 'outerwear',
-  summary: 'Lightweight weather membrane with prismatic edge seal',
-  description: 'Precision-tailored weather coat with refractive spectrum detailing.',
-  details: [
-    'Water-repellent technical silk',
-    'Refractive heat-bonded seams',
-    'Concealed front closure',
-  ],
-  materials: '100% Recycled Technical Polyamide',
+  subcategory: 'tops',
+  summary: 'Compact silk shirt with taped seams and a concealed placket',
+  description: 'A compact silk shirt, lined in cupro and finished with taped seams.',
+  details: ['Compact mulberry silk', 'Taped seams', 'Concealed placket'],
+  materials: '100% mulberry silk',
   care: ['Dry clean only', 'Do not tumble dry'],
   price: 42000,
   compareAtPrice: 52000,
   media: [
     {
-      src: '/images/placeholder.svg',
-      alt: 'Aurel Trench Front',
+      src: '/images/products/spectral-silk-button-down-1.webp',
+      alt: 'Spectral Silk Button-Down, front',
       width: 600,
       height: 800,
     },
     {
-      src: '/images/placeholder.svg',
-      alt: 'Aurel Trench Back',
+      src: '/images/products/spectral-silk-button-down-2.webp',
+      alt: 'Spectral Silk Button-Down, back',
       width: 600,
       height: 800,
     },
@@ -65,12 +61,12 @@ const demoProduct: Product = {
     {
       id: 'v1',
       sku: 'PRY-AUR-SL-S',
-      options: { color: 'Slate', size: 'S' },
+      options: { color: 'Ink', size: 'S' },
       stock: 12,
       price: 42000,
     },
   ],
-  tags: ['coat', 'outerwear', 'light'],
+  tags: ['shirt', 'tops', 'silk'],
   collectionSlugs: ['new-season'],
   badges: ['new', 'sale'],
   rating: { average: 4.9, count: 38 },
@@ -80,9 +76,17 @@ const demoProduct: Product = {
 
 const soldOutProduct: Product = {
   ...demoProduct,
+  media: [
+    {
+      src: '/images/products/prismatic-poplin-shirt-1.webp',
+      alt: 'Prismatic Poplin Shirt, front',
+      width: 600,
+      height: 800,
+    },
+  ],
   id: 'prod-ds-2',
-  slug: 'prism-silk-blouse',
-  name: 'Prism Silk Blouse',
+  slug: 'prismatic-poplin-shirt',
+  name: 'Prismatic Poplin Shirt',
   price: 28000,
   compareAtPrice: undefined,
   badges: [],
@@ -105,7 +109,7 @@ const sampleQuoteLine: QuoteLine = {
   subcategory: demoProduct.subcategory,
   name: demoProduct.name,
   image: demoProduct.media[0]!,
-  options: { Color: 'Slate', Size: 'S' },
+  options: { Color: 'Ink', Size: 'S' },
   quantity: 1,
   unitPrice: 42000,
   lineTotal: 42000,
@@ -116,9 +120,7 @@ export function CommerceDemos() {
     <div className="space-y-8">
       {/* Product Cards */}
       <div className="space-y-4">
-        <h3 className="text-sm font-medium tracking-wider text-[var(--color-ink-soft)] uppercase">
-          Product Card States (Standard, Sale, Out-of-Stock)
-        </h3>
+        <h3 className="text-sm font-medium text-ink-soft">Product card: sale, saved and plain</h3>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
           <ProductCard
             product={demoProduct}
@@ -137,11 +139,9 @@ export function CommerceDemos() {
             onToggleSaved={() => {}}
             labels={cardLabels}
           />
-          <div className="glass flex flex-col justify-between rounded-2xl p-6">
+          <div className="flex flex-col justify-between border border-ink/10 bg-surface p-6">
             <div className="space-y-2">
-              <span className="font-mono text-xs text-[var(--color-ink-faint)]">
-                Price Formatting
-              </span>
+              <span className="block text-xs text-ink-soft">Price</span>
               <Price
                 amount={42000}
                 compareAt={52000}
@@ -150,15 +150,13 @@ export function CommerceDemos() {
                 labels={{ sale: 'Sale price', original: 'Original price' }}
               />
             </div>
-            <div className="space-y-2 border-t border-[var(--color-line)] pt-4">
-              <span className="font-mono text-xs text-[var(--color-ink-faint)]">
-                Review Summary
-              </span>
+            <div className="space-y-2 border-t border-ink/10 pt-4">
+              <span className="text-xs text-ink-soft">Review summary</span>
               <ReviewSummary
                 rating={{ average: 4.9, count: 38 }}
                 distribution={{ 1: 0, 2: 1, 3: 2, 4: 8, 5: 27 }}
                 labels={{
-                  heading: 'Customer Reviews',
+                  heading: 'Customer reviews',
                   outOf: (avg) => `${avg} out of 5`,
                   count: (cnt) => `${cnt} reviews`,
                   stars: (s, c) => `${s} stars: ${c} reviews`,
@@ -170,10 +168,8 @@ export function CommerceDemos() {
       </div>
 
       {/* Cart Line */}
-      <div className="glass space-y-4 rounded-2xl p-6">
-        <h3 className="text-sm font-medium tracking-wider text-[var(--color-ink-soft)] uppercase">
-          Cart Line (Interactive Stepper & Removal)
-        </h3>
+      <div className="space-y-4 border border-ink/10 bg-surface p-6">
+        <h3 className="text-sm font-medium text-ink-soft">Cart line</h3>
         <ul role="list">
           <CartLine
             line={sampleQuoteLine}
@@ -196,15 +192,13 @@ export function CommerceDemos() {
       </div>
 
       {/* Filter Panel & Chips */}
-      <div className="glass space-y-6 rounded-2xl p-6">
-        <h3 className="text-sm font-medium tracking-wider text-[var(--color-ink-soft)] uppercase">
-          Filter System & Active Chips
-        </h3>
+      <div className="space-y-6 border border-ink/10 bg-surface p-6">
+        <h3 className="text-sm font-medium text-ink-soft">Filters and active chips</h3>
         <FilterChips
           chips={[
-            { key: 'cat-coats', label: 'Category: Outerwear' },
-            { key: 'size-m', label: 'Size: M' },
-            { key: 'color-slate', label: 'Color: Slate' },
+            { key: 'cat-tops', label: 'Category: tops' },
+            { key: 'size-m', label: 'Size M' },
+            { key: 'color-ink', label: 'Colour: ink' },
           ]}
           onRemove={() => {}}
           onClear={() => {}}
@@ -213,15 +207,15 @@ export function CommerceDemos() {
         <FilterPanel
           facets={{
             subcategories: [
-              { slug: 'outerwear', count: 12 },
-              { slug: 'knitwear', count: 8 },
-              { slug: 'tailoring', count: 14 },
+              { slug: 'tops', count: 9 },
+              { slug: 'knitwear', count: 5 },
+              { slug: 'outerwear', count: 7 },
             ],
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             colors: [
-              { value: 'Slate', swatch: '#475569' },
-              { value: 'Sand', swatch: '#E2D9CC' },
-              { value: 'Rose', swatch: '#FFDCE6' },
+              { value: 'Ink', swatch: '#0a0a0b' },
+              { value: 'Stone', swatch: '#c9c9cc' },
+              { value: 'Prism violet', swatch: '#5b4b8a' },
             ],
             priceRange: { min: 10000, max: 80000 },
           }}
@@ -230,15 +224,15 @@ export function CommerceDemos() {
           onChange={() => {}}
           onClear={() => {}}
           labels={{
-            title: 'Refine Selection',
-            subcategory: 'Subcategory',
+            title: 'Filters',
+            subcategory: 'Category',
             size: 'Size',
             colour: 'Colour',
-            price: 'Price Range',
-            onSale: 'Sale Items Only',
-            minPrice: 'Minimum Price',
-            maxPrice: 'Maximum Price',
-            clear: 'Clear All',
+            price: 'Price',
+            onSale: 'On sale only',
+            minPrice: 'Min price',
+            maxPrice: 'Max price',
+            clear: 'Clear all',
           }}
         />
       </div>
@@ -248,25 +242,21 @@ export function CommerceDemos() {
 
 export function MirrorTryDemo() {
   return (
-    <div className="glass flex flex-wrap items-center gap-6 rounded-2xl p-6">
+    <div className="flex flex-wrap items-center gap-6 border border-ink/10 bg-surface p-6">
       <div className="space-y-2">
-        <span className="font-mono text-xs text-[var(--color-ink-faint)] uppercase">
-          Card Context
-        </span>
+        <span className="text-xs text-ink-soft">On a product card</span>
         <div>
           <TryOnTrigger product={demoProduct} source="plp" label="Try on" />
         </div>
       </div>
 
       <div className="space-y-2">
-        <span className="font-mono text-xs text-[var(--color-ink-faint)] uppercase">
-          PDP Context
-        </span>
+        <span className="text-xs text-ink-soft">On a product page</span>
         <div>
           <TryOnTrigger
             product={demoProduct}
             source="pdp"
-            label="Virtual Fitting Room"
+            label="Try it on"
             className="px-6 py-3"
           />
         </div>

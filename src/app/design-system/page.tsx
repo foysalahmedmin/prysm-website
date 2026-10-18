@@ -1,174 +1,206 @@
 import type { Metadata } from 'next'
-import { Button, TextField, Tabs } from '@/components/ui'
 import { GlassNav, Rail } from '@/components/layout'
-import { LightField } from '@/lib/motion'
+import { Button, Tabs, TextField } from '@/components/ui'
 import {
   ArrowRight,
-  ShoppingBag,
   Check,
-  X,
+  Faders,
   Heart,
+  MagnifyingGlass,
   Minus,
   Plus,
-  MagnifyingGlass,
-  Faders,
+  ShoppingBag,
   Sparkle,
+  X,
 } from '@/components/icons'
-import {
-  PointerAngleDemo,
-  SelectionControlsDemo,
-  OverlayDemos,
-  MotionReplayDemo,
-} from './interactive-demos'
+import { contrastRatio } from '@/lib/a11y/contrast'
+import { LightField } from '@/lib/motion'
 import { CommerceDemos, MirrorTryDemo } from './commerce-demos'
+import { tokens } from './ds-tokens'
+import {
+  MotionReplayDemo,
+  OverlayDemos,
+  RevealDemo,
+  SelectionControlsDemo,
+} from './interactive-demos'
 
 export const metadata: Metadata = {
   title: 'Design System — PRYSM',
-  description: 'Living style guide and design system specification for PRYSM.',
+  description: 'Living style guide for PRYSM.',
   robots: { index: false, follow: false },
+}
+
+/** Name, role and what it is measured against. Hex values and ratios are read from tokens.css. */
+const COLOURS: { token: string; label: string; role: string; against?: string }[] = [
+  { token: '--color-canvas', label: 'Canvas', role: 'Page background' },
+  { token: '--color-surface', label: 'Surface', role: 'Cards, fields, panels' },
+  {
+    token: '--color-ink',
+    label: 'Ink',
+    role: 'Text and primary buttons',
+    against: '--color-canvas',
+  },
+  {
+    token: '--color-ink-soft',
+    label: 'Ink soft',
+    role: 'Secondary text',
+    against: '--color-canvas',
+  },
+  {
+    token: '--color-ink-faint',
+    label: 'Ink faint',
+    role: 'Captions, placeholders',
+    against: '--color-canvas',
+  },
+  {
+    token: '--color-border-strong',
+    label: 'Border strong',
+    role: 'Field boundary',
+    against: '--color-surface',
+  },
+  { token: '--color-accent', label: 'Accent', role: 'Selection tint, never text' },
+  { token: '--color-focus', label: 'Focus', role: 'Focus ring', against: '--color-canvas' },
+  {
+    token: '--color-danger',
+    label: 'Danger',
+    role: 'Errors and sale price',
+    against: '--color-canvas',
+  },
+  {
+    token: '--color-success',
+    label: 'Success',
+    role: 'In stock, confirmed',
+    against: '--color-canvas',
+  },
+]
+
+const RADII = ['--radius-xs', '--radius-sm', '--radius-md', '--radius-lg', '--radius-xl']
+
+const heading = 'font-display text-2xl font-medium tracking-tight text-ink'
+const lede = 'mt-1 text-sm text-ink-soft'
+const panel = 'border border-ink/10 bg-surface p-6'
+const caption = 'text-xs text-ink-soft'
+
+function Section({
+  id,
+  title,
+  description,
+  children,
+}: {
+  id: string
+  title: string
+  description: string
+  children: React.ReactNode
+}) {
+  return (
+    <section data-ds-section={id} aria-labelledby={`ds-${id}`} className="space-y-6">
+      <div>
+        <h2 id={`ds-${id}`} className={heading}>
+          {title}
+        </h2>
+        <p className={lede}>{description}</p>
+      </div>
+      {children}
+    </section>
+  )
 }
 
 export default function DesignSystemPage() {
   return (
-    <div className="relative mx-auto min-h-screen max-w-7xl space-y-24 px-4 pb-32 sm:px-8">
-      {/* Light Field Background */}
+    <div className="relative mx-auto min-h-screen max-w-7xl space-y-20 px-4 pb-32 sm:px-8">
       <LightField />
 
-      {/* Header */}
-      <header className="border-b border-[var(--color-line)] pt-16 pb-8">
-        <div className="glass mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1 font-mono text-xs tracking-wider text-[var(--color-ink-soft)] uppercase">
-          <Sparkle size={14} className="text-[var(--color-ink)]" />
-          PRYSM Design System · Glassmorphism
-        </div>
-        <h1 className="text-4xl font-[var(--font-display)] font-light tracking-tight text-[var(--color-ink)] sm:text-5xl">
+      <header className="border-b border-ink/10 pt-16 pb-8">
+        <p className="text-sm text-ink-soft">PRYSM · glass and hairline</p>
+        <h1 className="mt-2 font-display text-4xl font-medium tracking-tight text-ink sm:text-5xl">
           Design system
         </h1>
-        <p className="mt-3 max-w-2xl text-lg font-light text-[var(--color-ink-soft)]">
-          Optical glassmorphism founded on refraction, translucent depth layers, precision edge
-          spectra, and fluid micro-interactions.
+        <p className="mt-3 max-w-2xl text-lg text-ink-soft">
+          Black, white and grey. One small radius, hairlines instead of shadows, and a frosted pane
+          for anything that sits over a photograph.
         </p>
       </header>
 
-      {/* 1. Colour */}
-      <section data-ds-section="colour" aria-labelledby="ds-colour" className="space-y-6">
-        <div>
-          <h2 id="ds-colour" className="text-2xl font-normal text-[var(--color-ink)]">
-            Colour
-          </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            Carefully calibrated tokens ensuring contrast standards (ink: 16.5:1 on canvas, 13.5:1
-            on glass-strong).
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-6">
-          {[
-            { name: '--color-canvas', hex: '#FAF9F6', label: 'Canvas', contrast: '16.5:1' },
-            { name: '--color-surface', hex: '#FFFFFF', label: 'Surface', contrast: '16.8:1' },
-            { name: '--color-ink', hex: '#1F2421', label: 'Ink (Primary)', contrast: '16.5:1' },
-            { name: '--color-ink-soft', hex: '#404E4D', label: 'Ink Soft', contrast: '8.4:1' },
-            { name: '--color-ink-faint', hex: '#6B7F7D', label: 'Ink Faint', contrast: '4.6:1' },
-            { name: '--color-line', hex: '#E5E2DC', label: 'Border Line', contrast: 'Hairline' },
-            { name: '--color-accent', hex: '#A85751', label: 'Accent Rose', contrast: '4.8:1' },
-            { name: '--color-focus', hex: '#0055FF', label: 'Focus Ring', contrast: '4.9:1' },
-            { name: '--light-rose', hex: '#FFDCE6', label: 'Light Rose', contrast: 'Blob' },
-            { name: '--light-ice', hex: '#DCF2FF', label: 'Light Ice', contrast: 'Blob' },
-            { name: '--light-citrine', hex: '#FFF5D2', label: 'Light Citrine', contrast: 'Blob' },
-            { name: '--light-lavender', hex: '#EBE4FF', label: 'Light Lavender', contrast: 'Blob' },
-          ].map((token) => (
-            <div key={token.name} className="glass space-y-2 rounded-xl p-3">
-              <div
-                className="h-14 rounded-lg border border-[var(--color-line)] shadow-inner"
-                style={{ backgroundColor: token.hex }}
-              />
-              <div className="space-y-0.5">
-                <div className="text-xs font-semibold text-[var(--color-ink)]">{token.label}</div>
-                <div className="truncate font-mono text-[10px] text-[var(--color-ink-soft)]">
-                  {token.name}
+      <Section
+        id="colour"
+        title="Colour"
+        description="Black and white only. Red and green appear for errors, sale prices and confirmations, nowhere else."
+      >
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
+          {COLOURS.map((item) => {
+            const hex = tokens[item.token]!
+            const ratio = item.against
+              ? contrastRatio(hex, tokens[item.against]!).toFixed(1)
+              : undefined
+            return (
+              <div key={item.token} className={`${panel} space-y-3 p-3`}>
+                <div className="h-14 border border-ink/10" style={{ backgroundColor: hex }} />
+                <div>
+                  <p className="text-sm font-medium text-ink">{item.label}</p>
+                  <p className="font-mono text-[11px] text-ink-soft">{item.token}</p>
+                  <p className="font-mono text-[11px] text-ink-soft">
+                    {hex}
+                    {ratio ? ` · ${ratio}:1` : ''}
+                  </p>
+                  <p className={`${caption} mt-1`}>{item.role}</p>
                 </div>
-                <div className="text-[10px] text-[var(--color-ink-faint)]">{token.contrast}</div>
               </div>
+            )
+          })}
+        </div>
+      </Section>
+
+      <Section
+        id="typography"
+        title="Typography"
+        description="Bricolage Grotesque for display, Hanken Grotesk for text, Geist Mono for codes and figures. Sentence case, medium weight, no uppercase."
+      >
+        <div className={`${panel} divide-y divide-ink/10`}>
+          {[
+            [
+              'Display · 60px medium',
+              'font-display text-5xl font-medium tracking-tight md:text-6xl',
+              'Formed from light',
+            ],
+            [
+              'Page title · 48px medium',
+              'font-display text-4xl font-medium tracking-tight md:text-5xl',
+              'Shop all',
+            ],
+            [
+              'Section title · 36px medium',
+              'font-display text-3xl font-medium tracking-tight md:text-4xl',
+              'Signature pieces',
+            ],
+            [
+              'Card title · 20px medium',
+              'font-display text-xl font-medium',
+              'Spectral Silk Button-Down',
+            ],
+            [
+              'Body · 16px regular',
+              'text-base leading-relaxed text-ink-soft',
+              'Cut from compact silk, lined in cupro, finished with taped seams.',
+            ],
+            ['Small · 14px regular', 'text-sm text-ink-soft', 'Free shipping on orders over $150.'],
+          ].map(([label, cls, sample]) => (
+            <div key={label} className="py-4 first:pt-0 last:pb-0">
+              <p className={`${caption} mb-1`}>{label}</p>
+              <p className={cls}>{sample}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* 2. Typography */}
-      <section data-ds-section="typography" aria-labelledby="ds-typography" className="space-y-6">
-        <div>
-          <h2 id="ds-typography" className="text-2xl font-normal text-[var(--color-ink)]">
-            Typography
-          </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            Fraunces display typography with Plus Jakarta Sans body and JetBrains Mono data
-            numerals.
-          </p>
-        </div>
-
-        <div className="glass space-y-6 divide-y divide-[var(--color-line)] rounded-2xl p-6">
-          <div className="pt-2">
-            <span className="font-mono text-xs text-[var(--color-ink-faint)] uppercase">
-              Display · 48px Light
-            </span>
-            <div className="mt-1 text-5xl font-[var(--font-display)] font-light text-[var(--color-ink)]">
-              Prismatic Precision
-            </div>
-          </div>
           <div className="pt-4">
-            <span className="font-mono text-xs text-[var(--color-ink-faint)] uppercase">
-              Heading 1 · 36px
-            </span>
-            <div className="mt-1 text-4xl font-light text-[var(--color-ink)]">
-              Refractive Silhouettes
-            </div>
-          </div>
-          <div className="pt-4">
-            <span className="font-mono text-xs text-[var(--color-ink-faint)] uppercase">
-              Heading 2 · 24px
-            </span>
-            <div className="mt-1 text-2xl font-normal text-[var(--color-ink)]">
-              Light Absorption & Transparency
-            </div>
-          </div>
-          <div className="pt-4">
-            <span className="font-mono text-xs text-[var(--color-ink-faint)] uppercase">
-              Heading 3 · 18px Medium
-            </span>
-            <div className="mt-1 text-lg font-medium text-[var(--color-ink)]">
-              Component Specification Guidelines
-            </div>
-          </div>
-          <div className="pt-4">
-            <span className="font-mono text-xs text-[var(--color-ink-faint)] uppercase">
-              Body · 16px Regular
-            </span>
-            <p className="mt-1 max-w-2xl text-base leading-relaxed text-[var(--color-ink-soft)]">
-              Every garment in our catalog is engineered with optically clear materials that respond
-              dynamically to ambient illumination.
-            </p>
-          </div>
-          <div className="pt-4">
-            <span className="font-mono text-xs text-[var(--color-ink-faint)] uppercase">
-              Mono Numeral · 14px
-            </span>
-            <div className="mt-1 font-mono text-sm text-[var(--color-ink)]">
-              SKU: PRY-2026-X99 · LATENCY: 12ms · PRICE: $420.00
-            </div>
+            <p className={`${caption} mb-1`}>Mono · 14px</p>
+            <p className="font-mono text-sm text-ink">SKU PRY-2026-X99 · $420.00</p>
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* 3. Surfaces */}
-      <section data-ds-section="surfaces" aria-labelledby="ds-surfaces" className="space-y-6">
-        <div>
-          <h2 id="ds-surfaces" className="text-2xl font-normal text-[var(--color-ink)]">
-            Surfaces
-          </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            Backdrop filter glass surfaces with hairline border lines and spectral refraction.
-          </p>
-        </div>
-
+      <Section
+        id="surfaces"
+        title="Surfaces"
+        description="A hairline panel for content, frosted glass for anything over a photograph. No drop shadows."
+      >
         <div className="light-field" data-ds-surface="light-field" aria-hidden="true">
           <i />
           <i />
@@ -176,138 +208,116 @@ export default function DesignSystemPage() {
           <i />
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="glass glass-strong space-y-2 rounded-2xl p-6" data-ds-surface="glass">
-            <h3 className="text-base font-medium text-[var(--color-ink)]">Glass (Standard)</h3>
-            <p className="text-sm text-[var(--color-ink-soft)]">
-              46% opacity fill with 24px blur and hairline border. Designed for product cards and
-              secondary surfaces.
-            </p>
-          </div>
-
-          <div
-            className="glass glass-strong space-y-2 rounded-2xl p-6"
-            data-ds-surface="glass-strong"
-          >
-            <h3 className="text-base font-medium text-[var(--color-ink)]">Glass Strong</h3>
-            <p className="text-sm text-[var(--color-ink-soft)]">
-              78% opacity fill with 32px blur. Used for overlays, drawers, floating navigation, and
-              text readability.
-            </p>
-          </div>
-
-          <div
-            className="glass-strong prismatic-edge space-y-2 rounded-2xl p-6"
-            data-ds-surface="prismatic-edge"
-          >
-            <h3 className="text-base font-medium text-[var(--color-ink)]">Prismatic Edge</h3>
-            <p className="text-sm text-[var(--color-ink-soft)]">
-              Refractive spectral edge highlighting corners with conic gradient refraction.
-            </p>
+        <div className="relative isolate overflow-hidden border border-ink/10 p-6 md:p-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/home/hero.webp"
+            alt=""
+            className="absolute inset-0 -z-10 h-full w-full object-cover"
+          />
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="border border-ink/10 bg-surface p-6" data-ds-surface="panel">
+              <h3 className="font-display text-lg font-medium text-ink">Hairline panel</h3>
+              <p className="mt-2 text-sm text-ink-soft">
+                White, 1px line at 10% ink. Product cards, forms, summaries.
+              </p>
+            </div>
+            <div className="glass p-6" data-ds-surface="glass">
+              <h3 className="font-display text-lg font-medium text-ink">Glass</h3>
+              <p className="mt-2 text-sm text-ink-soft">
+                62% white, 18px blur, hairline. Chrome that floats: navigation, chips.
+              </p>
+            </div>
+            <div className="glass glass-strong p-6" data-ds-surface="glass-strong">
+              <h3 className="font-display text-lg font-medium text-ink">Glass strong</h3>
+              <p className="mt-2 text-sm text-ink-soft">
+                86% white. The only fill allowed to carry text over a photograph.
+              </p>
+            </div>
           </div>
         </div>
-      </section>
 
-      {/* 4. Buttons and links */}
-      <section data-ds-section="buttons" aria-labelledby="ds-buttons" className="space-y-6">
-        <div>
-          <h2 id="ds-buttons" className="text-2xl font-normal text-[var(--color-ink)]">
-            Buttons and links
-          </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            Pill-shaped interactive elements across sizes and functional states.
-          </p>
+        <div className="grid gap-4 sm:grid-cols-5">
+          {RADII.map((token) => (
+            <div key={token} className={`${panel} p-3`}>
+              <div
+                className="h-12 border border-ink bg-canvas"
+                style={{ borderRadius: `var(${token})` }}
+              />
+              <p className="mt-2 font-mono text-[11px] text-ink-soft">{token}</p>
+              <p className="font-mono text-[11px] text-ink-soft">{tokens[token]}</p>
+            </div>
+          ))}
         </div>
+      </Section>
 
-        <div className="glass space-y-6 rounded-2xl p-6">
+      <Section
+        id="buttons"
+        title="Buttons and links"
+        description="A 4px radius, three heights, and solid ink, glass or text only."
+      >
+        <div className={`${panel} space-y-6`}>
           <div className="flex flex-wrap items-center gap-4">
-            <Button variant="primary">Primary Pill</Button>
-            <Button variant="secondary">Secondary Pill</Button>
-            <Button variant="ghost">Ghost Action</Button>
-            <Button variant="secondary" className="glass">
-              Glass Pill
-            </Button>
+            <Button variant="primary">Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="ghost">Ghost</Button>
           </div>
-
-          <div className="flex flex-wrap items-center gap-4 border-t border-[var(--color-line)] pt-4">
-            <Button size="sm">Small (36px)</Button>
-            <Button size="md">Medium (44px)</Button>
-            <Button size="lg">Large (52px)</Button>
+          <div className="flex flex-wrap items-center gap-4 border-t border-ink/10 pt-4">
+            <Button size="sm">Small, 44px</Button>
+            <Button size="md">Medium, 48px</Button>
+            <Button size="lg">Large, 56px</Button>
           </div>
-
-          <div className="flex flex-wrap items-center gap-4 border-t border-[var(--color-line)] pt-4">
-            <Button disabled>Disabled Pill</Button>
-            <Button loading>Loading State</Button>
-            <Button variant="primary" className="focus-visible:ring-2">
-              Focused Pill
-            </Button>
+          <div className="flex flex-wrap items-center gap-4 border-t border-ink/10 pt-4">
+            <Button disabled>Disabled</Button>
+            <Button loading>Loading</Button>
+            <a
+              href="#ds-buttons"
+              className="text-sm font-medium text-ink underline underline-offset-4"
+            >
+              Text link
+            </a>
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* 5. Forms */}
-      <section data-ds-section="forms" aria-labelledby="ds-forms" className="space-y-6">
-        <div>
-          <h2 id="ds-forms" className="text-2xl font-normal text-[var(--color-ink)]">
-            Forms
-          </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            Accessible inputs with glass backgrounds and unambiguous aria validation attributes.
-          </p>
-        </div>
-
-        <div className="glass grid grid-cols-1 gap-6 rounded-2xl p-6 md:grid-cols-3">
+      <Section
+        id="forms"
+        title="Forms"
+        description="A white field with a 25% ink border that darkens on hover and on focus. Hints and errors are announced with the field."
+      >
+        <div className={`${panel} grid gap-6 md:grid-cols-3`}>
           <TextField
-            label="Email Address"
-            placeholder="you@domain.com"
-            hint="We only send order confirmation updates."
+            label="Email address"
+            placeholder="you@example.com"
+            hint="We only send order confirmations."
           />
           <TextField
-            label="Postal Code"
+            label="Postal code"
             defaultValue="ABC-99"
-            error="Please enter a valid 5-digit postal code."
+            error="Enter a valid 5-digit postal code."
           />
-          <TextField
-            label="Account Reference"
-            defaultValue="PRY-98210"
-            disabled
-            hint="Managed by administrative system."
-          />
+          <TextField label="Order number" defaultValue="PRY-98210" disabled hint="Set by us." />
         </div>
-      </section>
+      </Section>
 
-      {/* 6. Selection controls */}
-      <section data-ds-section="selection" aria-labelledby="ds-selection" className="space-y-6">
-        <div>
-          <h2 id="ds-selection" className="text-2xl font-normal text-[var(--color-ink)]">
-            Selection controls
-          </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            Rounded size squares with unavailable diagonal strikethroughs and numeric steppers.
-          </p>
-        </div>
-
-        <div className="glass rounded-2xl p-6">
+      <Section
+        id="selection"
+        title="Selection controls"
+        description="Size keys with a struck-through unavailable state, and a quantity stepper."
+      >
+        <div className={panel}>
           <SelectionControlsDemo />
         </div>
-      </section>
+      </Section>
 
-      {/* 7. Navigation */}
-      <section data-ds-section="navigation" aria-labelledby="ds-navigation" className="space-y-6">
-        <div>
-          <h2 id="ds-navigation" className="text-2xl font-normal text-[var(--color-ink)]">
-            Navigation
-          </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            Floating glass nav bar, content tabs, and horizontally swipeable rails.
-          </p>
-        </div>
-
+      <Section
+        id="navigation"
+        title="Navigation"
+        description="A flat glass bar, filled-ink tabs and a rail with arrow buttons."
+      >
         <div className="space-y-6">
-          <div className="glass space-y-4 rounded-2xl p-6">
-            <h3 className="text-sm font-medium tracking-wider text-[var(--color-ink-soft)] uppercase">
-              Floating Pill Nav (GlassNav)
-            </h3>
+          <div className={`${panel} space-y-4`}>
+            <h3 className={caption}>Header bar</h3>
             <GlassNav
               brandName="PRYSM"
               links={[
@@ -319,177 +329,123 @@ export default function DesignSystemPage() {
               cartCount={2}
             />
           </div>
-
-          <div className="glass space-y-4 rounded-2xl p-6">
-            <h3 className="text-sm font-medium tracking-wider text-[var(--color-ink-soft)] uppercase">
-              Product Specification Tabs
-            </h3>
+          <div className={`${panel} space-y-4`}>
+            <h3 className={caption}>Tabs</h3>
             <Tabs
-              label="Product Specifications"
+              label="Product information"
               items={[
                 {
                   value: 'details',
-                  label: 'Garment Details',
-                  content:
-                    'Engineered with double-faced Japanese membrane nylon and refractive taped seams.',
+                  label: 'Details',
+                  content: 'Double-faced technical nylon with taped seams and a concealed placket.',
                 },
                 {
                   value: 'care',
-                  label: 'Care Instructions',
-                  content: 'Spot clean only with microfiber cloth. Avoid high heat or steam iron.',
+                  label: 'Care',
+                  content: 'Spot clean with a microfibre cloth. Do not tumble dry.',
                 },
                 {
                   value: 'shipping',
-                  label: 'Complimentary Shipping',
-                  content: 'Delivered in carbon-neutral glassine packaging within 2 business days.',
+                  label: 'Shipping',
+                  content: 'Ships in recycled packaging within two business days.',
                 },
               ]}
             />
           </div>
-
-          <div className="glass space-y-4 rounded-2xl p-6">
-            <h3 className="text-sm font-medium tracking-wider text-[var(--color-ink-soft)] uppercase">
-              Horizontal Rail
-            </h3>
-            <Rail label="Curated for you" previousLabel="Previous items" nextLabel="Next items">
+          <div className={`${panel} space-y-4`}>
+            <h3 className={caption}>Rail</h3>
+            <Rail label="Recently viewed" previousLabel="Previous items" nextLabel="Next items">
               {[1, 2, 3, 4, 5].map((idx) => (
                 <div
                   key={idx}
-                  className="glass flex h-32 w-48 items-center justify-center rounded-xl font-mono text-sm text-[var(--color-ink-soft)]"
+                  className="flex h-32 w-48 shrink-0 items-center justify-center border border-ink/10 bg-canvas font-mono text-sm text-ink-soft"
                 >
-                  Rail Item {idx}
+                  Item {idx}
                 </div>
               ))}
             </Rail>
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* 8. Overlays */}
-      <section data-ds-section="overlays" aria-labelledby="ds-overlays" className="space-y-6">
-        <div>
-          <h2 id="ds-overlays" className="text-2xl font-normal text-[var(--color-ink)]">
-            Overlays
-          </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            Focus-trapped modals and slide drawers with glass scrims and 8px blur-in transitions.
-          </p>
-        </div>
-
-        <div className="glass rounded-2xl p-6">
+      <Section
+        id="overlays"
+        title="Overlays"
+        description="A centred dialog and a right-hand drawer. Focus is trapped and Escape closes them."
+      >
+        <div className={panel}>
           <OverlayDemos />
         </div>
-      </section>
+      </Section>
 
-      {/* 9. Feedback */}
-      <section data-ds-section="feedback" aria-labelledby="ds-feedback" className="space-y-6">
-        <div>
-          <h2 id="ds-feedback" className="text-2xl font-normal text-[var(--color-ink)]">
-            Feedback
-          </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            Glass toast notifications, soft white shimmers, and informative empty/error states.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {/* Toast Pill */}
-          <div className="glass flex flex-col justify-between space-y-4 rounded-2xl p-5">
-            <div>
-              <span className="font-mono text-xs text-[var(--color-ink-faint)] uppercase">
-                Toast Notification
-              </span>
-              <div className="glass-strong mt-3 inline-flex items-center gap-3 rounded-full border border-[var(--color-line)] px-4 py-2.5 shadow-lg">
-                <Check size={16} className="text-emerald-600" />
-                <span className="text-sm font-medium text-[var(--color-ink)]">
-                  Added to shopping bag
-                </span>
-              </div>
+      <Section
+        id="feedback"
+        title="Feedback"
+        description="Toasts, loading skeletons and error messages. Colour is only used for state."
+      >
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className={`${panel} space-y-3`}>
+            <p className={caption}>Toast</p>
+            <div className="glass glass-strong inline-flex items-center gap-3 px-4 py-2.5 text-sm text-ink">
+              <Check size={16} aria-hidden="true" className="text-success" />
+              Added to your bag
             </div>
-            <div className="h-0.5 w-full rounded-full bg-gradient-to-r from-rose-400 via-amber-300 to-indigo-400" />
           </div>
-
-          {/* Skeleton Shimmer */}
-          <div className="glass space-y-3 rounded-2xl p-5">
-            <span className="font-mono text-xs text-[var(--color-ink-faint)] uppercase">
-              Skeleton Shimmer
-            </span>
-            <div className="h-28 animate-pulse rounded-xl bg-white/40" />
-            <div className="h-4 w-3/4 animate-pulse rounded bg-white/40" />
-            <div className="h-4 w-1/2 animate-pulse rounded bg-white/40" />
+          <div className={`${panel} space-y-3`}>
+            <p className={caption}>Skeleton</p>
+            <div className="h-24 animate-pulse bg-ink/5" />
+            <div className="h-3 w-3/4 animate-pulse bg-ink/5" />
+            <div className="h-3 w-1/2 animate-pulse bg-ink/5" />
           </div>
-
-          {/* Error Banner */}
-          <div className="glass space-y-2 rounded-2xl border-l-4 border-red-600 p-5">
-            <span className="font-mono text-xs font-semibold text-red-700 uppercase">
-              Error State
-            </span>
-            <h4 className="text-sm font-medium text-[var(--color-ink)]">Payment Session Expired</h4>
-            <p className="text-xs text-[var(--color-ink-soft)]">
-              Your cryptographic checkout authorization timed out. Please refresh to continue.
+          <div className="border border-l-4 border-ink/10 border-l-danger bg-surface p-6">
+            <p className="text-xs font-medium text-danger">Error</p>
+            <h4 className="mt-1 text-sm font-medium text-ink">Payment session expired</h4>
+            <p className="mt-1 text-sm text-ink-soft">
+              Your session timed out. Refresh the page to continue.
             </p>
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* 10. Commerce */}
       <section data-ds-section="commerce" aria-labelledby="ds-commerce">
         <div className="mb-6">
-          <h2 id="ds-commerce" className="text-2xl font-normal text-[var(--color-ink)]">
+          <h2 id="ds-commerce" className={heading}>
             Commerce
           </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            Full component suite covering product discovery, cart adjustments, and customer
-            feedback.
+          <p className={lede}>
+            Product cards with a full-bleed picture, cart lines, filters and reviews.
           </p>
         </div>
         <CommerceDemos />
       </section>
 
-      {/* 11. Mirror Try */}
-      <section data-ds-section="mirror-try" aria-labelledby="ds-mirror-try" className="space-y-6">
-        <div>
-          <h2 id="ds-mirror-try" className="text-2xl font-normal text-[var(--color-ink)]">
-            Mirror Try
-          </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            &ldquo;The Lens&rdquo; theme trigger: translucent glass chip with hairline border and
-            camera sparkle indicator.
-          </p>
-        </div>
+      <Section
+        id="mirror-try"
+        title="Mirror Try"
+        description="The trigger a store places on a card or a product page. The plugin owns everything that opens after it."
+      >
         <MirrorTryDemo />
-      </section>
+      </Section>
 
-      {/* 12. Motion */}
-      <section data-ds-section="motion" aria-labelledby="ds-motion" className="space-y-6">
-        <div>
-          <h2 id="ds-motion" className="text-2xl font-normal text-[var(--color-ink)]">
-            Motion
-          </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            Dynamic light field drift on a 26s loop, pointer-tracking prismatic angles, and
-            reduced-motion resilience.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <PointerAngleDemo />
+      <Section
+        id="motion"
+        title="Motion"
+        description="Opacity and transform only. Content rises into view as it scrolls in, pages fade in, and everything stops for people who ask for reduced motion."
+      >
+        <div className="grid gap-6 md:grid-cols-2">
+          <RevealDemo />
           <MotionReplayDemo />
         </div>
-      </section>
+      </Section>
 
-      {/* 13. Icons */}
-      <section data-ds-section="icons" aria-labelledby="ds-icons" className="space-y-6">
-        <div>
-          <h2 id="ds-icons" className="text-2xl font-normal text-[var(--color-ink)]">
-            Icons
-          </h2>
-          <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
-            Light weight Phosphor icons calibrated with 1.5px stroke weight.
-          </p>
-        </div>
-
-        <div className="glass grid grid-cols-3 gap-6 rounded-2xl p-6 text-center sm:grid-cols-4 md:grid-cols-6">
+      <Section
+        id="icons"
+        title="Icons"
+        description="Phosphor, light weight. Icons sit beside text or inside a labelled button, never alone."
+      >
+        <div
+          className={`${panel} grid grid-cols-3 gap-6 text-center sm:grid-cols-5 md:grid-cols-9`}
+        >
           {[
             { name: 'ArrowRight', comp: <ArrowRight size={24} /> },
             { name: 'ShoppingBag', comp: <ShoppingBag size={24} /> },
@@ -499,19 +455,16 @@ export default function DesignSystemPage() {
             { name: 'Minus', comp: <Minus size={24} /> },
             { name: 'Plus', comp: <Plus size={24} /> },
             { name: 'Search', comp: <MagnifyingGlass size={24} /> },
-            { name: 'Sliders', comp: <Faders size={24} /> },
+            { name: 'Filters', comp: <Faders size={24} /> },
             { name: 'Sparkle', comp: <Sparkle size={24} /> },
           ].map((icon) => (
-            <div
-              key={icon.name}
-              className="flex flex-col items-center justify-center rounded-xl p-3 transition-colors hover:bg-white/30"
-            >
-              <div className="mb-2 text-[var(--color-ink)]">{icon.comp}</div>
-              <span className="font-mono text-xs text-[var(--color-ink-soft)]">{icon.name}</span>
+            <div key={icon.name} className="flex flex-col items-center justify-center p-3">
+              <div className="mb-2 text-ink">{icon.comp}</div>
+              <span className="font-mono text-xs text-ink-soft">{icon.name}</span>
             </div>
           ))}
         </div>
-      </section>
+      </Section>
     </div>
   )
 }
