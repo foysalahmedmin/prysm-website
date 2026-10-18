@@ -166,19 +166,10 @@ export function CartView() {
             {quote?.lines.map((line) => {
               const tryOnProduct = {
                 id: line.productId,
-                slug: line.slug,
                 name: line.name,
                 category: line.category,
                 subcategory: line.subcategory,
                 media: [line.image],
-                variants: [
-                  {
-                    id: line.variantId,
-                    sku: line.variantId,
-                    options: line.options,
-                    stock: line.quantity,
-                  },
-                ],
               }
 
               return (
@@ -192,13 +183,7 @@ export function CartView() {
                   labels={LABELS}
                   extra={
                     <div className="mt-2 flex items-center justify-end sm:mt-0">
-                      <TryOnTrigger
-                        product={tryOnProduct}
-                        variantId={line.variantId}
-                        source="cart"
-                        label="Mirror Try"
-                        className="text-xs"
-                      />
+                      <TryOnTrigger product={tryOnProduct} />
                     </div>
                   }
                 />

@@ -19,7 +19,7 @@ async function violations(code: string, filePath: string): Promise<string[]> {
 }
 
 const plugin =
-  "import { MirrorTryButton } from '@/plugins/mirror-try'\nexport { MirrorTryButton }\n"
+  "import { MirrorTryTrigger } from '@/plugins/mirror-try'\nexport { MirrorTryTrigger }\n"
 const integration =
   "import { MirrorTryHost } from '@/integration/mirror-try'\nexport { MirrorTryHost }\n"
 
@@ -90,7 +90,7 @@ describe('plugin boundary', () => {
 
   it('lets the plugin import itself and external packages', async () => {
     const code =
-      "import { useState } from 'react'\nimport { capabilityFor } from '@/plugins/mirror-try/capabilities'\nimport type { X } from './types'\nexport { useState, capabilityFor }\nexport type { X }\n"
+      "import { useState } from 'react'\nimport { canTryOn } from '@/plugins/mirror-try/fit'\nimport type { X } from './types'\nexport { useState, canTryOn }\nexport type { X }\n"
     expect(await violations(code, 'src/plugins/mirror-try/x.tsx')).toEqual([])
   })
 })

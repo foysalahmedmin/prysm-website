@@ -48,11 +48,10 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       </head>
       <body className="bg-canvas font-text text-ink antialiased selection:bg-accent/30 selection:text-ink">
         <SkipLink />
-        <MirrorTryHost>
-          <StoreHydrator />
-          {children}
-          <ToastContainer />
-        </MirrorTryHost>
+        <StoreHydrator />
+        {children}
+        <ToastContainer />
+        <MirrorTryHost />
       </body>
     </html>
   )

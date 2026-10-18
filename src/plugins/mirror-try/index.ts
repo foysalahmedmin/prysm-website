@@ -1,9 +1,10 @@
-export { capabilityFor, type TryOnCapability } from './capabilities'
-export { MirrorTryDialog } from './dialog'
-export { MirrorTryEventInspector } from './event-inspector'
-export { defaultLabels, type MirrorTryLabels } from './labels'
-export { MirrorTryButton } from './mirror-try-button'
-export { MockMirrorTryAdapter } from './mock-adapter'
-export { getSampleModel, sampleModels, type SampleModel, type TorsoAnchor } from './models'
-export { MirrorTryProvider, useMirrorTry } from './provider'
+/**
+ * Mirror Try, the virtual fitting plugin. A store mounts `MirrorTry` once, places
+ * `MirrorTryTrigger` on product cards and pages, and may call `openMirrorTry` from its own buttons.
+ * Everything else, from the camera to the shopper's account, belongs to the plugin.
+ */
+export { MirrorTry } from './mirror-try'
+export { MirrorTryTrigger } from './trigger'
+export { open as openMirrorTry } from './controller'
+export { canTryOn } from './fit'
 export type * from './types'

@@ -72,22 +72,24 @@ export const home: HomeContent = {
   },
   mirrorTryExplainer: {
     title: 'Virtual Fitting in Real Light',
-    subtitle: 'Inspect drape, shoulder structure, and sleeve length through the Mirror Try plugin',
+    subtitle:
+      'Try a piece on with your camera before you order. Mirror Try measures you and shows the fit live.',
     steps: [
       {
         step: 1,
-        title: 'Select Garment',
-        description: 'Choose any upper-body tailoring piece, knit, or overshirt.',
+        title: 'Choose Try on',
+        description: 'Every top, knit, coat and trouser has a Try on button.',
       },
       {
         step: 2,
-        title: 'Activate Lens',
-        description: 'Our calibrated drape engine simulates real fabric weight and collar volume.',
+        title: 'Turn on your camera',
+        description:
+          'Mirror Try reads your size in a few seconds, or you type your measurements in.',
       },
       {
         step: 3,
-        title: 'Review Silhouette',
-        description: 'Observe fabric movement and fit across neutral body archetypes.',
+        title: 'See it on you',
+        description: 'Move and turn in the light, then save the trial to check it later.',
       },
     ],
     cta: { label: 'Open Mirror Try' },

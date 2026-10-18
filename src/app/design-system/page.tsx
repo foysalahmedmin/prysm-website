@@ -422,7 +422,7 @@ export default function DesignSystemPage() {
       <Section
         id="mirror-try"
         title="Mirror Try"
-        description="The trigger a store places on a card or a product page. The plugin owns everything that opens after it."
+        description="The plugin's trigger, the same in every store, and the store's own way to open it without a product."
       >
         <MirrorTryDemo />
       </Section>

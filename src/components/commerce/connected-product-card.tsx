@@ -49,7 +49,7 @@ export function ConnectedProductCard({
       saved={isHydrated ? saved : false}
       onToggleSaved={toggle}
       priority={priority}
-      tryOnSlot={<TryOnTrigger product={product} source="plp" />}
+      tryOnSlot={<TryOnTrigger product={product} />}
       labels={defaultLabels}
       className={className}
     />

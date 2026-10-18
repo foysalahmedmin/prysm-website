@@ -4,6 +4,7 @@ import { ConnectedProductCard } from '@/components/commerce/connected-product-ca
 import { NewsletterSection } from '@/components/commerce/newsletter-section'
 import { ArrowRight, Star } from '@/components/icons'
 import { Button } from '@/components/ui'
+import { OpenMirrorTry } from '@/integration/mirror-try'
 import { formatMoney, type JournalPost, type Product, type Review } from '@/domain'
 import { Reveal } from '@/lib/motion'
 import { pageMetadata } from '@/lib/metadata'
@@ -317,10 +318,10 @@ export default async function HomePage() {
               {home.mirrorTryExplainer.subtitle}
             </p>
             <Button asChild className="mt-7">
-              <Link href="/shop">
+              <OpenMirrorTry>
                 {home.mirrorTryExplainer.cta.label}
                 <ArrowRight size={14} aria-hidden="true" />
-              </Link>
+              </OpenMirrorTry>
             </Button>
           </Reveal>
           <ol className="grid gap-px bg-ink/10 sm:grid-cols-3 lg:col-span-8">

@@ -184,12 +184,7 @@ export function WishlistView() {
                   Move to Bag
                 </Button>
                 <div className="flex justify-center">
-                  <TryOnTrigger
-                    product={product}
-                    source="wishlist"
-                    label="Mirror Try"
-                    className="text-xs"
-                  />
+                  <TryOnTrigger product={product} />
                 </div>
               </div>
             </div>

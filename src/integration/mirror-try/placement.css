@@ -1,0 +1,5 @@
+/* Where the Mirror Try floating card starts. Shoppers can drag it anywhere afterwards. */
+[data-mirror-try] {
+  --mirror-try-launcher-x: 24px;
+  --mirror-try-launcher-y: 24px;
+}

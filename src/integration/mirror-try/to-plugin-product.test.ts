@@ -3,36 +3,33 @@ import { products } from '@/data/products'
 import { toMirrorTryProduct } from './to-plugin-product'
 
 describe('toMirrorTryProduct', () => {
-  const sample = products[0]!
+  it('gives the plugin the piece, its sizes and a thumbnail it can afford to load', () => {
+    const product = products.find((candidate) => candidate.category === 'clothing')!
+    const plugin = toMirrorTryProduct(product)
 
-  it('describes a store product in the plugin shape, copying only what the plugin needs', () => {
-    const mapped = toMirrorTryProduct(sample)
-    expect(mapped).toMatchObject({
-      id: sample.id,
-      name: sample.name,
-      category: sample.category,
-      subcategory: sample.subcategory,
+    expect(plugin).toMatchObject({
+      id: product.id,
+      name: product.name,
+      category: product.category,
+      subcategory: product.subcategory,
     })
-    expect(mapped.images[0]).toEqual({
-      src: sample.media[0]!.src,
-      alt: sample.media[0]!.alt,
-    })
-    expect(mapped.variants).toHaveLength(sample.variants.length)
-    expect(Object.keys(mapped).sort()).toEqual([
-      'category',
-      'id',
-      'images',
-      'name',
-      'overlay',
-      'subcategory',
-      'variants',
-    ])
-    expect(Object.keys(mapped.variants[0]!).sort()).toEqual(['id', 'options'])
+    expect(plugin.sizes).toEqual(
+      product.optionGroups.find((group) => group.kind === 'size')?.values.map((v) => v.value),
+    )
+    expect(plugin.image?.src).toBe(
+      `/_next/image?url=${encodeURIComponent(product.media[0]!.src)}&w=96&q=75`,
+    )
   })
 
-  it('points the plugin at the garment cut-out published under /mirror-try/overlays', () => {
-    expect(toMirrorTryProduct(sample).overlay).toEqual({
-      src: `/mirror-try/overlays/${sample.slug}.webp`,
+  it('works with the little a cart line knows', () => {
+    const product = products[0]!
+    const plugin = toMirrorTryProduct({
+      id: product.id,
+      name: product.name,
+      category: product.category,
+      subcategory: product.subcategory,
+      media: product.media,
     })
+    expect(plugin.sizes).toBeUndefined()
   })
 })

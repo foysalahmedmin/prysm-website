@@ -2,7 +2,7 @@
 @import '../styles/tokens.css';
 @import '../styles/surfaces.css';
 @import '../styles/motion.css';
-@import '../integration/mirror-try/theme.css';
+@import '../integration/mirror-try/placement.css';
 
 /* Page width and gutters for the discovery pages (home, lists, product). Each store sets its own measure. */
 @utility page-container {

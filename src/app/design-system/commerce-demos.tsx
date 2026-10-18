@@ -7,8 +7,8 @@ import {
   FilterChips,
   ReviewSummary,
 } from '@/components/commerce'
-import { Price } from '@/components/ui'
-import { TryOnTrigger } from '@/integration/mirror-try'
+import { Button, Price } from '@/components/ui'
+import { OpenMirrorTry, TryOnTrigger } from '@/integration/mirror-try'
 import type { Product } from '@/domain'
 import { DEFAULT_QUERY } from '@/domain'
 import type { QuoteLine } from '@/features/cart/quote'
@@ -129,7 +129,7 @@ export function CommerceDemos() {
             saved={false}
             onToggleSaved={() => {}}
             labels={cardLabels}
-            tryOnSlot={<TryOnTrigger product={demoProduct} source="plp" label="Try on" />}
+            tryOnSlot={<TryOnTrigger product={demoProduct} />}
           />
           <ProductCard
             product={soldOutProduct}
@@ -242,24 +242,20 @@ export function CommerceDemos() {
 
 export function MirrorTryDemo() {
   return (
-    <div className="flex flex-wrap items-center gap-6 border border-ink/10 bg-surface p-6">
+    <div className="flex flex-wrap items-end gap-8 border border-ink/10 bg-surface p-6">
       <div className="space-y-2">
-        <span className="text-xs text-ink-soft">On a product card</span>
-        <div>
-          <TryOnTrigger product={demoProduct} source="plp" label="Try on" />
-        </div>
+        <span className="block text-xs text-ink-soft">On a product card</span>
+        <TryOnTrigger product={demoProduct} />
       </div>
-
       <div className="space-y-2">
-        <span className="text-xs text-ink-soft">On a product page</span>
-        <div>
-          <TryOnTrigger
-            product={demoProduct}
-            source="pdp"
-            label="Try it on"
-            className="px-6 py-3"
-          />
-        </div>
+        <span className="block text-xs text-ink-soft">On a product page</span>
+        <TryOnTrigger product={demoProduct} size="md" />
+      </div>
+      <div className="space-y-2">
+        <span className="block text-xs text-ink-soft">From store copy, no product</span>
+        <Button asChild variant="secondary">
+          <OpenMirrorTry>Open Mirror Try</OpenMirrorTry>
+        </Button>
       </div>
     </div>
   )
