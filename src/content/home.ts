@@ -14,8 +14,8 @@ export const home: HomeContent = {
     },
   },
   featuredRail: {
-    title: 'Curated Radiance',
-    subtitle: 'Signature upper-body silhouettes engineered for virtual try-on',
+    title: 'Signature pieces',
+    subtitle: 'Our most-loved upper-body pieces, ready to try on.',
     productSlugs: [
       'spectral-trench-coat',
       'refractive-double-breasted-blazer',
@@ -68,7 +68,7 @@ export const home: HomeContent = {
       width: 1200,
       height: 800,
     },
-    cta: { label: 'Read the fabric monograph', href: '/journal/the-physics-of-liquid-silk' },
+    cta: { label: 'Read the story', href: '/journal/the-physics-of-liquid-silk' },
   },
   mirrorTryExplainer: {
     title: 'Virtual Fitting in Real Light',
@@ -90,17 +90,17 @@ export const home: HomeContent = {
         description: 'Observe fabric movement and fit across neutral body archetypes.',
       },
     ],
-    cta: { label: 'Open in Spectral Chamber' },
+    cta: { label: 'Open Mirror Try' },
   },
   journalTeasers: {
     title: 'From the Studio',
     postSlugs: ['the-physics-of-liquid-silk', 'light-absorption-in-modern-textiles'],
   },
   newsletter: {
-    title: 'The Prism Dispatch',
+    title: 'Stay in the light',
     description:
       'New capsule drops, technical textile journals, and invitations to private trunk viewings.',
-    placeholder: 'Enter your email address',
-    cta: 'Join Dispatch',
+    placeholder: 'Email address',
+    cta: 'Subscribe',
   },
 }
