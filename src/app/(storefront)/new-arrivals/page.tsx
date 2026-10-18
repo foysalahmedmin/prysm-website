@@ -10,7 +10,15 @@ interface NewArrivalsPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>
 }
 
-export default async function NewArrivalsPage({ searchParams }: NewArrivalsPageProps) {
+export default function NewArrivalsPage(props: NewArrivalsPageProps) {
+  return (
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+      <NewArrivalsContent {...props} />
+    </Suspense>
+  )
+}
+
+async function NewArrivalsContent({ searchParams }: NewArrivalsPageProps) {
   const rawParams = await searchParams
   const query = parseProductQuery({
     sort: 'newest',

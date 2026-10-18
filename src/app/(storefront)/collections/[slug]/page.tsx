@@ -19,7 +19,15 @@ export async function generateMetadata({ params }: CollectionPageProps) {
   }
 }
 
-export default async function CollectionDetailPage({ params, searchParams }: CollectionPageProps) {
+export default function CollectionDetailPage(props: CollectionPageProps) {
+  return (
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+      <CollectionDetailContent {...props} />
+    </Suspense>
+  )
+}
+
+async function CollectionDetailContent({ params, searchParams }: CollectionPageProps) {
   const { slug } = await params
   const coll = await services.catalog.getCollection(slug)
   if (!coll) notFound()

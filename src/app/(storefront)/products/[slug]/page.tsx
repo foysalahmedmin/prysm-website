@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { ProductDetailView } from '@/components/commerce/product-detail-view'
 import { services } from '@/services'
@@ -22,7 +23,15 @@ export async function generateMetadata({ params }: ProductPageProps) {
   }
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
+export default function ProductPage(props: ProductPageProps) {
+  return (
+    <Suspense fallback={<div className="min-h-[60vh] animate-pulse" aria-busy="true" />}>
+      <ProductContent {...props} />
+    </Suspense>
+  )
+}
+
+async function ProductContent({ params }: ProductPageProps) {
   const { slug } = await params
   const product = await services.catalog.getProduct(slug)
   if (!product) notFound()

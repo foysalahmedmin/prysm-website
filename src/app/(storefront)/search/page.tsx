@@ -10,7 +10,15 @@ interface SearchPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>
 }
 
-export default async function SearchPage({ searchParams }: SearchPageProps) {
+export default function SearchPage(props: SearchPageProps) {
+  return (
+    <Suspense fallback={<div className="min-h-[400px] animate-pulse rounded-[32px] bg-surface" />}>
+      <SearchContent {...props} />
+    </Suspense>
+  )
+}
+
+async function SearchContent({ searchParams }: SearchPageProps) {
   const rawParams = await searchParams
   const query = parseProductQuery(rawParams)
   const searchQuery = query.q || ''

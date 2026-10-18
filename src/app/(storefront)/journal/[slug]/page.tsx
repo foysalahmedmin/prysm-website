@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { JournalPostView } from '@/components/editorial/journal-post-view'
 import { services } from '@/services'
@@ -13,7 +14,15 @@ export async function generateMetadata({ params }: PageProps<'/journal/[slug]'>)
   return post ? { title: post.title, description: post.excerpt } : {}
 }
 
-export default async function JournalPostPage({ params }: PageProps<'/journal/[slug]'>) {
+export default function JournalPostPage(props: PageProps<'/journal/[slug]'>) {
+  return (
+    <Suspense fallback={<div className="min-h-[60vh] animate-pulse" aria-busy="true" />}>
+      <JournalPostContent {...props} />
+    </Suspense>
+  )
+}
+
+async function JournalPostContent({ params }: PageProps<'/journal/[slug]'>) {
   const { slug } = await params
   const [post, allPosts] = await Promise.all([
     services.content.getJournalPost(slug),
